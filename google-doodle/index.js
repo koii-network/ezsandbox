@@ -4,8 +4,7 @@ const { namespaceWrapper } = require("./namespaceWrapper");
 
 async function setup() {
   // calling init
-
-  await init();
+  init();
 
   console.log("setup function called");
   // Run default setup
@@ -40,8 +39,9 @@ async function setup() {
   NOTE : K2 will still have the windows to accept the submission value, audit, so you are expected
   to make calls in the intended slots of your round time. 
 
-
+*/
   // Get the task state 
+  
   console.log(await namespaceWrapper.getTaskState());
 
   //GET ROUND 
@@ -51,54 +51,60 @@ async function setup() {
 
   // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
-  await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847" [PASS YOUR ROUND HERE]);
+  await coreLogic.task();
+
+  await coreLogic.fetchSubmission();
+  const vote = await coreLogic.validateNode();
+  console.log("Vote", vote);
+
+  //await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847" [PASS YOUR ROUND HERE]);
 
 
   // Audit submissions 
 
-  await namespaceWrapper.validateAndVoteOnNodes(validateNode, [PASS YOUR ROUND HERE]);
+  //await namespaceWrapper.validateAndVoteOnNodes(validateNode, [PASS YOUR ROUND HERE]);
 
 
   // Node selection for distribution list 
 
-  const selectedNode = await namespaceWrapper.nodeSelectionDistributionList();
-  console.log("SELECTED NODE", selectedNode);
+  // const selectedNode = await namespaceWrapper.nodeSelectionDistributionList();
+  // console.log("SELECTED NODE", selectedNode);
 
   // Distribution list sample 
 
-  const distributionList = {
-    "29SSj6EQARvATESSQbBcmSE3A1iaWwqXFunzAEDoV7Xj": 4,
-    "3KUfsjpjCSCjwCBm4TraM5cGx6YzEUo9rrq2hrSsJw3x": 5,
-    Avxvdc2efsPqysBZt4VKDSgiP4iuJ8GaAWhsNVUAi5CZ: 6,
-  };
+  // const distributionList = {
+  //   "29SSj6EQARvATESSQbBcmSE3A1iaWwqXFunzAEDoV7Xj": 4,
+  //   "3KUfsjpjCSCjwCBm4TraM5cGx6YzEUo9rrq2hrSsJw3x": 5,
+  //   Avxvdc2efsPqysBZt4VKDSgiP4iuJ8GaAWhsNVUAi5CZ: 6,
+  // };
 
   // upload distribution list to K2
 
-  const decider = await namespaceWrapper.uploadDistributionList(
-    distributionList
-    [PASS YOUR ROUND HERE]
-  );
-  console.log("DECIDER", decider);
+  // const decider = await namespaceWrapper.uploadDistributionList(
+  //   distributionList
+  //   [PASS YOUR ROUND HERE]
+  // );
+  // console.log("DECIDER", decider);
 
   // Do the submission only if the distribution was uploaded correctly based on decider 
 
-  if (decider) {
-    const response = await namespaceWrapper.distributionListSubmissionOnChain();
-    console.log("RESPONSE FROM DISTRIBUTION LIST", response);
-  }
+  // if (decider) {
+  //   const response = await namespaceWrapper.distributionListSubmissionOnChain();
+  //   console.log("RESPONSE FROM DISTRIBUTION LIST", response);
+  // }
 
   // Audit distribution list
 
-  await namespaceWrapper.validateAndVoteOnDistributionList();
+  //await namespaceWrapper.validateAndVoteOnDistributionList();
 
   // Payout trigger
 
-  const responsePayout = await namespaceWrapper.payoutTrigger();
-  console.log("RESPONSE TRIGGER", responsePayout);
+  // const responsePayout = await namespaceWrapper.payoutTrigger();
+  // console.log("RESPONSE TRIGGER", responsePayout);
 
 
 
-  */
+  
 }
 
 setup();
@@ -106,5 +112,5 @@ setup();
 if (app) {
   //  Write your Express Endpoints here.
   //  For Example
-  //  namespace.express('post', '/accept-cid', async (req, res) => {})
+  //namespace.express('post', '/accept-doodles', async (req, res) => {})
 }

@@ -3,6 +3,7 @@ This file helps you in testing the functions that you need to develop for the ta
 */
 const coreLogic = require("../coreLogic");
 
+
 async function main() {
   console.log("IN TESTING TASK");
 
@@ -12,43 +13,43 @@ async function main() {
 
   //Test fetchSubmission function
 
-  const fetchSubmission = await coreLogic.fetchSubmission();
-  console.log("FetchSubmission", fetchSubmission);
+  // const fetchSubmission = await coreLogic.fetchSubmission();
+  // console.log("FetchSubmission", fetchSubmission);
 
-  // Test generateDistributionList function
+  // // Test generateDistributionList function
 
-  const generateDistributionList = await coreLogic.generateDistributionList();
-  console.log("generateDistributionList", generateDistributionList);
+  // const generateDistributionList = await coreLogic.generateDistributionList();
+  // console.log("generateDistributionList", generateDistributionList);
 
-  //Test submit distribution function
+  // //Test submit distribution function
 
-  const submitDistributionList = await coreLogic.submitDistributionList();
-  console.log("submitDistributionList", submitDistributionList);
+  // const submitDistributionList = await coreLogic.submitDistributionList();
+  // console.log("submitDistributionList", submitDistributionList);
 
-  // Test ValidateNode function
+  // // Test ValidateNode function
 
-  const validateNode = await coreLogic.validateNode();
-  console.log("ValidateNode", validateNode);
+  // const validateNode = await coreLogic.validateNode();
+  // console.log("ValidateNode", validateNode);
 
-  // Test validateDistribution function
+  // // Test validateDistribution function
 
-  const validateDistribution = await coreLogic.validateDistribution();
-  console.log("Validate Distribution", validateDistribution);
+  // const validateDistribution = await coreLogic.validateDistribution();
+  // console.log("Validate Distribution", validateDistribution);
 
-  // Test submit function
+  // // Test submit function
 
-  const submitTask = await coreLogic.submitTask();
-  console.log("SubmitTask", submitTask);
+  // const submitTask = await coreLogic.submitTask();
+  // console.log("SubmitTask", submitTask);
 
-  // Test Audit function
+  // // Test Audit function
 
-  const auditTask = await coreLogic.auditTask();
-  console.log("auditTask", auditTask);
+  // const auditTask = await coreLogic.auditTask();
+  // console.log("auditTask", auditTask);
 
-  //  Test auditDistribution function
+  // //  Test auditDistribution function
 
-  const auditDistribution = await coreLogic.auditDistribution();
-  console.log("auditDistribution", auditDistribution);
+  // const auditDistribution = await coreLogic.auditDistribution();
+  // console.log("auditDistribution", auditDistribution);
 }
 
 main();

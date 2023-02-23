@@ -1,12 +1,52 @@
+const puppeteer = require("puppeteer");
+const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
 
 async function task() {
   // Write the logic to do the work required for submitting the values and optionally store the result in levelDB
-  return "My task";
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://www.google.com/doodles');
+  let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
+  const $ = cheerio.load(bodyHTML);
+
+  let scrapedDoodle = $('.latest-doodle.on').find('div > div > a > img').attr('src');
+  if (scrapedDoodle.substring(0, 2) == '//') {
+    scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
+  }
+  console.log({scrapedDoodle});
+
+  console.log('SUBMISSION VALUE', scrapedDoodle);
+  const stringfy = JSON.stringify(scrapedDoodle);
+
+  // store this work of fetching googleDoodle to levelDB
+
+  try{
+  await namespaceWrapper.storeSet("doodle", stringfy);
+  }catch(err){
+    console.log("error", err)
+  }
+
+
+  //return {scrapedDoodle};
+
+  
 }
 async function fetchSubmission() {
-  // Write the logic to fetch the submission values here and return the cid string
-  return "check my logic for fetching submission";
+  // Write the logic to fetch the submission values here, this is be the final work submitted to K2
+  
+  try {
+    const scrappedDoodle = JSON.parse(await namespaceWrapper.storeGet(
+      "doodle"
+    ));
+    console.log("Receievd Doodle", scrappedDoodle);
+  } catch (err) {
+    console.log("Error", err);
+  }
+
+  //return scrappedDoodle;
+
 }
 
 async function generateDistributionList(round) {
@@ -77,8 +117,43 @@ async function submitDistributionList(round) {
 async function validateNode(submission_value) {
   // Write your logic for the validation of submission value here and return a boolean value in response
 
-  console.log("submission_valuue", submission_value);
-  return true;
+  let vote;
+  console.log('SUBMISSION VALUE', submission_value);
+  //const doodle = submission_value;
+  const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
+  console.log('URL', doodle);
+
+  // check the google doodle
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://www.google.com/doodles');
+  let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
+  const $ = cheerio.load(bodyHTML);
+
+  let scrapedDoodle = $('.latest-doodle.on').find('div > div > a > img').attr('src');
+  if (scrapedDoodle.substring(0, 2) == '//') {
+    scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
+  }
+  console.log({scrapedDoodle});
+
+  // vote based on the scrapedDoodle
+
+  try {
+    if (scrapedDoodle == doodle) {
+      vote = true;
+    } else {
+      vote = false;
+    }
+  } catch (e) {
+    console.error(e);
+    vote = false;
+  }
+  browser.close();
+  return vote;
+
+
+  
 }
 
 async function validateDistribution(distributionList) {
@@ -107,8 +182,8 @@ async function submitTask(roundNumber) {
       await namespaceWrapper.getSlot(),
       "current slot while calling submit"
     );
-    const cid = await fetchSubmission();
-    await namespaceWrapper.checkSubmissionAndUpdateRound(cid, roundNumber);
+    const value = await fetchSubmission();
+    await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
     console.log("after the submission call");
   } catch (error) {
     console.log("error in submission", error);
