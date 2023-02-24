@@ -11,7 +11,6 @@ const STAKE = Number(process.argv[10]);
 
 const app = express();
 
-function init() {
   console.log("SETTING UP EXPRESS", NODE_MODE);
   app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -20,7 +19,7 @@ function init() {
   app.listen(EXPRESS_PORT, () => {
     console.log(`${TASK_NAME} listening on port ${EXPRESS_PORT}`);
   });
-}
+
 
 module.exports = {
   app,
@@ -31,5 +30,4 @@ module.exports = {
   K2_NODE_URL,
   SERVICE_URL,
   STAKE,
-  init,
 };

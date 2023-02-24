@@ -178,7 +178,7 @@ class NamespaceWrapper {
     return await genericHandler("payloadTrigger");
   }
 
-  async checkSubmissionAndUpdateRound(submissionValue = "default", round) {
+  async checkSubmissionAndUpdateRound(submissionValue, round) {
     return await genericHandler(
       "checkSubmissionAndUpdateRound",
       submissionValue,

@@ -3,8 +3,6 @@ const { app, init } = require("./init");
 const { namespaceWrapper } = require("./namespaceWrapper");
 
 async function setup() {
-  // calling init
-  init();
 
   console.log("setup function called");
   // Run default setup
@@ -49,21 +47,27 @@ async function setup() {
   const round = await namespaceWrapper.getRound();
   console.log("ROUND", round);
 
+  //await coreLogic.auditDistribution(round - 2);
+
+  //await coreLogic.submitDistributionList(round - 2);
+
   // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
   await coreLogic.task();
 
-  await coreLogic.fetchSubmission();
-  const vote = await coreLogic.validateNode();
-  console.log("Vote", vote);
+  // await coreLogic.fetchSubmission();
+  // const vote = await coreLogic.validateNode();
+  // console.log("Vote", vote);
 
-  //await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847" [PASS YOUR ROUND HERE]);
+  //await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847", round-2);
+
+  await coreLogic.submitTask(round - 1);
 
 
   // Audit submissions 
 
-  //await namespaceWrapper.validateAndVoteOnNodes(validateNode, [PASS YOUR ROUND HERE]);
-
+  //await namespaceWrapper.validateAndVoteOnNodes(validateNode, round - 1);
+ //await coreLogic.auditTask(round - 1);
 
   // Node selection for distribution list 
 
@@ -77,6 +81,7 @@ async function setup() {
   //   "3KUfsjpjCSCjwCBm4TraM5cGx6YzEUo9rrq2hrSsJw3x": 5,
   //   Avxvdc2efsPqysBZt4VKDSgiP4iuJ8GaAWhsNVUAi5CZ: 6,
   // };
+
 
   // upload distribution list to K2
 

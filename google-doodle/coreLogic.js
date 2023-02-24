@@ -15,7 +15,7 @@ async function task() {
   if (scrapedDoodle.substring(0, 2) == '//') {
     scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
   }
-  console.log({scrapedDoodle});
+  //console.log({scrapedDoodle});
 
   console.log('SUBMISSION VALUE', scrapedDoodle);
   const stringfy = JSON.stringify(scrapedDoodle);
@@ -41,11 +41,13 @@ async function fetchSubmission() {
       "doodle"
     ));
     console.log("Receievd Doodle", scrappedDoodle);
+    return scrappedDoodle;
   } catch (err) {
     console.log("Error", err);
+    return err;
   }
 
-  //return scrappedDoodle;
+  
 
 }
 
@@ -119,8 +121,8 @@ async function validateNode(submission_value) {
 
   let vote;
   console.log('SUBMISSION VALUE', submission_value);
-  //const doodle = submission_value;
-  const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
+  const doodle = submission_value;
+  //const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
   console.log('URL', doodle);
 
   // check the google doodle
@@ -159,19 +161,25 @@ async function validateNode(submission_value) {
 async function validateDistribution(distributionList) {
   // Write your logic for the validation of submission value here and return a boolean value in response
   // this logic can be same as generation of distribution list function and based on the comparision will final object , decision can be made
-  console.log("Distribution list", distributionList);
-  // const x = Math.random().toString();
-  // const cid = crypto.createHash("sha1").update(x).digest("hex");
-  // const char = cid.charAt(0);
-  let val = Math.random();
-  // If first character of cid is in the first 23 letters of the alphabet, return true
-  if (val < 0.5) {
-    console.log("sending true");
-    return true;
-  } else {
-    console.log("sending false");
-    return false;
-  }
+  
+  // sample list 
+
+//   Distribution list [
+//     26, 244, 212,   4, 246, 192,   1, 132,
+//    251, 232, 108, 237,  32,  69, 152, 134,
+//     76, 144,  37, 211,  61, 163,  53,  12,
+//    178,  66,  89,  65,   7,  72, 228, 118
+//  ]
+  console.log("Distribution list", distributionList.toString());
+  
+  // let val = Math.random();
+  // if (val < 0.5) {
+  //   console.log("sending true");
+  //   return true;
+  // } else {
+  //   console.log("sending false");
+  //   return false;
+  // }
 }
 // Submit Address with distributioon list to K2
 async function submitTask(roundNumber) {
@@ -183,6 +191,7 @@ async function submitTask(roundNumber) {
       "current slot while calling submit"
     );
     const value = await fetchSubmission();
+    console.log("value", value);
     await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
     console.log("after the submission call");
   } catch (error) {
@@ -203,7 +212,7 @@ async function auditDistribution(roundNumber) {
   console.log("auditDistribution called with round", roundNumber);
   await namespaceWrapper.validateAndVoteOnDistributionList(
     validateDistribution,
-    roundNumber
+    75
   );
 }
 
