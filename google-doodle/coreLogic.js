@@ -177,7 +177,7 @@ class CoreLogic{
     try{
       // Write your logic for the validation of submission value here and return a boolean value in response
       // this logic can be same as generation of distribution list function and based on the comparision will final object , decision can be made
-    
+      round = 75
       console.log("Distribution list Submitter", distributionListSubmitter);
       const fetchedDistributionList = JSON.parse(await namespaceWrapper.getDistributionList(distributionListSubmitter,round));
       console.log("FETCHED DISTRIBUTION LIST",fetchedDistributionList);
@@ -228,7 +228,7 @@ class CoreLogic{
     console.log("auditDistribution called with round", roundNumber);
     await namespaceWrapper.validateAndVoteOnDistributionList(
       this.validateDistribution,
-      roundNumber,
+      75,
     );
   }
 
