@@ -1,5 +1,5 @@
-const coreLogic = require("./coreLogic");
-const { app, init } = require("./init");
+const {coreLogic} = require("./coreLogic");
+const { app } = require("./init");
 const { namespaceWrapper } = require("./namespaceWrapper");
 
 async function setup() {
@@ -47,13 +47,13 @@ async function setup() {
   const round = await namespaceWrapper.getRound();
   console.log("ROUND", round);
 
-  //await coreLogic.auditDistribution(round - 2);
+  await coreLogic.auditDistribution(round - 2);
 
   //await coreLogic.submitDistributionList(round - 2);
 
   // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
-  await coreLogic.task();
+  //await coreLogic.task();
 
   // await coreLogic.fetchSubmission();
   // const vote = await coreLogic.validateNode();
@@ -61,7 +61,9 @@ async function setup() {
 
   //await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847", round-2);
 
-  await coreLogic.submitTask(round - 1);
+  //await coreLogic.submitTask(round - 1);
+
+  //await coreLogic.auditTask(round - 1);
 
 
   // Audit submissions 

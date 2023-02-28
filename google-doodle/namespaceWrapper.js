@@ -200,6 +200,10 @@ class NamespaceWrapper {
 
   // Wrapper for selection of node to prepare a distribution list
 
+  async getDistributionList(publicKey,round) {
+    return await genericHandler("getDistributionList", publicKey, round);
+  }
+
   async nodeSelectionDistributionList(round) {
     return await genericHandler("nodeSelectionDistributionList", round);
   }
@@ -320,7 +324,7 @@ class NamespaceWrapper {
               "DISTRIBUTION SUBMISSION VALUE TO CHECK",
               values[i].submission_value
             );
-            isValid = await validateDistribution(values[i].submission_value);
+            isValid = await validateDistribution(values[i].submission_value,round);
             console.log(`Voting ${isValid} to ${candidatePublicKey}`);
 
             if (isValid) {
