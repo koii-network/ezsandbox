@@ -49,7 +49,7 @@ async function setup() {
 
   //await coreLogic.auditDistribution(round - 2);
 
-  await coreLogic.submitDistributionList(round - 2);
+  //await coreLogic.submitDistributionList(round - 2);
 
   // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
