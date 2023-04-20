@@ -1,28 +1,27 @@
-const {coreLogic} = require("./coreLogic");
-const { app } = require("./init");
-const { namespaceWrapper } = require("./namespaceWrapper");
+const {coreLogic} = require('./coreLogic');
+const {app} = require('./init');
+const {namespaceWrapper} = require('./namespaceWrapper');
 
 async function setup() {
-
-  console.log("setup function called");
+  console.log('setup function called');
   // Run default setup
   await namespaceWrapper.defaultTaskSetup();
-  process.on("message", (m) => {
-    console.log("CHILD got message:", m);
-    if (m.functionCall == "submitPayload") {
-      console.log("submitPayload called");
+  process.on('message', (m) => {
+    console.log('CHILD got message:', m);
+    if (m.functionCall == 'submitPayload') {
+      console.log('submitPayload called');
       coreLogic.submitTask(m.roundNumber);
-    } else if (m.functionCall == "auditPayload") {
-      console.log("auditPayload called");
+    } else if (m.functionCall == 'auditPayload') {
+      console.log('auditPayload called');
       coreLogic.auditTask(m.roundNumber);
-    } else if (m.functionCall == "executeTask") {
-      console.log("executeTask called");
+    } else if (m.functionCall == 'executeTask') {
+      console.log('executeTask called');
       coreLogic.task();
-    } else if (m.functionCall == "generateAndSubmitDistributionList") {
-      console.log("generateAndSubmitDistributionList called");
+    } else if (m.functionCall == 'generateAndSubmitDistributionList') {
+      console.log('generateAndSubmitDistributionList called');
       coreLogic.submitDistributionList(m.roundNumber);
-    } else if (m.functionCall == "distributionListAudit") {
-      console.log("distributionListAudit called");
+    } else if (m.functionCall == 'distributionListAudit') {
+      console.log('distributionListAudit called');
       coreLogic.auditDistribution(m.roundNumber);
     }
   });
@@ -38,14 +37,14 @@ async function setup() {
   to make calls in the intended slots of your round time. 
 
 */
-  // Get the task state 
-  
+  // Get the task state
+
   console.log(await namespaceWrapper.getTaskState());
 
-  //GET ROUND 
+  //GET ROUND
 
   const round = await namespaceWrapper.getRound();
-  console.log("ROUND", round);
+  console.log('ROUND', round);
 
   //await coreLogic.auditDistribution(round - 2);
 
@@ -65,25 +64,23 @@ async function setup() {
 
   //await coreLogic.auditTask(round - 1);
 
-
-  // Audit submissions 
+  // Audit submissions
 
   //await namespaceWrapper.validateAndVoteOnNodes(validateNode, round - 1);
- //await coreLogic.auditTask(round - 1);
+  //await coreLogic.auditTask(round - 1);
 
-  // Node selection for distribution list 
+  // Node selection for distribution list
 
   // const selectedNode = await namespaceWrapper.nodeSelectionDistributionList();
   // console.log("SELECTED NODE", selectedNode);
 
-  // Distribution list sample 
+  // Distribution list sample
 
   // const distributionList = {
   //   "29SSj6EQARvATESSQbBcmSE3A1iaWwqXFunzAEDoV7Xj": 4,
   //   "3KUfsjpjCSCjwCBm4TraM5cGx6YzEUo9rrq2hrSsJw3x": 5,
   //   Avxvdc2efsPqysBZt4VKDSgiP4iuJ8GaAWhsNVUAi5CZ: 6,
   // };
-
 
   // upload distribution list to K2
 
@@ -93,7 +90,7 @@ async function setup() {
   // );
   // console.log("DECIDER", decider);
 
-  // Do the submission only if the distribution was uploaded correctly based on decider 
+  // Do the submission only if the distribution was uploaded correctly based on decider
 
   // if (decider) {
   //   const response = await namespaceWrapper.distributionListSubmissionOnChain();
@@ -108,10 +105,6 @@ async function setup() {
 
   // const responsePayout = await namespaceWrapper.payoutTrigger();
   // console.log("RESPONSE TRIGGER", responsePayout);
-
-
-
-  
 }
 
 setup();
