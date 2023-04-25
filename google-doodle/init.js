@@ -1,7 +1,7 @@
 const express = require('express');
-const TASK_NAME = process.argv[2];
+const TASK_NAME = process.argv[2] || 'Local';
 const TASK_ID = process.argv[3];
-const EXPRESS_PORT = process.argv[4];
+const EXPRESS_PORT = process.argv[4] || 10000;
 const NODE_MODE = process.argv[5];
 const MAIN_ACCOUNT_PUBKEY = process.argv[6];
 const SECRET_KEY = process.argv[7];
@@ -11,7 +11,7 @@ const STAKE = Number(process.argv[10]);
 
 const app = express();
 
-console.log('SETTING UP EXPRESS', NODE_MODE);
+console.log('SETTING UP EXPRESS');
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

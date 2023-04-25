@@ -1,7 +1,7 @@
 /*
 This file helps you in testing the functions that you need to develop for the tasks before submitting it to K2.
 */
-const coreLogic = require("../coreLogic");
+const {coreLogic} = require("../coreLogic");
 
 
 async function main() {

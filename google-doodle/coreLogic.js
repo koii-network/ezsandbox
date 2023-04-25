@@ -4,16 +4,15 @@ const {namespaceWrapper} = require('./namespaceWrapper');
 
 class CoreLogic {
   async task() {
-    // Write the logic to do the work required for submitting the values and optionally store the result in levelDB
-    const browserFetcher = puppeteer.createBrowserFetcher();
+    const browserFetcher = puppeteer.createBrowserFetcher({product: 'firefox'});
+    const browserRevision = '114.0a1';
     console.log('DOWNLOADING STARTED');
-    const revisionInfo = await browserFetcher.download('1056772');
-    const executablePath = revisionInfo.executablePath;
-    console.log('DOWNLOADING FINISHED');
-
+    let revisionInfo = await browserFetcher.download(browserRevision);
+    console.log('DOWNLOADING FINISHED', revisionInfo);
     const browser = await puppeteer.launch({
-      executablePath,
-      headless: true, // other options can be included here
+      executablePath: revisionInfo.executablePath,
+      product: 'firefox',
+      headless: 'new', // other options can be included here
     });
     const page = await browser.newPage();
     await page.goto('https://www.google.com/doodles');
@@ -47,7 +46,7 @@ class CoreLogic {
       return scrappedDoodle;
     } catch (err) {
       console.log('Error', err);
-      return err;
+      return null;
     }
   }
 
@@ -161,15 +160,15 @@ class CoreLogic {
     console.log('URL', doodle);
 
     // check the google doodle
-    const browserFetcher = puppeteer.createBrowserFetcher();
+    const browserFetcher = puppeteer.createBrowserFetcher({product: 'firefox'});
+    const browserRevision = '114.0a1';
     console.log('DOWNLOADING STARTED');
-    const revisionInfo = await browserFetcher.download('1056772');
-    const executablePath = revisionInfo.executablePath;
-    console.log('DOWNLOADING FINISHED');
-
+    let revisionInfo = await browserFetcher.download(browserRevision);
+    console.log('DOWNLOADING FINISHED', revisionInfo);
     const browser = await puppeteer.launch({
-      executablePath,
-      headless: true, // other options can be included here
+      executablePath: revisionInfo.executablePath,
+      product: 'firefox',
+      headless: 'new', // other options can be included here
     });
     const page = await browser.newPage();
     await page.goto('https://www.google.com/doodles');
@@ -240,6 +239,7 @@ class CoreLogic {
       console.log(await namespaceWrapper.getSlot(), 'current slot while calling submit');
       const value = await this.fetchSubmission();
       console.log('value', value);
+      if (value == null) return;
       await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
       console.log('after the submission call');
     } catch (error) {
