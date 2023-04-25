@@ -111,6 +111,8 @@ class CoreLogic {
                 distributionCandidates.push(candidatePublicKey);
               }
             }
+          } else{
+            distributionCandidates.push(candidatePublicKey);
           }
         }
       }
@@ -118,7 +120,11 @@ class CoreLogic {
       // now distribute the rewards based on the valid submissions
       // Here it is assumed that all the nodes doing valid submission gets the same reward
 
-      const reward = taskAccountDataJSON.bounty_amount_per_round / distributionCandidates.length;
+      console.log("LENGTH", distributionCandidates.length);
+      console.log("Bounty Amount", taskAccountDataJSON.bounty_amount_per_round);
+      const reward =
+        taskAccountDataJSON.bounty_amount_per_round /
+        distributionCandidates.length;
       console.log('REWARD RECEIVED BY EACH NODE', reward);
       for (let i = 0; i < distributionCandidates.length; i++) {
         distributionList[distributionCandidates[i]] = reward;
@@ -209,12 +215,9 @@ class CoreLogic {
     try {
       // Write your logic for the validation of submission value here and return a boolean value in response
       // this logic can be same as generation of distribution list function and based on the comparision will final object , decision can be made
-      round = 75;
-      console.log('Distribution list Submitter', distributionListSubmitter);
-      const fetchedDistributionList = JSON.parse(
-        await namespaceWrapper.getDistributionList(distributionListSubmitter, round)
-      );
-      console.log('FETCHED DISTRIBUTION LIST', fetchedDistributionList);
+      console.log("Distribution list Submitter", distributionListSubmitter);
+      const fetchedDistributionList = JSON.parse(await namespaceWrapper.getDistributionList(distributionListSubmitter,round));
+      console.log("FETCHED DISTRIBUTION LIST",fetchedDistributionList);
       const generateDistributionList = await this.generateDistributionList(round);
 
       // compare distribution list
@@ -251,8 +254,11 @@ class CoreLogic {
   }
 
   async auditDistribution(roundNumber) {
-    console.log('auditDistribution called with round', roundNumber);
-    await namespaceWrapper.validateAndVoteOnDistributionList(this.validateDistribution, 75);
+    console.log("auditDistribution called with round", roundNumber);
+    await namespaceWrapper.validateAndVoteOnDistributionList(
+      this.validateDistribution,
+      roundNumber,
+    );
   }
 }
 
