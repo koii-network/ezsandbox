@@ -154,15 +154,15 @@ class CoreLogic {
     console.log('URL', doodle);
 
     // check the google doodle
-    const browserFetcher = puppeteer.createBrowserFetcher();
+    const browserFetcher = puppeteer.createBrowserFetcher({product: 'firefox'});
+    const browserRevision = '114.0a1';
     console.log('DOWNLOADING STARTED');
-    const revisionInfo = await browserFetcher.download('1056772');
-    const executablePath = revisionInfo.executablePath;
-    console.log('DOWNLOADING FINISHED');
-
+    let revisionInfo = await browserFetcher.download(browserRevision);
+    console.log('DOWNLOADING FINISHED', revisionInfo);
     const browser = await puppeteer.launch({
-      executablePath,
-      headless: true, // other options can be included here
+      executablePath: revisionInfo.executablePath,
+      product: 'firefox',
+      headless: 'new', // other options can be included here
     });
     const page = await browser.newPage();
     await page.goto('https://www.google.com/doodles');
