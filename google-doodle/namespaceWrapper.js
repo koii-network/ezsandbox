@@ -1,16 +1,41 @@
 const {default: axios} = require('axios');
+const levelup = require('levelup');
+const leveldown = require('leveldown');
 const BASE_ROOT_URL = 'http://localhost:8080/namespace-wrapper';
-const {TASK_ID, MAIN_ACCOUNT_PUBKEY, SECRET_KEY} = require('./init');
+const {TASK_ID, SECRET_KEY} = require('./init');
 const {Connection, PublicKey, Keypair} = require('@_koi/web3.js');
-
+const taskNodeAdministered = !!TASK_ID;
 class NamespaceWrapper {
-  connection;
+  levelDB;
+
+  constructor() {
+    if (taskNodeAdministered) {
+      this.getTaskLevelDBPath()
+        .then((path) => {
+          this.levelDB = levelup(leveldown(path));
+        })
+        .catch((err) => {
+          console.error(err);
+          this.levelDB = levelup(leveldown(`../namespace/${TASK_ID}/KOIILevelDB`));
+        });
+    } else {
+      this.levelDB = levelup(leveldown('./localKOIIDB'));
+    }
+  }
   /**
    * Namespace wrapper of storeGetAsync
    * @param {string} key // Path to get
    */
   async storeGet(key) {
-    return await genericHandler('storeGet', key);
+    return new Promise((resolve, reject) => {
+      this.levelDB.get(key, {asBuffer: false}, (err, value) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(value);
+        }
+      });
+    });
   }
   /**
    * Namespace wrapper over storeSetAsync
@@ -18,7 +43,15 @@ class NamespaceWrapper {
    * @param {*} value Data to set
    */
   async storeSet(key, value) {
-    return await genericHandler('storeSet', key, value);
+    return new Promise((resolve, reject) => {
+      this.levelDB.put(key, value, {}, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
   /**
    * Namespace wrapper over fsPromises methods
@@ -32,6 +65,7 @@ class NamespaceWrapper {
   async fsStaking(method, path, ...args) {
     return await genericHandler('fsStaking', method, path, ...args);
   }
+
   async fsWriteStream(imagepath) {
     return await genericHandler('fsWriteStream', imagepath);
   }
@@ -39,13 +73,33 @@ class NamespaceWrapper {
     return await genericHandler('fsReadStream', imagepath);
   }
 
+  /**
+   * Namespace wrapper for getting current slots
+   */
   async getSlot() {
     return await genericHandler('getCurrentSlot');
   }
 
-  async submissionOnChain(submitterKeypair, submission) {
-    return await genericHandler('submissionOnChain', submitterKeypair, submission);
+  async payloadSigning(body) {
+    return await genericHandler('signData', body);
   }
+
+  /**
+   * Namespace wrapper of storeGetAsync
+   * @param {string} signedMessage r // Path to get
+   */
+
+  async verifySignature(signedMessage, pubKey) {
+    return await genericHandler('verifySignedData', signedMessage, pubKey);
+  }
+
+  // async submissionOnChain(submitterKeypair, submission) {
+  //   return await genericHandler(
+  //     'submissionOnChain',
+  //     submitterKeypair,
+  //     submission,
+  //   );
+  // }
 
   async stakeOnChain(taskStateInfoPublicKey, stakingAccKeypair, stakePotAccount, stakeAmount) {
     return await genericHandler(
@@ -75,11 +129,6 @@ class NamespaceWrapper {
    * @param {Function} callback // Callback function on traffic receive
    */
   async sendAndConfirmTransactionWrapper(transaction, signers) {
-    if (!this.connection) {
-      const rpcUrl = await namespaceWrapper.getRpcUrl();
-      console.log(rpcUrl, 'RPC URL');
-      this.connection = new Connection(rpcUrl, 'confirmed');
-    }
     const blockhash = (await connection.getRecentBlockhash('finalized')).blockhash;
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = new PublicKey(MAIN_ACCOUNT_PUBKEY);
@@ -93,15 +142,19 @@ class NamespaceWrapper {
     );
   }
 
-  async signArweave(transaction) {
-    let tx = await genericHandler('signArweave', transaction.toJSON());
-    return arweave.transactions.fromRaw(tx);
-  }
-  async signEth(transaction) {
-    return await genericHandler('signEth', transaction);
-  }
+  // async signArweave(transaction) {
+  //   let tx = await genericHandler('signArweave', transaction.toJSON());
+  //   return arweave.transactions.fromRaw(tx);
+  // }
+  // async signEth(transaction) {
+  //   return await genericHandler('signEth', transaction);
+  // }
   async getTaskState() {
-    return await genericHandler('getTaskState');
+    const response = await genericHandler('getTaskState');
+    if (response.error) {
+      return null;
+    }
+    return response;
   }
 
   async auditSubmission(candidatePubkey, isValid, voterKeypair, round) {
@@ -136,7 +189,7 @@ class NamespaceWrapper {
     return await genericHandler('payloadTrigger');
   }
 
-  async checkSubmissionAndUpdateRound(submissionValue, round) {
+  async checkSubmissionAndUpdateRound(submissionValue = 'default', round) {
     return await genericHandler('checkSubmissionAndUpdateRound', submissionValue, round);
   }
   async getProgramAccounts() {
@@ -154,16 +207,19 @@ class NamespaceWrapper {
 
   // Wrapper for selection of node to prepare a distribution list
 
-  async getDistributionList(publicKey, round) {
-    return await genericHandler('getDistributionList', publicKey, round);
-  }
-
   async nodeSelectionDistributionList(round) {
     return await genericHandler('nodeSelectionDistributionList', round);
   }
 
+  async getDistributionList(publicKey, round) {
+    const response = await genericHandler('getDistributionList', publicKey, round);
+    if (response.error) {
+      return null;
+    }
+    return response;
+  }
+
   async validateAndVoteOnNodes(validate, round) {
-    // await this.checkVoteStatus();
     console.log('******/  IN VOTING /******');
     const taskAccountDataJSON = await this.getTaskState();
 
@@ -189,7 +245,7 @@ class NamespaceWrapper {
         } else {
           try {
             console.log('SUBMISSION VALUE TO CHECK', values[i].submission_value);
-            isValid = await validate(values[i].submission_value);
+            isValid = await validate(values[i].submission_value, round);
             console.log(`Voting ${isValid} to ${candidatePublicKey}`);
 
             if (isValid) {
@@ -298,6 +354,9 @@ class NamespaceWrapper {
       }
     }
   }
+  async getTaskLevelDBPath() {
+    return await genericHandler('getTaskLevelDBPath');
+  }
 }
 
 async function genericHandler(...args) {
@@ -313,15 +372,20 @@ async function genericHandler(...args) {
       return null;
     }
   } catch (err) {
-    console.log('Error in genericHandler', err);
-    console.error(err.message);
+    console.error(`Error in genericHandler: "${args[0]}"`, err.message);
     console.error(err?.response?.data);
-    return null;
+    return {error: err};
   }
 }
-// let connection;
+let connection;
 const namespaceWrapper = new NamespaceWrapper();
-
+if (taskNodeAdministered) {
+  namespaceWrapper.getRpcUrl().then((rpcUrl) => {
+    console.log(rpcUrl, 'RPC URL');
+    connection = new Connection(rpcUrl, 'confirmed');
+  });
+}
 module.exports = {
   namespaceWrapper,
+  taskNodeAdministered,
 };

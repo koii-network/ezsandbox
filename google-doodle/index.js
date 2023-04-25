@@ -1,12 +1,15 @@
-const {coreLogic} = require('./coreLogic');
-const {app} = require('./init');
-const {namespaceWrapper} = require('./namespaceWrapper');
+const { coreLogic } = require('./coreLogic');
+const { app } = require('./init');
+const {
+  namespaceWrapper,
+  taskNodeAdministered,
+} = require('./namespaceWrapper');
 
 async function setup() {
   console.log('setup function called');
   // Run default setup
   await namespaceWrapper.defaultTaskSetup();
-  process.on('message', (m) => {
+  process.on('message', m => {
     console.log('CHILD got message:', m);
     if (m.functionCall == 'submitPayload') {
       console.log('submitPayload called');
@@ -36,70 +39,35 @@ async function setup() {
   NOTE : K2 will still have the windows to accept the submission value, audit, so you are expected
   to make calls in the intended slots of your round time. 
 
-*/
-  // Get the task state
+  */
 
-  console.log(await namespaceWrapper.getTaskState());
+  // Get the task state
+  //console.log(await namespaceWrapper.getTaskState());
 
   //GET ROUND
 
-  const round = await namespaceWrapper.getRound();
-  console.log('ROUND', round);
+  // const round = await namespaceWrapper.getRound();
+  // console.log("ROUND", round);
 
-  //await coreLogic.auditDistribution(round - 2);
-
-  await coreLogic.submitDistributionList(round - 2);
-
-  // Submission to K2 (Preferablly you should submit the cid received from IPFS)
+  // Call to do the work for the task
 
   //await coreLogic.task();
 
-  // await coreLogic.fetchSubmission();
-  // const vote = await coreLogic.validateNode();
-  // console.log("Vote", vote);
-
-  //await namespaceWrapper.checkSubmissionAndUpdateRound("vjnkjbvbvhj87847", round-2);
+  // Submission to K2 (Preferablly you should submit the cid received from IPFS)
 
   //await coreLogic.submitTask(round - 1);
 
-  //await coreLogic.auditTask(round - 1);
-
   // Audit submissions
 
-  //await namespaceWrapper.validateAndVoteOnNodes(validateNode, round - 1);
   //await coreLogic.auditTask(round - 1);
-
-  // Node selection for distribution list
-
-  // const selectedNode = await namespaceWrapper.nodeSelectionDistributionList();
-  // console.log("SELECTED NODE", selectedNode);
-
-  // Distribution list sample
-
-  // const distributionList = {
-  //   "29SSj6EQARvATESSQbBcmSE3A1iaWwqXFunzAEDoV7Xj": 4,
-  //   "3KUfsjpjCSCjwCBm4TraM5cGx6YzEUo9rrq2hrSsJw3x": 5,
-  //   Avxvdc2efsPqysBZt4VKDSgiP4iuJ8GaAWhsNVUAi5CZ: 6,
-  // };
 
   // upload distribution list to K2
 
-  // const decider = await namespaceWrapper.uploadDistributionList(
-  //   distributionList
-  //   [PASS YOUR ROUND HERE]
-  // );
-  // console.log("DECIDER", decider);
-
-  // Do the submission only if the distribution was uploaded correctly based on decider
-
-  // if (decider) {
-  //   const response = await namespaceWrapper.distributionListSubmissionOnChain();
-  //   console.log("RESPONSE FROM DISTRIBUTION LIST", response);
-  // }
+  //await coreLogic.submitDistributionList(round - 2)
 
   // Audit distribution list
 
-  //await namespaceWrapper.validateAndVoteOnDistributionList();
+  //await coreLogic.auditDistribution(round - 2);
 
   // Payout trigger
 
@@ -107,10 +75,21 @@ async function setup() {
   // console.log("RESPONSE TRIGGER", responsePayout);
 }
 
-setup();
-
+if (taskNodeAdministered) {
+  setup();
+}
 if (app) {
   //  Write your Express Endpoints here.
   //  For Example
-  //namespace.express('post', '/accept-doodles', async (req, res) => {})
+  //  app.post('/accept-cid', async (req, res) => {})
+
+  // Sample API that return your task state
+
+  app.get('/taskState', async (req, res) => {
+    const state = await namespaceWrapper.getTaskState();
+    console.log('TASK STATE', state);
+
+    res.status(200).json({ taskState: state });
+  });
 }
+
