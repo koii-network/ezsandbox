@@ -1,59 +1,68 @@
-const puppeteer = require('puppeteer');
-const cheerio = require('cheerio');
-const {namespaceWrapper} = require('./namespaceWrapper');
+const puppeteer = require("puppeteer");
+const cheerio = require("cheerio");
+const { namespaceWrapper } = require("./namespaceWrapper");
 
 class CoreLogic {
   async task() {
-    const browserFetcher = puppeteer.createBrowserFetcher({product: 'firefox'});
-    const browserRevision = '114.0a1';
-    console.log('DOWNLOADING STARTED');
+    const browserFetcher = puppeteer.createBrowserFetcher({
+      product: "firefox",
+    });
+    const browserRevision = "114.0a1";
+    console.log("DOWNLOADING STARTED");
     let revisionInfo = await browserFetcher.download(browserRevision);
-    console.log('DOWNLOADING FINISHED', revisionInfo);
+    console.log("DOWNLOADING FINISHED", revisionInfo);
     const browser = await puppeteer.launch({
       executablePath: revisionInfo.executablePath,
-      product: 'firefox',
-      headless: 'new', // other options can be included here
+      product: "firefox",
+      headless: "new", // other options can be included here
     });
     const page = await browser.newPage();
-    await page.goto('https://www.google.com/doodles');
-    let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
+    await page.goto("https://www.google.com/doodles");
+    let bodyHTML = await page.evaluate(
+      () => document.documentElement.outerHTML
+    );
     const $ = cheerio.load(bodyHTML);
 
-    let scrapedDoodle = $('.latest-doodle.on').find('div > div > a > img').attr('src');
-    if (scrapedDoodle.substring(0, 2) == '//') {
+    let scrapedDoodle = $(".latest-doodle.on")
+      .find("div > div > a > img")
+      .attr("src");
+    if (scrapedDoodle.substring(0, 2) == "//") {
       scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
     }
     //console.log({scrapedDoodle});
 
-    console.log('SUBMISSION VALUE', scrapedDoodle);
+    console.log("SUBMISSION VALUE", scrapedDoodle);
     const stringfy = JSON.stringify(scrapedDoodle);
 
     // store this work of fetching googleDoodle to levelDB
 
     try {
-      await namespaceWrapper.storeSet('doodle', stringfy);
+      await namespaceWrapper.storeSet("doodle", stringfy);
     } catch (err) {
-      console.log('error', err);
+      console.log("error", err);
     }
+    browser.close();
   }
 
   async fetchSubmission() {
     // Write the logic to fetch the submission values here, this is be the final work submitted to K2
 
     try {
-      const scrappedDoodle = JSON.parse(await namespaceWrapper.storeGet('doodle'));
-      console.log('Receievd Doodle', scrappedDoodle);
+      const scrappedDoodle = JSON.parse(
+        await namespaceWrapper.storeGet("doodle")
+      );
+      console.log("Receievd Doodle", scrappedDoodle);
       return scrappedDoodle;
     } catch (err) {
-      console.log('Error', err);
+      console.log("Error", err);
       return null;
     }
   }
 
   async generateDistributionList(round, _dummyTaskState) {
     try {
-      console.log('GenerateDistributionList called');
-      console.log('I am selected node');
+      console.log("GenerateDistributionList called");
+      console.log("I am selected node");
 
       // Write the logic to generate the distribution list here by introducing the rules of your choice
 
@@ -64,21 +73,28 @@ class CoreLogic {
       let taskAccountDataJSON = await namespaceWrapper.getTaskState();
       if (taskAccountDataJSON == null) taskAccountDataJSON = _dummyTaskState;
       const submissions = taskAccountDataJSON.submissions[round];
-      const submissions_audit_trigger = taskAccountDataJSON.submissions_audit_trigger[round];
+      const submissions_audit_trigger =
+        taskAccountDataJSON.submissions_audit_trigger[round];
       if (submissions == null) {
-        console.log('No submisssions found in N-2 round');
+        console.log("No submisssions found in N-2 round");
         return distributionList;
       } else {
         const keys = Object.keys(submissions);
         const values = Object.values(submissions);
         const size = values.length;
-        console.log('Submissions from last round: ', keys, values, size);
+        console.log("Submissions from last round: ", keys, values, size);
 
         // Logic for slashing the stake of the candidate who has been audited and found to be false
         for (let i = 0; i < size; i++) {
           const candidatePublicKey = keys[i];
-          if (submissions_audit_trigger && submissions_audit_trigger[candidatePublicKey]) {
-            console.log('distributions_audit_trigger votes ', submissions_audit_trigger[candidatePublicKey].votes);
+          if (
+            submissions_audit_trigger &&
+            submissions_audit_trigger[candidatePublicKey]
+          ) {
+            console.log(
+              "distributions_audit_trigger votes ",
+              submissions_audit_trigger[candidatePublicKey].votes
+            );
             const votes = submissions_audit_trigger[candidatePublicKey].votes;
             if (votes.length === 0) {
               // slash 70% of the stake as still the audit is triggered but no votes are casted
@@ -88,7 +104,7 @@ class CoreLogic {
               const candidateStake = stake_list[candidatePublicKey];
               const slashedStake = candidateStake * 0.7;
               distributionList[candidatePublicKey] = -slashedStake;
-              console.log('Candidate Stake', candidateStake);
+              console.log("Candidate Stake", candidateStake);
             } else {
               let numOfVotes = 0;
               for (let index = 0; index < votes.length; index++) {
@@ -104,14 +120,14 @@ class CoreLogic {
                 const candidateStake = stake_list[candidatePublicKey];
                 const slashedStake = candidateStake * 0.7;
                 distributionList[candidatePublicKey] = -slashedStake;
-                console.log('Candidate Stake', candidateStake);
+                console.log("Candidate Stake", candidateStake);
               }
 
               if (numOfVotes > 0) {
                 distributionCandidates.push(candidatePublicKey);
               }
             }
-          } else{
+          } else {
             distributionCandidates.push(candidatePublicKey);
           }
         }
@@ -125,28 +141,33 @@ class CoreLogic {
       const reward =
         taskAccountDataJSON.bounty_amount_per_round /
         distributionCandidates.length;
-      console.log('REWARD RECEIVED BY EACH NODE', reward);
+      console.log("REWARD RECEIVED BY EACH NODE", reward);
       for (let i = 0; i < distributionCandidates.length; i++) {
         distributionList[distributionCandidates[i]] = reward;
       }
-      console.log('Distribution List', distributionList);
+      console.log("Distribution List", distributionList);
       return distributionList;
     } catch (err) {
-      console.log('ERROR IN GENERATING DISTRIBUTION LIST', err);
+      console.log("ERROR IN GENERATING DISTRIBUTION LIST", err);
     }
   }
 
   async submitDistributionList(round) {
-    console.log('SubmitDistributionList called');
+    console.log("SubmitDistributionList called");
 
     const distributionList = await this.generateDistributionList(round);
 
-    const decider = await namespaceWrapper.uploadDistributionList(distributionList, round);
-    console.log('DECIDER', decider);
+    const decider = await namespaceWrapper.uploadDistributionList(
+      distributionList,
+      round
+    );
+    console.log("DECIDER", decider);
 
     if (decider) {
-      const response = await namespaceWrapper.distributionListSubmissionOnChain(round);
-      console.log('RESPONSE FROM DISTRIBUTION LIST', response);
+      const response = await namespaceWrapper.distributionListSubmissionOnChain(
+        round
+      );
+      console.log("RESPONSE FROM DISTRIBUTION LIST", response);
     }
   }
 
@@ -154,32 +175,38 @@ class CoreLogic {
     // Write your logic for the validation of submission value here and return a boolean value in response
 
     let vote;
-    console.log('SUBMISSION VALUE', submission_value);
+    console.log("SUBMISSION VALUE", submission_value);
     const doodle = submission_value;
     //const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
-    console.log('URL', doodle);
+    console.log("URL", doodle);
 
     // check the google doodle
-    const browserFetcher = puppeteer.createBrowserFetcher({product: 'firefox'});
-    const browserRevision = '114.0a1';
-    console.log('DOWNLOADING STARTED');
+    const browserFetcher = puppeteer.createBrowserFetcher({
+      product: "firefox",
+    });
+    const browserRevision = "114.0a1";
+    console.log("DOWNLOADING STARTED");
     let revisionInfo = await browserFetcher.download(browserRevision);
-    console.log('DOWNLOADING FINISHED', revisionInfo);
+    console.log("DOWNLOADING FINISHED", revisionInfo);
     const browser = await puppeteer.launch({
       executablePath: revisionInfo.executablePath,
-      product: 'firefox',
-      headless: 'new', // other options can be included here
+      product: "firefox",
+      headless: "new", // other options can be included here
     });
     const page = await browser.newPage();
-    await page.goto('https://www.google.com/doodles');
-    let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
+    await page.goto("https://www.google.com/doodles");
+    let bodyHTML = await page.evaluate(
+      () => document.documentElement.outerHTML
+    );
     const $ = cheerio.load(bodyHTML);
 
-    let scrapedDoodle = $('.latest-doodle.on').find('div > div > a > img').attr('src');
-    if (scrapedDoodle.substring(0, 2) == '//') {
+    let scrapedDoodle = $(".latest-doodle.on")
+      .find("div > div > a > img")
+      .attr("src");
+    if (scrapedDoodle.substring(0, 2) == "//") {
       scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
     }
-    console.log({scrapedDoodle});
+    console.log({ scrapedDoodle });
 
     // vote based on the scrapedDoodle
 
@@ -216,48 +243,64 @@ class CoreLogic {
       // Write your logic for the validation of submission value here and return a boolean value in response
       // this logic can be same as generation of distribution list function and based on the comparision will final object , decision can be made
       console.log("Distribution list Submitter", distributionListSubmitter);
-      const fetchedDistributionList = JSON.parse(await namespaceWrapper.getDistributionList(distributionListSubmitter,round));
-      console.log("FETCHED DISTRIBUTION LIST",fetchedDistributionList);
-      const generateDistributionList = await this.generateDistributionList(round);
+      const fetchedDistributionList = JSON.parse(
+        await namespaceWrapper.getDistributionList(
+          distributionListSubmitter,
+          round
+        )
+      );
+      console.log("FETCHED DISTRIBUTION LIST", fetchedDistributionList);
+      const generateDistributionList = await this.generateDistributionList(
+        round
+      );
 
       // compare distribution list
 
       const parsed = JSON.parse(fetchedDistributionList);
       const result = await this.shallowEqual(parsed, generateDistributionList);
-      console.log('RESULT', result);
+      console.log("RESULT", result);
       return result;
     } catch (err) {
-      console.log('ERROR IN CATCH', err);
+      console.log("ERROR IN CATCH", err);
       return false;
     }
   };
 
   async submitTask(roundNumber) {
-    console.log('submitTask called with round', roundNumber);
+    console.log("submitTask called with round", roundNumber);
     try {
-      console.log('inside try');
-      console.log(await namespaceWrapper.getSlot(), 'current slot while calling submit');
+      console.log("inside try");
+      console.log(
+        await namespaceWrapper.getSlot(),
+        "current slot while calling submit"
+      );
       const value = await this.fetchSubmission();
-      console.log('value', value);
+      console.log("value", value);
       if (value == null) return;
       await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
-      console.log('after the submission call');
+      console.log("after the submission call");
     } catch (error) {
-      console.log('error in submission', error);
+      console.log("error in submission", error);
     }
   }
 
   async auditTask(roundNumber) {
-    console.log('auditTask called with round', roundNumber);
-    console.log(await namespaceWrapper.getSlot(), 'current slot while calling auditTask');
-    await namespaceWrapper.validateAndVoteOnNodes(this.validateNode, roundNumber);
+    console.log("auditTask called with round", roundNumber);
+    console.log(
+      await namespaceWrapper.getSlot(),
+      "current slot while calling auditTask"
+    );
+    await namespaceWrapper.validateAndVoteOnNodes(
+      this.validateNode,
+      roundNumber
+    );
   }
 
   async auditDistribution(roundNumber) {
     console.log("auditDistribution called with round", roundNumber);
     await namespaceWrapper.validateAndVoteOnDistributionList(
       this.validateDistribution,
-      roundNumber,
+      roundNumber
     );
   }
 }

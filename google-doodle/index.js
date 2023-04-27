@@ -1,31 +1,35 @@
-const { coreLogic } = require('./coreLogic');
-const { app } = require('./init');
+const { coreLogic } = require("./coreLogic");
+const { app } = require("./init");
 const {
   namespaceWrapper,
   taskNodeAdministered,
-} = require('./namespaceWrapper');
+} = require("./namespaceWrapper");
 
 async function setup() {
-  console.log('setup function called');
+  console.log("setup function called");
   // Run default setup
   await namespaceWrapper.defaultTaskSetup();
-  process.on('message', m => {
-    console.log('CHILD got message:', m);
-    if (m.functionCall == 'submitPayload') {
-      console.log('submitPayload called');
-      coreLogic.submitTask(m.roundNumber);
-    } else if (m.functionCall == 'auditPayload') {
-      console.log('auditPayload called');
-      coreLogic.auditTask(m.roundNumber);
-    } else if (m.functionCall == 'executeTask') {
-      console.log('executeTask called');
-      coreLogic.task();
-    } else if (m.functionCall == 'generateAndSubmitDistributionList') {
-      console.log('generateAndSubmitDistributionList called');
-      coreLogic.submitDistributionList(m.roundNumber);
-    } else if (m.functionCall == 'distributionListAudit') {
-      console.log('distributionListAudit called');
-      coreLogic.auditDistribution(m.roundNumber);
+  process.on("message", (m) => {
+    try {
+      console.log("CHILD got message:", m);
+      if (m.functionCall == "submitPayload") {
+        console.log("submitPayload called");
+        coreLogic.submitTask(m.roundNumber);
+      } else if (m.functionCall == "auditPayload") {
+        console.log("auditPayload called");
+        coreLogic.auditTask(m.roundNumber);
+      } else if (m.functionCall == "executeTask") {
+        console.log("executeTask called");
+        coreLogic.task();
+      } else if (m.functionCall == "generateAndSubmitDistributionList") {
+        console.log("generateAndSubmitDistributionList called");
+        coreLogic.submitDistributionList(m.roundNumber);
+      } else if (m.functionCall == "distributionListAudit") {
+        console.log("distributionListAudit called");
+        coreLogic.auditDistribution(m.roundNumber);
+      }
+    } catch (e) {
+      console.error(e);
     }
   });
 
@@ -85,11 +89,10 @@ if (app) {
 
   // Sample API that return your task state
 
-  app.get('/taskState', async (req, res) => {
+  app.get("/taskState", async (req, res) => {
     const state = await namespaceWrapper.getTaskState();
-    console.log('TASK STATE', state);
+    console.log("TASK STATE", state);
 
     res.status(200).json({ taskState: state });
   });
 }
-
