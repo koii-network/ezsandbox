@@ -137,13 +137,16 @@ class CoreLogic {
       // Here it is assumed that all the nodes doing valid submission gets the same reward
 
       // test code to generate 1001 nodes
-      // for (let i = 0; i < 1002; i++) {
-      //   distributionCandidates.push(`element ${i + 1}`);
-      // }
+      for (let i = 0; i < 1002; i++) {
+        distributionCandidates.push(`element ${i + 1}`);
+      }
 
-      // console.log("LENGTH", distributionCandidates.length);
+      console.log(
+        "LENGTH OF DISTRIBUTION CANDIDATES",
+        distributionCandidates.length
+      );
 
-      console.log("LENGTH", distributionCandidates.length);
+      //console.log("LENGTH", distributionCandidates.length);
       console.log("Bounty Amount", taskAccountDataJSON.bounty_amount_per_round);
       // const reward =
       //   taskAccountDataJSON.bounty_amount_per_round /
@@ -169,12 +172,12 @@ class CoreLogic {
           }
           //console.log("selected Node length",selectedNodes.length);
           //console.log("SELECTED nodes ARRAY",selectedNodes);
-          for (let i = 0; i < selectedNodes.length; i++) {
-            distributionList[selectedNodes[i]] = reward;
-          }
+        }
+        for (let i = 0; i < selectedNodes.length; i++) {
+          distributionList[selectedNodes[i]] = reward;
         }
       }
-      console.log("Distribution List", distributionList);
+      //console.log("Distribution List", distributionList);
       return distributionList;
     } catch (err) {
       console.log("ERROR IN GENERATING DISTRIBUTION LIST", err);

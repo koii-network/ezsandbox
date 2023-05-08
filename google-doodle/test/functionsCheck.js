@@ -67,7 +67,7 @@ async function main() {
     _dummyTaskState
   );
 
-  console.log("Distribution List", distributionList);
+  //console.log("Distribution List", distributionList);
 
   //Test fetchSubmission function
 
