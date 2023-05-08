@@ -137,9 +137,9 @@ class CoreLogic {
       // Here it is assumed that all the nodes doing valid submission gets the same reward
 
       // test code to generate 1001 nodes
-      for (let i = 0; i < 1002; i++) {
-        distributionCandidates.push(`element ${i + 1}`);
-      }
+      // for (let i = 0; i < 1002; i++) {
+      //   distributionCandidates.push(`element ${i + 1}`);
+      // }
 
       console.log(
         "LENGTH OF DISTRIBUTION CANDIDATES",
