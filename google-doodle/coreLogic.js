@@ -136,16 +136,48 @@ class CoreLogic {
       // now distribute the rewards based on the valid submissions
       // Here it is assumed that all the nodes doing valid submission gets the same reward
 
-      console.log("LENGTH", distributionCandidates.length);
+      // test code to generate 1001 nodes
+      // for (let i = 0; i < 1002; i++) {
+      //   distributionCandidates.push(`element ${i + 1}`);
+      // }
+
+      console.log(
+        "LENGTH OF DISTRIBUTION CANDIDATES",
+        distributionCandidates.length
+      );
+
+      //console.log("LENGTH", distributionCandidates.length);
       console.log("Bounty Amount", taskAccountDataJSON.bounty_amount_per_round);
-      const reward =
-        taskAccountDataJSON.bounty_amount_per_round /
-        distributionCandidates.length;
+      // const reward =
+      //   taskAccountDataJSON.bounty_amount_per_round /
+      //   distributionCandidates.length;
+      // the reward is now fixed to 0.15 KOII per round per node
+      const reward = 0.15;
       console.log("REWARD RECEIVED BY EACH NODE", reward);
-      for (let i = 0; i < distributionCandidates.length; i++) {
-        distributionList[distributionCandidates[i]] = reward;
+      if (distributionCandidates.length < 1000) {
+        for (let i = 0; i < distributionCandidates.length; i++) {
+          distributionList[distributionCandidates[i]] = reward;
+        }
+      } else {
+        // randomly select 1000 nodes
+        const selectedNodes = [];
+
+        while (selectedNodes.length < 1000) {
+          const randomIndex = Math.floor(
+            Math.random() * distributionCandidates.length
+          );
+          const randomNode = distributionCandidates[randomIndex];
+          if (!selectedNodes.includes(randomNode)) {
+            selectedNodes.push(randomNode);
+          }
+          //console.log("selected Node length",selectedNodes.length);
+          //console.log("SELECTED nodes ARRAY",selectedNodes);
+        }
+        for (let i = 0; i < selectedNodes.length; i++) {
+          distributionList[selectedNodes[i]] = reward;
+        }
       }
-      console.log("Distribution List", distributionList);
+      //console.log("Distribution List", distributionList);
       return distributionList;
     } catch (err) {
       console.log("ERROR IN GENERATING DISTRIBUTION LIST", err);
