@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
+const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 
 class CoreLogic {
   async task() {
@@ -152,7 +153,8 @@ class CoreLogic {
       //   taskAccountDataJSON.bounty_amount_per_round /
       //   distributionCandidates.length;
       // the reward is now fixed to 0.15 KOII per round per node
-      const reward = 0.15;
+      const reward = 0.15 * LAMPORTS_PER_SOL;
+      console.log("REWARD PER NODE IN LAMPORTS", reward);
       console.log("REWARD RECEIVED BY EACH NODE", reward);
       if (distributionCandidates.length < 1000) {
         for (let i = 0; i < distributionCandidates.length; i++) {
