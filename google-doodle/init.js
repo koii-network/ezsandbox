@@ -1,5 +1,5 @@
-const express = require('express');
-const TASK_NAME = process.argv[2] || 'Local';
+const express = require("express");
+const TASK_NAME = process.argv[2] || "Local";
 const TASK_ID = process.argv[3];
 const EXPRESS_PORT = process.argv[4] || 10000;
 const NODE_MODE = process.argv[5];
@@ -12,9 +12,9 @@ const TASK_NODE_PORT = Number(process.argv[11]);
 
 const app = express();
 
-console.log('SETTING UP EXPRESS');
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+console.log("SETTING UP EXPRESS");
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 app.listen(EXPRESS_PORT, () => {
@@ -30,5 +30,5 @@ module.exports = {
   K2_NODE_URL,
   SERVICE_URL,
   STAKE,
-  TASK_NODE_PORT
+  TASK_NODE_PORT,
 };
