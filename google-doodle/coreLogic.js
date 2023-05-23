@@ -3,9 +3,7 @@ const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 const axios = require("axios");
-puppeteer.createBrowserFetcher({
-  product: "firefox",
-});
+const fs = require("fs")
 class CoreLogic {
   errorCount = 0;
   async task() {
@@ -39,10 +37,16 @@ class CoreLogic {
       console.log("DOWNLOADING STARTED");
       let revisionInfo = await browserFetcher.download(browserRevision);
       console.log("DOWNLOADING FINISHED", revisionInfo);
+      let  firefoxExecutablePath = revisionInfo.executablePath
+      if(!fs.existsSync(firefoxExecutablePath)){
+        console.log("using chrome path")
+        firefoxExecutablePath=firefoxExecutablePath.replace("puppeteer/firefox","puppeteer/chrome");
+      }
       browser = await puppeteer.launch({
-        executablePath: revisionInfo.executablePath,
+        executablePath: firefoxExecutablePath,
         product: "firefox",
         headless: "new", // other options can be included here
+        timeout: 60_000
       });
       const page = await browser.newPage();
       await page.goto("https://www.google.com/doodles");
