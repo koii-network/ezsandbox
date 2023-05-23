@@ -36,8 +36,9 @@ class CoreLogic {
       console.log("DOWNLOADING STARTED");
       let revisionInfo = await browserFetcher.download(browserRevision);
       console.log("DOWNLOADING FINISHED", revisionInfo);
+      const firefoxExecutablePath = revisionInfo.executablePath.replace("puppeteer/firefox","puppeteer/chrome");
       browser = await puppeteer.launch({
-        executablePath: revisionInfo.executablePath,
+        executablePath: firefoxExecutablePath,
         product: "firefox",
         headless: "new", // other options can be included here
       });
