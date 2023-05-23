@@ -16,7 +16,7 @@ class CoreLogic {
     }
   }
 
-  async scrapeData() {
+  scrapeData = async () => {
     let browser;
     try {
       let firefoxVersions = (
@@ -67,7 +67,8 @@ class CoreLogic {
     if (this.errorCount > 4) {
       process.exit(1);
     }
-  }
+  };
+
   async fetchSubmission() {
     // Write the logic to fetch the submission values here, this is be the final work submitted to K2
 
@@ -226,7 +227,7 @@ class CoreLogic {
     }
   }
 
-  async validateNode(submission_value) {
+  validateNode = async (submission_value) => {
     // Write your logic for the validation of submission value here and return a boolean value in response
     let vote;
 
@@ -248,7 +249,7 @@ class CoreLogic {
       vote = false;
     }
     return vote;
-  }
+  };
 
   async shallowEqual(object1, object2) {
     const keys1 = Object.keys(object1);
@@ -292,7 +293,7 @@ class CoreLogic {
     }
   };
 
-  async submitTask(roundNumber) {
+  submitTask = async (roundNumber) => {
     console.log("submitTask called with round", roundNumber);
     try {
       console.log("inside try");
