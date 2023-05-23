@@ -3,3 +3,4 @@ build
 node_modules
 package-lock.json
 migrate.sh
+localKOIIDB.db

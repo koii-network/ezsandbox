@@ -7,8 +7,8 @@ async function main() {
   console.log("IN TESTING TASK");
 
   // Testing the task function
-  // const task = await coreLogic.task();
-  // console.log("Task", task);
+  await coreLogic.task();
+  console.log(await coreLogic.validateNode("www.google.com/logos/doodles/2023/barbara-may-camerons-69th-birthday-6753651837110046-2x.png"))
 
   const _dummyTaskState = {
     stake_list: {
@@ -62,12 +62,12 @@ async function main() {
     },
   };
 
-  const distributionList = await coreLogic.generateDistributionList(
-    1,
-    _dummyTaskState
-  );
+  // const distributionList = await coreLogic.generateDistributionList(
+  //   1,
+  //   _dummyTaskState
+  // );
 
-  console.log("Distribution List", distributionList);
+  // console.log("Distribution List", distributionList);
 
   //Test fetchSubmission function
 

@@ -1,17 +1,51 @@
-const { default: axios } = require("axios");
-const { TASK_ID, SECRET_KEY, TASK_NODE_PORT } = require("./init");
-const { Connection, PublicKey, Keypair } = require("@_koi/web3.js");
+const { default: axios } = require('axios');
+const { TASK_ID, SECRET_KEY, TASK_NODE_PORT } = require('./init');
+const { Connection, PublicKey, Keypair } = require('@_koi/web3.js');
 const taskNodeAdministered = !!TASK_ID;
-
 const BASE_ROOT_URL = `http://localhost:${TASK_NODE_PORT}/namespace-wrapper`;
-
+const Datastore = require('nedb-promises');
 class NamespaceWrapper {
+  #db;
+  constructor() {
+    if (taskNodeAdministered) {
+      this.initializeDB();
+    } else {
+      this.#db = Datastore.create('./localKOIIDB.db');
+    }
+  }
+
+  async initializeDB() {
+    if (this.#db) return;
+    try {
+      const path = await this.getTaskLevelDBPath();
+      this.#db = Datastore.create(path);
+    } catch (e) {
+      this.#db = Datastore.create(`../namespace/${TASK_ID}/KOIILevelDB.db`);
+    }
+  }
+
+  async getDb() {
+    if (this.#db) return this.#db;
+    await this.initializeDB();
+    return this.#db;
+  }
   /**
    * Namespace wrapper of storeGetAsync
    * @param {string} key // Path to get
    */
   async storeGet(key) {
-    return await genericHandler("storeGet", key);
+    try {
+      await this.initializeDB();
+      const resp = await this.#db.findOne({ key: key });
+      if (resp) {
+        return resp[key];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
   }
   /**
    * Namespace wrapper over storeSetAsync
@@ -19,7 +53,13 @@ class NamespaceWrapper {
    * @param {*} value Data to set
    */
   async storeSet(key, value) {
-    return await genericHandler("storeSet", key, value);
+    try {
+      await this.initializeDB();
+      await this.#db.insert({ [key]: value, key });
+    } catch (e) {
+      console.error(e);
+      return undefined;
+    }
   }
 
   /**
@@ -29,28 +69,28 @@ class NamespaceWrapper {
    * @param  {...any} args Remaining parameters for the FS call
    */
   async fs(method, path, ...args) {
-    return await genericHandler("fs", method, path, ...args);
+    return await genericHandler('fs', method, path, ...args);
   }
   async fsStaking(method, path, ...args) {
-    return await genericHandler("fsStaking", method, path, ...args);
+    return await genericHandler('fsStaking', method, path, ...args);
   }
 
   async fsWriteStream(imagepath) {
-    return await genericHandler("fsWriteStream", imagepath);
+    return await genericHandler('fsWriteStream', imagepath);
   }
   async fsReadStream(imagepath) {
-    return await genericHandler("fsReadStream", imagepath);
+    return await genericHandler('fsReadStream', imagepath);
   }
 
   /**
    * Namespace wrapper for getting current slots
    */
   async getSlot() {
-    return await genericHandler("getCurrentSlot");
+    return await genericHandler('getCurrentSlot');
   }
 
   async payloadSigning(body) {
-    return await genericHandler("signData", body);
+    return await genericHandler('signData', body);
   }
 
   /**
@@ -59,7 +99,7 @@ class NamespaceWrapper {
    */
 
   async verifySignature(signedMessage, pubKey) {
-    return await genericHandler("verifySignedData", signedMessage, pubKey);
+    return await genericHandler('verifySignedData', signedMessage, pubKey);
   }
 
   // async submissionOnChain(submitterKeypair, submission) {
@@ -74,37 +114,37 @@ class NamespaceWrapper {
     taskStateInfoPublicKey,
     stakingAccKeypair,
     stakePotAccount,
-    stakeAmount
+    stakeAmount,
   ) {
     return await genericHandler(
-      "stakeOnChain",
+      'stakeOnChain',
       taskStateInfoPublicKey,
       stakingAccKeypair,
       stakePotAccount,
-      stakeAmount
+      stakeAmount,
     );
   }
   async claimReward(stakePotAccount, beneficiaryAccount, claimerKeypair) {
     return await genericHandler(
-      "claimReward",
+      'claimReward',
       stakePotAccount,
       beneficiaryAccount,
-      claimerKeypair
+      claimerKeypair,
     );
   }
   async sendTransaction(serviceNodeAccount, beneficiaryAccount, amount) {
     return await genericHandler(
-      "sendTransaction",
+      'sendTransaction',
       serviceNodeAccount,
       beneficiaryAccount,
-      amount
+      amount,
     );
   }
 
   async getSubmitterAccount() {
-    const submitterAccountResp = await genericHandler("getSubmitterAccount");
+    const submitterAccountResp = await genericHandler('getSubmitterAccount');
     return Keypair.fromSecretKey(
-      Uint8Array.from(Object.values(submitterAccountResp._keypair.secretKey))
+      Uint8Array.from(Object.values(submitterAccountResp._keypair.secretKey)),
     );
   }
 
@@ -115,17 +155,17 @@ class NamespaceWrapper {
    * @param {Function} callback // Callback function on traffic receive
    */
   async sendAndConfirmTransactionWrapper(transaction, signers) {
-    const blockhash = (await connection.getRecentBlockhash("finalized"))
+    const blockhash = (await connection.getRecentBlockhash('finalized'))
       .blockhash;
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = new PublicKey(MAIN_ACCOUNT_PUBKEY);
     return await genericHandler(
-      "sendAndConfirmTransactionWrapper",
+      'sendAndConfirmTransactionWrapper',
       transaction.serialize({
         requireAllSignatures: false,
         verifySignatures: false,
       }),
-      signers
+      signers,
     );
   }
 
@@ -137,7 +177,7 @@ class NamespaceWrapper {
   //   return await genericHandler('signEth', transaction);
   // }
   async getTaskState() {
-    const response = await genericHandler("getTaskState");
+    const response = await genericHandler('getTaskState');
     if (response.error) {
       return null;
     }
@@ -146,11 +186,11 @@ class NamespaceWrapper {
 
   async auditSubmission(candidatePubkey, isValid, voterKeypair, round) {
     return await genericHandler(
-      "auditSubmission",
+      'auditSubmission',
       candidatePubkey,
       isValid,
       voterKeypair,
-      round
+      round,
     );
   }
 
@@ -158,75 +198,75 @@ class NamespaceWrapper {
     candidatePubkey,
     isValid,
     voterKeypair,
-    round
+    round,
   ) {
     return await genericHandler(
-      "distributionListAuditSubmission",
+      'distributionListAuditSubmission',
       candidatePubkey,
       isValid,
-      round
+      round,
     );
   }
 
   async getRound() {
-    return await genericHandler("getRound");
+    return await genericHandler('getRound');
   }
 
   async nodeSelectionDistributionList() {
-    return await genericHandler("nodeSelectionDistributionList");
+    return await genericHandler('nodeSelectionDistributionList');
   }
 
   async payoutTrigger() {
-    return await genericHandler("payloadTrigger");
+    return await genericHandler('payloadTrigger');
   }
 
   async uploadDistributionList(distributionList, round) {
     return await genericHandler(
-      "uploadDistributionList",
+      'uploadDistributionList',
       distributionList,
-      round
+      round,
     );
   }
 
   async distributionListSubmissionOnChain(round) {
-    return await genericHandler("distributionListSubmissionOnChain", round);
+    return await genericHandler('distributionListSubmissionOnChain', round);
   }
 
   async payloadTrigger() {
-    return await genericHandler("payloadTrigger");
+    return await genericHandler('payloadTrigger');
   }
 
-  async checkSubmissionAndUpdateRound(submissionValue = "default", round) {
+  async checkSubmissionAndUpdateRound(submissionValue = 'default', round) {
     return await genericHandler(
-      "checkSubmissionAndUpdateRound",
+      'checkSubmissionAndUpdateRound',
       submissionValue,
-      round
+      round,
     );
   }
   async getProgramAccounts() {
-    return await genericHandler("getProgramAccounts");
+    return await genericHandler('getProgramAccounts');
   }
   async defaultTaskSetup() {
-    return await genericHandler("defaultTaskSetup");
+    return await genericHandler('defaultTaskSetup');
   }
   async getRpcUrl() {
-    return await genericHandler("getRpcUrl");
+    return await genericHandler('getRpcUrl');
   }
   async getNodes(url) {
-    return await genericHandler("getNodes", url);
+    return await genericHandler('getNodes', url);
   }
 
   // Wrapper for selection of node to prepare a distribution list
 
   async nodeSelectionDistributionList(round) {
-    return await genericHandler("nodeSelectionDistributionList", round);
+    return await genericHandler('nodeSelectionDistributionList', round);
   }
 
   async getDistributionList(publicKey, round) {
     const response = await genericHandler(
-      "getDistributionList",
+      'getDistributionList',
       publicKey,
-      round
+      round,
     );
     if (response.error) {
       return null;
@@ -235,36 +275,36 @@ class NamespaceWrapper {
   }
 
   async validateAndVoteOnNodes(validate, round) {
-    console.log("******/  IN VOTING /******");
+    console.log('******/  IN VOTING /******');
     const taskAccountDataJSON = await this.getTaskState();
 
     console.log(
-      "Fetching the submissions of N - 1 round",
-      taskAccountDataJSON.submissions[round]
+      'Fetching the submissions of N - 1 round',
+      taskAccountDataJSON.submissions[round],
     );
     const submissions = taskAccountDataJSON.submissions[round];
     if (submissions == null) {
-      console.log("No submisssions found in N-1 round");
-      return "No submisssions found in N-1 round";
+      console.log('No submisssions found in N-1 round');
+      return 'No submisssions found in N-1 round';
     } else {
       const keys = Object.keys(submissions);
       const values = Object.values(submissions);
       const size = values.length;
-      console.log("Submissions from last round: ", keys, values, size);
+      console.log('Submissions from last round: ', keys, values, size);
       let isValid;
       const submitterAccountKeyPair = await this.getSubmitterAccount();
       const submitterPubkey = submitterAccountKeyPair.publicKey.toBase58();
       for (let i = 0; i < size; i++) {
         let candidatePublicKey = keys[i];
-        console.log("FOR CANDIDATE KEY", candidatePublicKey);
+        console.log('FOR CANDIDATE KEY', candidatePublicKey);
         let candidateKeyPairPublicKey = new PublicKey(keys[i]);
         if (candidatePublicKey == submitterPubkey) {
-          console.log("YOU CANNOT VOTE ON YOUR OWN SUBMISSIONS");
+          console.log('YOU CANNOT VOTE ON YOUR OWN SUBMISSIONS');
         } else {
           try {
             console.log(
-              "SUBMISSION VALUE TO CHECK",
-              values[i].submission_value
+              'SUBMISSION VALUE TO CHECK',
+              values[i].submission_value,
             );
             isValid = await validate(values[i].submission_value, round);
             console.log(`Voting ${isValid} to ${candidatePublicKey}`);
@@ -273,7 +313,7 @@ class NamespaceWrapper {
               // check for the submissions_audit_trigger , if it exists then vote true on that otherwise do nothing
               const submissions_audit_trigger =
                 taskAccountDataJSON.submissions_audit_trigger[round];
-              console.log("SUBMIT AUDIT TRIGGER", submissions_audit_trigger);
+              console.log('SUBMIT AUDIT TRIGGER', submissions_audit_trigger);
               // console.log(
               //   "CANDIDATE PUBKEY CHECK IN AUDIT TRIGGER",
               //   submissions_audit_trigger[candidatePublicKey]
@@ -282,28 +322,28 @@ class NamespaceWrapper {
                 submissions_audit_trigger &&
                 submissions_audit_trigger[candidatePublicKey]
               ) {
-                console.log("VOTING TRUE ON AUDIT");
+                console.log('VOTING TRUE ON AUDIT');
                 const response = await this.auditSubmission(
                   candidateKeyPairPublicKey,
                   isValid,
                   submitterAccountKeyPair,
-                  round
+                  round,
                 );
-                console.log("RESPONSE FROM AUDIT FUNCTION", response);
+                console.log('RESPONSE FROM AUDIT FUNCTION', response);
               }
             } else if (isValid == false) {
               // Call auditSubmission function and isValid is passed as false
-              console.log("RAISING AUDIT / VOTING FALSE");
+              console.log('RAISING AUDIT / VOTING FALSE');
               const response = await this.auditSubmission(
                 candidateKeyPairPublicKey,
                 isValid,
                 submitterAccountKeyPair,
-                round
+                round,
               );
-              console.log("RESPONSE FROM AUDIT FUNCTION", response);
+              console.log('RESPONSE FROM AUDIT FUNCTION', response);
             }
           } catch (err) {
-            console.log("ERROR IN ELSE CONDITION", err);
+            console.log('ERROR IN ELSE CONDITION', err);
           }
         }
       }
@@ -312,26 +352,26 @@ class NamespaceWrapper {
 
   async validateAndVoteOnDistributionList(validateDistribution, round) {
     // await this.checkVoteStatus();
-    console.log("******/  IN VOTING OF DISTRIBUTION LIST /******");
+    console.log('******/  IN VOTING OF DISTRIBUTION LIST /******');
     const taskAccountDataJSON = await this.getTaskState();
     console.log(
-      "Fetching the Distribution submissions of N - 2 round",
-      taskAccountDataJSON.distribution_rewards_submission[round]
+      'Fetching the Distribution submissions of N - 2 round',
+      taskAccountDataJSON.distribution_rewards_submission[round],
     );
     const submissions =
       taskAccountDataJSON.distribution_rewards_submission[round];
     if (submissions == null) {
-      console.log("No submisssions found in N-2 round");
-      return "No submisssions found in N-2 round";
+      console.log('No submisssions found in N-2 round');
+      return 'No submisssions found in N-2 round';
     } else {
       const keys = Object.keys(submissions);
       const values = Object.values(submissions);
       const size = values.length;
       console.log(
-        "Distribution Submissions from last round: ",
+        'Distribution Submissions from last round: ',
         keys,
         values,
-        size
+        size,
       );
       let isValid;
       const submitterAccountKeyPair = await this.getSubmitterAccount();
@@ -339,19 +379,19 @@ class NamespaceWrapper {
 
       for (let i = 0; i < size; i++) {
         let candidatePublicKey = keys[i];
-        console.log("FOR CANDIDATE KEY", candidatePublicKey);
+        console.log('FOR CANDIDATE KEY', candidatePublicKey);
         let candidateKeyPairPublicKey = new PublicKey(keys[i]);
         if (candidatePublicKey == submitterPubkey) {
-          console.log("YOU CANNOT VOTE ON YOUR OWN DISTRIBUTION SUBMISSIONS");
+          console.log('YOU CANNOT VOTE ON YOUR OWN DISTRIBUTION SUBMISSIONS');
         } else {
           try {
             console.log(
-              "DISTRIBUTION SUBMISSION VALUE TO CHECK",
-              values[i].submission_value
+              'DISTRIBUTION SUBMISSION VALUE TO CHECK',
+              values[i].submission_value,
             );
             isValid = await validateDistribution(
               values[i].submission_value,
-              round
+              round,
             );
             console.log(`Voting ${isValid} to ${candidatePublicKey}`);
 
@@ -360,8 +400,8 @@ class NamespaceWrapper {
               const distributions_audit_trigger =
                 taskAccountDataJSON.distributions_audit_trigger[round];
               console.log(
-                "SUBMIT DISTRIBUTION AUDIT TRIGGER",
-                distributions_audit_trigger
+                'SUBMIT DISTRIBUTION AUDIT TRIGGER',
+                distributions_audit_trigger,
               );
               // console.log(
               //   "CANDIDATE PUBKEY CHECK IN AUDIT TRIGGER",
@@ -371,41 +411,41 @@ class NamespaceWrapper {
                 distributions_audit_trigger &&
                 distributions_audit_trigger[candidatePublicKey]
               ) {
-                console.log("VOTING TRUE ON DISTRIBUTION AUDIT");
+                console.log('VOTING TRUE ON DISTRIBUTION AUDIT');
                 const response = await this.distributionListAuditSubmission(
                   candidateKeyPairPublicKey,
                   isValid,
                   submitterAccountKeyPair,
-                  round
+                  round,
                 );
                 console.log(
-                  "RESPONSE FROM DISTRIBUTION AUDIT FUNCTION",
-                  response
+                  'RESPONSE FROM DISTRIBUTION AUDIT FUNCTION',
+                  response,
                 );
               }
             } else if (isValid == false) {
               // Call auditSubmission function and isValid is passed as false
-              console.log("RAISING AUDIT / VOTING FALSE ON DISTRIBUTION");
+              console.log('RAISING AUDIT / VOTING FALSE ON DISTRIBUTION');
               const response = await this.distributionListAuditSubmission(
                 candidateKeyPairPublicKey,
                 isValid,
                 submitterAccountKeyPair,
-                round
+                round,
               );
               console.log(
-                "RESPONSE FROM DISTRIBUTION AUDIT FUNCTION",
-                response
+                'RESPONSE FROM DISTRIBUTION AUDIT FUNCTION',
+                response,
               );
             }
           } catch (err) {
-            console.log("ERROR IN ELSE CONDITION FOR DISTRIBUTION", err);
+            console.log('ERROR IN ELSE CONDITION FOR DISTRIBUTION', err);
           }
         }
       }
     }
   }
   async getTaskLevelDBPath() {
-    return await genericHandler("getTaskLevelDBPath");
+    return await genericHandler('getTaskLevelDBPath');
   }
 }
 
@@ -430,9 +470,9 @@ async function genericHandler(...args) {
 let connection;
 const namespaceWrapper = new NamespaceWrapper();
 if (taskNodeAdministered) {
-  namespaceWrapper.getRpcUrl().then((rpcUrl) => {
-    console.log(rpcUrl, "RPC URL");
-    connection = new Connection(rpcUrl, "confirmed");
+  namespaceWrapper.getRpcUrl().then(rpcUrl => {
+    console.log(rpcUrl, 'RPC URL');
+    connection = new Connection(rpcUrl, 'confirmed');
   });
 }
 module.exports = {

@@ -2,56 +2,77 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
-
+const axios = require("axios");
 class CoreLogic {
+  errorCount = 0;
   async task() {
-    const browserFetcher = puppeteer.createBrowserFetcher({
-      product: "firefox",
-    });
-    const browserRevision = "114.0a1";
-    console.log("DOWNLOADING STARTED");
-    let revisionInfo = await browserFetcher.download(browserRevision);
-    console.log("DOWNLOADING FINISHED", revisionInfo);
-    const browser = await puppeteer.launch({
-      executablePath: revisionInfo.executablePath,
-      product: "firefox",
-      headless: "new", // other options can be included here
-    });
-    const page = await browser.newPage();
-    await page.goto("https://www.google.com/doodles");
-    let bodyHTML = await page.evaluate(
-      () => document.documentElement.outerHTML
-    );
-    const $ = cheerio.load(bodyHTML);
-
-    let scrapedDoodle = $(".latest-doodle.on")
-      .find("div > div > a > img")
-      .attr("src");
-    if (scrapedDoodle.substring(0, 2) == "//") {
-      scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
-    }
-    //console.log({scrapedDoodle});
-
-    console.log("SUBMISSION VALUE", scrapedDoodle);
-    const stringfy = JSON.stringify(scrapedDoodle);
-
-    // store this work of fetching googleDoodle to levelDB
-
     try {
-      await namespaceWrapper.storeSet("doodle", stringfy);
+      let scrapedDoodle = await this.scrapeData();
+      console.log({ scrapedDoodle });
+      // store this work of fetching googleDoodle to nedb
+      await namespaceWrapper.storeSet("doodle", scrapedDoodle);
     } catch (err) {
       console.log("error", err);
     }
-    browser.close();
   }
 
+  async scrapeData() {
+    let browser;
+    try {
+      let firefoxVersions = (
+        await axios.get(
+          "https://product-details.mozilla.org/1.0/firefox_versions.json"
+        )
+      ).data;
+      const browserFetcher = puppeteer.createBrowserFetcher({
+        product: "firefox",
+      });
+      console.log("Fetching latest browser revision...");
+      const localRevisions = await browserFetcher.localRevisions();
+      console.log({ localRevisions });
+      const browserRevision = firefoxVersions.FIREFOX_NIGHTLY || "115.0a1";
+      console.log("LATEST BROWSER REVISION", browserRevision);
+
+      console.log("DOWNLOADING STARTED");
+      let revisionInfo = await browserFetcher.download(browserRevision);
+      console.log("DOWNLOADING FINISHED", revisionInfo);
+      browser = await puppeteer.launch({
+        executablePath: revisionInfo.executablePath,
+        product: "firefox",
+        headless: "new", // other options can be included here
+      });
+      const page = await browser.newPage();
+      await page.goto("https://www.google.com/doodles");
+      let bodyHTML = await page.evaluate(
+        () => document.documentElement.outerHTML
+      );
+      const $ = cheerio.load(bodyHTML);
+
+      let scrapedDoodle = $(".latest-doodle.on")
+        .find("div > div > a > img")
+        .attr("src");
+      if (scrapedDoodle.substring(0, 2) == "//") {
+        scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
+      }
+      //console.log({scrapedDoodle});
+      console.log("SUBMISSION VALUE", scrapedDoodle);
+      browser.close();
+      this.errorCount = 0;
+      return scrapedDoodle;
+    } catch (err) {
+      console.log("error", err);
+      if (browser && browser.close) browser.close();
+      this.errorCount += 1;
+    }
+    if (this.errorCount > 4) {
+      process.exit(1);
+    }
+  }
   async fetchSubmission() {
     // Write the logic to fetch the submission values here, this is be the final work submitted to K2
 
     try {
-      const scrappedDoodle = JSON.parse(
-        await namespaceWrapper.storeGet("doodle")
-      );
+      const scrappedDoodle = await namespaceWrapper.storeGet("doodle");
       console.log("Receievd Doodle", scrappedDoodle);
       return scrappedDoodle;
     } catch (err) {
@@ -207,44 +228,16 @@ class CoreLogic {
 
   async validateNode(submission_value) {
     // Write your logic for the validation of submission value here and return a boolean value in response
-
     let vote;
-    console.log("SUBMISSION VALUE", submission_value);
-    const doodle = submission_value;
-    //const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
-    console.log("URL", doodle);
-
-    // check the google doodle
-    const browserFetcher = puppeteer.createBrowserFetcher({
-      product: "firefox",
-    });
-    const browserRevision = "114.0a1";
-    console.log("DOWNLOADING STARTED");
-    let revisionInfo = await browserFetcher.download(browserRevision);
-    console.log("DOWNLOADING FINISHED", revisionInfo);
-    const browser = await puppeteer.launch({
-      executablePath: revisionInfo.executablePath,
-      product: "firefox",
-      headless: "new", // other options can be included here
-    });
-    const page = await browser.newPage();
-    await page.goto("https://www.google.com/doodles");
-    let bodyHTML = await page.evaluate(
-      () => document.documentElement.outerHTML
-    );
-    const $ = cheerio.load(bodyHTML);
-
-    let scrapedDoodle = $(".latest-doodle.on")
-      .find("div > div > a > img")
-      .attr("src");
-    if (scrapedDoodle.substring(0, 2) == "//") {
-      scrapedDoodle = scrapedDoodle.substring(2, scrapedDoodle.length);
-    }
-    console.log({ scrapedDoodle });
-
-    // vote based on the scrapedDoodle
 
     try {
+      console.log("SUBMISSION VALUE", submission_value);
+      const doodle = submission_value;
+      //const doodle = "www.google.com/logos/doodles/2023/lithuania-independence-day-2023-6753651837109677-2xa.gif"
+      console.log("URL", doodle);
+      const scrapedDoodle = await this.scrapeData();
+      console.log({ scrapedDoodle });
+      // vote based on the scrapedDoodle
       if (scrapedDoodle == doodle) {
         vote = true;
       } else {
@@ -254,7 +247,6 @@ class CoreLogic {
       console.error(e);
       vote = false;
     }
-    browser.close();
     return vote;
   }
 
@@ -310,7 +302,7 @@ class CoreLogic {
       );
       const value = await this.fetchSubmission();
       console.log("value", value);
-      if (value == null) return;
+      if (!value) return;
       await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
       console.log("after the submission call");
     } catch (error) {
