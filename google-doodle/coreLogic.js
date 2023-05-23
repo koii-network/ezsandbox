@@ -3,6 +3,9 @@ const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 const axios = require("axios");
+puppeteer.createBrowserFetcher({
+  product: "firefox",
+});
 class CoreLogic {
   errorCount = 0;
   async task() {
@@ -36,9 +39,8 @@ class CoreLogic {
       console.log("DOWNLOADING STARTED");
       let revisionInfo = await browserFetcher.download(browserRevision);
       console.log("DOWNLOADING FINISHED", revisionInfo);
-      const firefoxExecutablePath = revisionInfo.executablePath.replace("puppeteer/firefox","puppeteer/chrome");
       browser = await puppeteer.launch({
-        executablePath: firefoxExecutablePath,
+        executablePath: revisionInfo.executablePath,
         product: "firefox",
         headless: "new", // other options can be included here
       });
