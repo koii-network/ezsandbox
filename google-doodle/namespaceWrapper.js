@@ -55,7 +55,7 @@ class NamespaceWrapper {
   async storeSet(key, value) {
     try {
       await this.initializeDB();
-      await this.#db.insert({ [key]: value, key });
+      await this.db.update({ key: key }, { [key]: value, key }, { upsert: true })
     } catch (e) {
       console.error(e);
       return undefined;
