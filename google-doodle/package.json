@@ -18,7 +18,8 @@
     "express": "^4.18.1",
     "nedb-promises": "^6.2.1",
     "node-cron": "^3.0.2",
-    "puppeteer": "^19.7.2",
+    "puppeteer": "^19.11.0",
+    "puppeteer-chromium-resolver": "^19.1.0",
     "request": "^2.88.2",
     "web3.storage": "^4.4.0"
   },

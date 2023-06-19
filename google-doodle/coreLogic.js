@@ -1,9 +1,10 @@
 const puppeteer = require("puppeteer");
+const pcr = require("puppeteer-chromium-resolver");
 const cheerio = require("cheerio");
 const { namespaceWrapper } = require("./namespaceWrapper");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 const axios = require("axios");
-const fs = require("fs")
+const fs = require("fs");
 class CoreLogic {
   errorCount = 0;
   async task() {
@@ -20,33 +21,11 @@ class CoreLogic {
   scrapeData = async () => {
     let browser;
     try {
-      let firefoxVersions = (
-        await axios.get(
-          "https://product-details.mozilla.org/1.0/firefox_versions.json"
-        )
-      ).data;
-      const browserFetcher = puppeteer.createBrowserFetcher({
-        product: "firefox",
-      });
-      console.log("Fetching latest browser revision...");
-      const localRevisions = await browserFetcher.localRevisions();
-      console.log({ localRevisions });
-      const browserRevision = firefoxVersions.FIREFOX_NIGHTLY || "115.0a1";
-      console.log("LATEST BROWSER REVISION", browserRevision);
+      const options = {};
+      const stats = await pcr(options);
 
-      console.log("DOWNLOADING STARTED");
-      let revisionInfo = await browserFetcher.download(browserRevision);
-      console.log("DOWNLOADING FINISHED", revisionInfo);
-      let  firefoxExecutablePath = revisionInfo.executablePath
-      if(!fs.existsSync(firefoxExecutablePath)){
-        console.log("using chrome path")
-        firefoxExecutablePath=firefoxExecutablePath.replace("puppeteer/firefox","puppeteer/chrome");
-      }
-      browser = await puppeteer.launch({
-        executablePath: firefoxExecutablePath,
-        product: "firefox",
-        headless: "new", // other options can be included here
-        timeout: 60_000
+      browser = await stats.puppeteer.launch({
+        executablePath: stats.executablePath,
       });
       const page = await browser.newPage();
       await page.goto("https://www.google.com/doodles");
@@ -316,7 +295,7 @@ class CoreLogic {
     } catch (error) {
       console.log("error in submission", error);
     }
-  }
+  };
 
   async auditTask(roundNumber) {
     console.log("auditTask called with round", roundNumber);
