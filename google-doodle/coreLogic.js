@@ -1,7 +1,6 @@
-const puppeteer = require("puppeteer");
 const pcr = require("puppeteer-chromium-resolver");
 const cheerio = require("cheerio");
-const { namespaceWrapper } = require("./namespaceWrapper");
+const { namespaceWrapper } = require("./_koiiNode/koiiNode");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 const axios = require("axios");
 const fs = require("fs");
@@ -13,6 +12,7 @@ class CoreLogic {
       console.log({ scrapedDoodle });
       // store this work of fetching googleDoodle to nedb
       await namespaceWrapper.storeSet("doodle", scrapedDoodle);
+      return scrapedDoodle;
     } catch (err) {
       console.log("error", err);
     }

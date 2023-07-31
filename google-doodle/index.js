@@ -1,9 +1,9 @@
 const { coreLogic } = require("./coreLogic");
-const { app } = require("./init");
 const {
   namespaceWrapper,
   taskNodeAdministered,
-} = require("./namespaceWrapper");
+  app,
+} = require("./_koiiNode/koiiNode");
 
 async function setup() {
   console.log("setup function called");
