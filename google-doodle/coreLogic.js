@@ -31,10 +31,10 @@ class CoreLogic {
         executablePath: stats.executablePath,
       });
       const page = await browser.newPage();
-      await this.page.setUserAgent(
+      await page.setUserAgent(
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
       );
-      await this.page.setViewport({ width: 1024, height: 768 });
+      await page.setViewport({ width: 1024, height: 768 });
       await page.goto("https://www.google.com/doodles");
       let bodyHTML = await page.evaluate(
         () => document.documentElement.outerHTML
