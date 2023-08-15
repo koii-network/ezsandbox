@@ -244,44 +244,67 @@ class CoreLogic {
     return vote;
   };
 
-  async shallowEqual(object1, object2) {
-    const keys1 = Object.keys(object1);
-    const keys2 = Object.keys(object2);
+  async shallowEqual(parsed, generateDistributionList) {
+    if (typeof parsed === "string") {
+      parsed = JSON.parse(parsed);
+    }
+
+    // Normalize key quote usage for generateDistributionList
+    generateDistributionList = JSON.parse(
+      JSON.stringify(generateDistributionList)
+    );
+
+    const keys1 = Object.keys(parsed);
+    const keys2 = Object.keys(generateDistributionList);
     if (keys1.length !== keys2.length) {
       return false;
     }
+
     for (let key of keys1) {
-      if (object1[key] !== object2[key]) {
+      if (parsed[key] !== generateDistributionList[key]) {
         return false;
       }
     }
     return true;
   }
 
-  validateDistribution = async (distributionListSubmitter, round) => {
+  validateDistribution = async (
+    distributionListSubmitter,
+    round,
+    _dummyDistributionList,
+    _dummyTaskState
+  ) => {
     try {
-      // Write your logic for the validation of submission value here and return a boolean value in response
-      // this logic can be same as generation of distribution list function and based on the comparision will final object , decision can be made
       console.log("Distribution list Submitter", distributionListSubmitter);
-      const fetchedDistributionList = JSON.parse(
-        await namespaceWrapper.getDistributionList(
-          distributionListSubmitter,
-          round
-        )
+      const rawDistributionList = await namespaceWrapper.getDistributionList(
+        distributionListSubmitter,
+        round
       );
+      let fetchedDistributionList;
+      if (rawDistributionList == null) {
+        fetchedDistributionList = _dummyDistributionList;
+      } else {
+        fetchedDistributionList = JSON.parse(rawDistributionList);
+      }
       console.log("FETCHED DISTRIBUTION LIST", fetchedDistributionList);
       const generateDistributionList = await this.generateDistributionList(
-        round
+        round,
+        _dummyTaskState
       );
 
       // compare distribution list
 
-      const parsed = JSON.parse(fetchedDistributionList);
+      const parsed = fetchedDistributionList;
+      console.log(
+        "compare distribution list",
+        parsed,
+        generateDistributionList
+      );
       const result = await this.shallowEqual(parsed, generateDistributionList);
       console.log("RESULT", result);
       return result;
     } catch (err) {
-      console.log("ERROR IN CATCH", err);
+      console.log("ERROR IN VALIDATING DISTRIBUTION", err);
       return false;
     }
   };
