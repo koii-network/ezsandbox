@@ -22,7 +22,7 @@ class CoreLogic {
 
     try {
       const value = await namespaceWrapper.storeGet("value"); // retrieves the value
-      console.log("VALUE", value);
+      // console.log("VALUE", value);
       return value;
     } catch (err) {
       console.log("Error", err);
@@ -119,9 +119,9 @@ class CoreLogic {
       //   distributionCandidates.length;
       // the reward is now fixed to 1 KOII per round per node
       const reward = 1 * LAMPORTS_PER_SOL;
-      console.log("REWARD PER NODE IN LAMPORTS", reward);
-      console.log("REWARD RECEIVED BY EACH NODE", reward);
-      if (distributionCandidates.length < 10000) {
+      // console.log("REWARD PER NODE IN LAMPORTS", reward);
+      // console.log("REWARD RECEIVED BY EACH NODE", reward);
+      if (distributionCandidates.length < 20000) {
         for (let i = 0; i < distributionCandidates.length; i++) {
           distributionList[distributionCandidates[i]] = reward;
         }
@@ -129,7 +129,7 @@ class CoreLogic {
         // randomly select 1000 nodes
         const selectedNodes = [];
 
-        while (selectedNodes.length < 10000) {
+        while (selectedNodes.length < 20000) {
           const randomIndex = Math.floor(
             Math.random() * distributionCandidates.length
           );
@@ -160,7 +160,7 @@ class CoreLogic {
       distributionList,
       round
     );
-    console.log("DECIDER", decider);
+    // console.log("DECIDER", decider);
 
     if (decider) {
       const response = await namespaceWrapper.distributionListSubmissionOnChain(
@@ -173,7 +173,7 @@ class CoreLogic {
   validateNode = async (submission_value, round) => {
     // Write your logic for the validation of submission value here and return a boolean value in response
     let vote;
-    console.log("SUBMISSION VALUE", submission_value, round);
+    // console.log("SUBMISSION VALUE", submission_value, round);
     try {
       if (submission_value == "Hello, World!") {
         // For successful flow we return true (Means the audited node submission is correct)
@@ -231,7 +231,7 @@ class CoreLogic {
       } else {
         fetchedDistributionList = JSON.parse(rawDistributionList);
       }
-      console.log("FETCHED DISTRIBUTION LIST", fetchedDistributionList);
+      // console.log("FETCHED DISTRIBUTION LIST", fetchedDistributionList);
       const generateDistributionList = await this.generateDistributionList(
         round,
         _dummyTaskState
@@ -240,11 +240,11 @@ class CoreLogic {
       // compare distribution list
 
       const parsed = fetchedDistributionList;
-      console.log(
-        "compare distribution list",
-        parsed,
-        generateDistributionList
-      );
+      // console.log(
+      //   "compare distribution list",
+      //   parsed,
+      //   generateDistributionList
+      // );
       const result = await this.shallowEqual(parsed, generateDistributionList);
       console.log("RESULT", result);
       return result;
@@ -263,7 +263,7 @@ class CoreLogic {
         "current slot while calling submit"
       );
       const value = await this.fetchSubmission();
-      console.log("value", value);
+      // console.log("value", value);
       if (!value) return;
       await namespaceWrapper.checkSubmissionAndUpdateRound(value, roundNumber);
       console.log("after the submission call");
