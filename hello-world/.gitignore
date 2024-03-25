@@ -7,3 +7,4 @@ localKOIIDB.db
 .DS_Store
 config-task.yml
 taskStateInfoKeypair.json
+.env

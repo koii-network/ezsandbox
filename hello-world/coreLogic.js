@@ -1,11 +1,12 @@
 const { namespaceWrapper } = require("./_koiiNode/koiiNode");
 const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
+const dummyComputation = require("./dummyComputation.js");
 
 class CoreLogic {
   async task() {
     try {
+      dummyComputation();
       const value = "Hello, World!";
-
       if (value) {
         // store value on NeDB
         await namespaceWrapper.storeSet("value", value);
