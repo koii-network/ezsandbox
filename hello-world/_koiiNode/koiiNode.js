@@ -728,7 +728,7 @@ class NamespaceWrapper {
     }
   }
 
-  async validateAndVoteOnDistributionList(validateDistribution, round) {
+  async validateAndVoteOnDistributionList(validateDistribution, round, isPreviousRoundFailed = false) {
     // await this.checkVoteStatus();
     console.log('******/  IN VOTING OF DISTRIBUTION LIST /******');
     const taskAccountDataJSON = await this.getTaskState();
@@ -754,23 +754,36 @@ class NamespaceWrapper {
       let isValid;
       const submitterAccountKeyPair = await this.getSubmitterAccount();
       const submitterPubkey = submitterAccountKeyPair.publicKey.toBase58();
-
+      const selectedNode = await this.nodeSelectionDistributionList(
+        round,
+        isPreviousRoundFailed,
+      );
+      console.log('SELECTED NODE FOR AUDIT', selectedNode);
+      if (selectedNode == submitterPubkey) {
+        console.log('YOU CANNOT VOTE ON YOUR OWN DISTRIBUTION SUBMISSIONS');
+        return;
+      }
       for (let i = 0; i < size; i++) {
         let candidatePublicKey = keys[i];
         console.log('FOR CANDIDATE KEY', candidatePublicKey);
         let candidateKeyPairPublicKey = new PublicKey(keys[i]);
-        if (candidatePublicKey == submitterPubkey) {
-          console.log('YOU CANNOT VOTE ON YOUR OWN DISTRIBUTION SUBMISSIONS');
-        } else {
           try {
             console.log(
               'DISTRIBUTION SUBMISSION VALUE TO CHECK',
               values[i].submission_value,
             );
-            isValid = await validateDistribution(
-              values[i].submission_value,
-              round,
-            );
+            if(selectedNode != candidatePublicKey) {
+              console.log(
+                `${candidatePublicKey} IS NOT A SELECTED NODE FOR DISTRIBUTION ROUND ${round}`,
+              );
+              isValid = false;
+            }
+            else {
+                isValid = await validateDistribution(
+                values[i].submission_value,
+                round,
+                );
+            }
             console.log(`Voting ${isValid} to ${candidatePublicKey}`);
 
             if (isValid) {
@@ -818,7 +831,6 @@ class NamespaceWrapper {
           } catch (err) {
             console.log('ERROR IN ELSE CONDITION FOR DISTRIBUTION', err);
           }
-        }
       }
     }
   }
