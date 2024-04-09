@@ -1,0 +1,13 @@
+{
+  "author": "Soma",
+  "description": "This task submits 'Hello World' to confirm that your node is online. You will earn up to 10 KOII in one day. This task will use around 1.5gb of your RAM.",
+  "repositoryUrl": "https://github.com/koii-network/task-examples",
+  "createdAt": 1712158343146,
+  "migrationDescription": "Release new version of the Twitter Crawler task. This version update bounty amount per round to 1000 KOII.",
+  "imageUrl": "https://bafybeiaxjv3wnyeuakhvpeah5aiuomswegn2qfk47w6hrd475gkibflhvy.ipfs.sphn.link/image.png",
+  "requirementsTags": [
+    { "type": "CPU", "value": "4-core" },
+    { "type": "RAM", "value": "5 GB" },
+    { "type": "STORAGE", "value": "5 GB" }
+  ]
+}

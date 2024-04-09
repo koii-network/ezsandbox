@@ -119,7 +119,7 @@ class CoreLogic {
       //   taskAccountDataJSON.bounty_amount_per_round /
       //   distributionCandidates.length;
       // the reward is now fixed to 1 KOII per round per node
-      const reward = 1 * LAMPORTS_PER_SOL;
+      const reward = 0.5 * LAMPORTS_PER_SOL;
       // console.log("REWARD PER NODE IN LAMPORTS", reward);
       // console.log("REWARD RECEIVED BY EACH NODE", reward);
       if (distributionCandidates.length < 20000) {
@@ -152,24 +152,35 @@ class CoreLogic {
     }
   }
 
-  async submitDistributionList(round) {
-    console.log("SubmitDistributionList called");
-
-    const distributionList = await this.generateDistributionList(round);
-
-    const decider = await namespaceWrapper.uploadDistributionList(
-      distributionList,
-      round
+  async selectAndGenerateDistributionList(
+    round,
+    isPreviousRoundFailed = false
+  ) {
+    await namespaceWrapper.selectAndGenerateDistributionList(
+      this.submitDistributionList,
+      round,
+      isPreviousRoundFailed
     );
-    // console.log("DECIDER", decider);
+  }
 
-    if (decider) {
-      const response = await namespaceWrapper.distributionListSubmissionOnChain(
+  submitDistributionList = async (round) => {
+    console.log("SUBMIT DISTRIBUTION LIST CALLED WITH ROUND", round);
+    try {
+      const distributionList = await this.generateDistributionList(round);
+      const decider = await namespaceWrapper.uploadDistributionList(
+        distributionList,
         round
       );
-      console.log("RESPONSE FROM DISTRIBUTION LIST", response);
+      console.log("DECIDER", decider);
+      if (decider) {
+        const response =
+          await namespaceWrapper.distributionListSubmissionOnChain(round);
+        console.log("RESPONSE FROM DISTRIBUTION LIST", response);
+      }
+    } catch (err) {
+      console.log("ERROR IN SUBMIT DISTRIBUTION", err);
     }
-  }
+  };
 
   validateNode = async (submission_value, round) => {
     // Write your logic for the validation of submission value here and return a boolean value in response
