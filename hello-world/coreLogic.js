@@ -5,7 +5,6 @@ const dummyComputation = require("./dummyComputation.js");
 class CoreLogic {
   async task() { 
 
-    console.log('TEST1234')
     try {
       dummyComputation();
       const value = "Hello, World!";
