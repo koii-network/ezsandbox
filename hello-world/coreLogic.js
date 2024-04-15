@@ -3,7 +3,9 @@ const { LAMPORTS_PER_SOL } = require("@_koi/web3.js");
 const dummyComputation = require("./dummyComputation.js");
 
 class CoreLogic {
-  async task() {
+  async task() { 
+
+    console.log('TEST1234')
     try {
       dummyComputation();
       const value = "Hello, World!";
@@ -15,9 +17,9 @@ class CoreLogic {
     } catch (err) {
       console.log("ERROR IN EXECUTING TASK", err);
       return "ERROR IN EXECUTING TASK" + err;
-    }
+    } 
   }
-
+ 
   async fetchSubmission() {
     // Write the logic to fetch the submission values here, this is be the final work submitted to K2
 
