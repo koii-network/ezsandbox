@@ -29,6 +29,8 @@ This lesson will teach you:
  - How to connect to your node
  - How to build your Task Module and ship it for production
 
+[Start Here](./Lesson%201/README.md)
+
 ## Lesson 2: Storage & Networking 
 Once we've got the basics down, it's time to move on to some standard use cases for decentralized applications. 
 
