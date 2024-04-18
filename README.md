@@ -1,4 +1,4 @@
-Powered by Koii - Over 60,000 community devices at your fingertips
+Powered by [Koii](https://koii.network) - Over 60,000 community devices at your fingertips
 
 # Welcome to EZSandbox
 In this series of workshops, we'll get you up and running to build your first community-hosted application in no time.
@@ -36,6 +36,8 @@ Once we've got the basics down, it's time to move on to some standard use cases 
 
 To get started, we'll build out a simple file server and add some HTTP server endpoints. Once that's online, we will deploy our app onto a group of nodes with docker, and have them send a file around to eachother. 
 
+[Start Here](./Lesson%202/README.md)
+
 ## Lesson 3: Data Sharing & Replication Incentives
 With this step online, we can now start to add audit mechanisms and incentives.
 
@@ -43,14 +45,22 @@ Audits keep things secure, allowing nodes to verify eachother's work.
 
 Incentives allow the Task to make payments, either in KOII, USDC, or another token (your own, if you dare!) and reward nodes that pass audits.
 
+Start Here (Coming Soon)
+
 ## Lesson 4: Security and Hardening
 with the basics implemented, this lesson will cover how to add authorized accounts, verify signatures, and manage general authentication and data authority issues. 
 
+Start Here (Coming Soon)
+
 ## Lesson 5: Getting faucet tokens and deploying your task
 Once everything is tightened down, it's time to get your community and start running nodes. We'll get you a small grant in KOII to fund your task bounty, deploy the task, and run it on your node.
+
+Start Here (Coming Soon)
 
 ## Lesson 6: Performance Improvements & Iteration Lifecycle
 After your task is live, it's time to consider improving your work.
 
 In this final lesson, we'll cover some tips on debugging, multi-node simulations, and how to publish an update to your Task. 
-# ezsandbox
+
+
+Start Here (Coming Soon)
