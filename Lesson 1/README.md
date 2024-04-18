@@ -1,7 +1,7 @@
 # Lesson 1: Your Node
 This lesson covers how to get started hacking on your node.
 
-## I. Getting Started
+## Part I. Getting Started
 The big advantage of building with Koii is that our community of node operators are already prepared and eager to join your new project.
 
 Node operators run their Node in the background on personal devices, so they can use excess capacity to run your app.
@@ -49,4 +49,4 @@ The key here is that each 'namespace' belongs to one Task, and all requisite log
 
 In the next lesson we'll make use of this to start hacking on our node.
 
-## II. 
+[Start Hacking in Part II](./lesson_parts/PartII.md)
