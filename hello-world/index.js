@@ -6,7 +6,7 @@ const {
 } = require("./_koiiNode/koiiNode");
 
 async function setup() {
- 
+  console.log('TEST1234 - SOMA IS COOL')
   console.log("setup function called");
   // Run default setup
   await namespaceWrapper.defaultTaskSetup();
