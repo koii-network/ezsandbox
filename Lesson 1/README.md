@@ -49,4 +49,4 @@ The key here is that each 'namespace' belongs to one Task, and all requisite log
 
 In the next lesson we'll make use of this to start hacking on our node.
 
-[Start Hacking in Part II: Task Flow](./lesson_parts/PartII.md)
+[Start Hacking in Part II: Task Flow](./PartII.md)
