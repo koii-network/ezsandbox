@@ -2,14 +2,18 @@
 
 Now that your node is up and running, you'll want to start by getting the feel for the logs.
 
-## 
+## Debugging 
 ### Logs
 For example, try tail'ing the logs file and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs.
 
 i.e. `tail -f main.log`
 
-### Debug Mode
-It can be tricky to get started as a debug 
+### AutoBuild
+To make building you task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node. 
+
+To configure the module, open .env.sample and update the template to point to the correct Task Node folder (get the url in the last lesson). 
+
+By default, you can just run `yarn debug` inside the `project/` directory and your task will be rebuilt and copied to the correct folder in your node.
 
 ## Task Flow
 Tasks run in round-based cycles, similar to Epochs in a Proof-of-History flow. 
@@ -43,10 +47,10 @@ In each case, find the target function in `corelogic.js` and paste the line show
         `console.log('Started Audit', new Date(), process.env.KEYWORD )`
 
   c. Generate Proofs: `fetchSubmission()`
-        `console.log('Started Task', new Date(), process.env.KEYWORD )`
+        `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
 
   d. Assign Rewards: `generateDistributionList()`
-        `console.log('Started Task', new Date(), process.env.KEYWORD )`
+        `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
 
 As you save each file, you should see the debugger restart. 
 
