@@ -10,10 +10,13 @@ In each round, a series of on-chain transactions are recorded to track the work 
 Because rounds run concurrently, there is always one active Task, Submission, Audit, or Distribution window at any time. 
 
 ## Task (`corelogic.task()`)
+This contains programs that should run at the start of each task.
 
 ## FetchSubmission (`corelogic.fetchSubmission()`)
+This is where we will prepare a submission and the node will attempt to claim rewards.
 
-## Rewards (`corelogic.generateDistribution()`)
+## Calculate Rewards (`corelogic.generateDistribution()`)
+This is where each node will review other's submissions and calculate how much rewards to pay.
 
 ## Audits (`corelogic.validateNode()`)
 Cyclical programs (see (2.) above) autonomously comb over proofs to see if they correspond correctly to the work claimed. If the work doesn't match the expected behaviour, an Audit can be submitted by any node, and any nodes that verify receive a share of the slashed collateral. 
