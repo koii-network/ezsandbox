@@ -26,11 +26,17 @@ To see where the node keeps logs about a specific task, click any of the tasks i
 On Windows, the path to your logs will look something like this:
 `/Users/almorris/AppData/Roaming/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
 
+<br>
+
 On Mac, it would look something like this:
 `/Users/almorris/Library/Application Support/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log'`
 
+<br>
+
 And on linux, it would look something like this:
 `/home/almorris/.config/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
+
+<br>
 
 The parent directory for your node is up a couple of folders:
 `/Users/almorris/Library/Application Support/KOII-Desktop-Node`

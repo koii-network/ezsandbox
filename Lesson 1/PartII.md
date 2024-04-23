@@ -46,6 +46,7 @@ Open the `project/` folder again and we'll start hacking through some files. Ope
    Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
 In each case, find the target function in `corelogic.js` and paste the line shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
+
 a. The Core Task: `task()`
 `console.log('Started Task', new Date(), process.env.KEYWORD )`
 

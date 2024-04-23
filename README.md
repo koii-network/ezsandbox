@@ -33,7 +33,7 @@ This lesson will teach you:
 - How to connect to your node
 - How to build your Task Module and ship it for production
 
-[Start Here](./Lesson%201/README.md)
+[Start Here](./Lesson%201/PartI.md)
 
 ## Lesson 2: Storage & Networking
 
