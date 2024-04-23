@@ -8,7 +8,7 @@ This sandbox will take you through a few phases of development to try using Koii
 1. Deploy Locally on your Koii Task Node to Debug and Iterate Rapidly
 
 2. Deploy to Docker to test audits and incentive mechanisms
-
+  
 3. Launch on the Community Cloud
 
 # Lessons and Code Samples
