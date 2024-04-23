@@ -1,7 +1,9 @@
 # Lesson 1: Your Node
+
 This lesson covers how to get started hacking on your node.
 
 ## Part I. Getting Started
+
 The big advantage of building with Koii is that our community of node operators are already prepared and eager to join your new project.
 
 Node operators run their Node in the background on personal devices, so they can use excess capacity to run your app.
@@ -9,22 +11,32 @@ Node operators run their Node in the background on personal devices, so they can
 To build on Koii, we'll get started by getting to know your node.
 
 ### Install Your Node
+
 Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the faucet while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s))
 
 ### Test Your API In the Browser
-Once your node is running, you can test your webserver in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks). 
+
+Once your node is running, you can test your webserver in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
 
 ### Open The Node Application Folder
-To see where the node keeps it's files, click any of the tasks in your Node and select 'View Logs' as shown below:
-![Open the logs file](../img/image.png)
 
-On Mac, the path to your logs will look something like this:
+To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'View Logs' as shown below:
+![Open the logs file](../img/my-node-open-logs.png)
+
+On Windows, the path to your logs will look something like this:
+`/Users/almorris/AppData/Roaming/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
+
+On Mac, it would look something like this:
 `/Users/almorris/Library/Application Support/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log'`
 
-Your parent directory for the node is up a couple of folders:
+And on linux, it would look something like this:
+`/home/almorris/.config/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
+
+The parent directory for your node is up a couple of folders:
 `/Users/almorris/Library/Application Support/KOII-Desktop-Node`
 
 This parent folder contains a couple of key items, which we will mostly work with from a distance.
+
 ```
 KOII-Desktop-Node % tree -d -L 2./
 .
