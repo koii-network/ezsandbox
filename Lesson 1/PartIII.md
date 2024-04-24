@@ -4,10 +4,10 @@ Each round, all nodes have an opportunity to claim rewards proportionate to the 
 
 Typically, each node provides some 'proofs' of their work, and these can optionally be audited by another node.
 
-![Gradual Consensus 1](gradual-consensus.png)
+![Gradual Consensus 1](./imgs/gradual-consensus.png)
 In each round, a series of on-chain transactions are recorded to track the work done, or allow for one node to raise an alarm if they catch another misbehaving.
 
-![Gradual Consensus 2](stacking-rounds.png)
+![Gradual Consensus 2](./imgs/stacking-rounds.png)
 Because rounds run concurrently, there is always one active Task, Submission, Audit, or Distribution window at any time.
 
 ## Task (`corelogic.task()`)

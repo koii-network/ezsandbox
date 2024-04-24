@@ -21,7 +21,7 @@ Once your node is running, you can test your webserver in the browser by visitin
 ### Open The Node Application Folder
 
 To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'View Logs' as shown below:
-![Open the logs file](../img/my-node-open-logs.png)
+![Open the logs file](./imgs/my-node-open-logs.png)
 
 On Windows, the path to your logs will look something like this:
 `/Users/almorris/AppData/Roaming/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
