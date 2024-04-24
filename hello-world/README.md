@@ -1,21 +1,21 @@
 # Koii Task Template
 
-This is the new K2 Task Template which uses Webpack to allow support of all node modules and project structures instead of a single file executable for the Koii task. [WIP]
+This is the new K2 Task Template which uses Webpack to allow support of all node modules and project structures instead of a single file executable for the Koii task.
 
-## How to use
+## How to Setup
 
 1. Clone this repo
-2. Run `npm install`
-3. Run `npm run test` for Jest testing or `node prod-debug.js` for live debugger
+2. Run `yarn install`
+3. Run `yarn run test` for Jest testing or `yarn prod-debug.js` for the live debugger
 
-## Structure explain
+## Structure Breakdown
 
 The task template contains three separate JavaScript files in the task folder that contain all of the functions for a Koii task to function properly.
 
 ```bash
 📦K2-TASK-TEMPLATE
  ┣ 📂_koiiNode
- ┃ ┗ 📜koiiNode.js // Contain all the components that task connect to K2.
+ ┃ ┗ 📜koiiNode.js // Contains all the components that task connect to K2.
  ┣ 📂task
  ┃ ┣ 📜index.js // Main file that contains the task function.
  ┃ ┣ 📜submission.js // Contains the task function and submitTask function.
@@ -27,7 +27,7 @@ The task template contains three separate JavaScript files in the task folder th
  ┗ 📜index.js
 ```
 
-## What's in the template
+## What's in the Template
 
 ### Core files
 

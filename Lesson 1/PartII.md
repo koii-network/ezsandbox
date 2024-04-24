@@ -14,9 +14,9 @@ i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` director
 
 To make building your task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node.
 
-To configure the module, open .env.sample and update the template to point to the correct Task Node folder (get the url in the last lesson).
+To configure the module, open .env.example and update the template to point to the correct TaskID (Easy Testing Task ID provided by default). Please see [hello-world's README](../hello-world/README.md) for help setting up easy testing task if you haven't already.
 
-By default, you can just run `yarn debug` inside the `project/` directory and your task will be rebuilt and copied to the correct folder in your node.
+By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
 
 ## Task Flow
 
@@ -37,33 +37,45 @@ Tasks include two kinds of programs:
 
 First, we'll add some debug logs, and then we can watch how these functions run over time.
 
-Open the `project/` folder again and we'll start hacking through some files. Open `project/corelogic.js` to get started.
+Open the `hello-world/` folder again and we'll start hacking through some files. Open `hello-world/task` to get started.
 
 1. Start the Debugger
    `yarn prod-debug`
 
-2. Add Debugs to Cyclical Functions
+2. Add Debugs to Cyclical Functions.
    Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-In each case, find the target function in `corelogic.js` and paste the line shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
+In each case, navigate to the correct file within the `task` directory, then find the target function. Paste the following code line as shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
 
-a. The Core Task: `task()`
-`console.log('Started Task', new Date(), process.env.KEYWORD )`
+a. The Core Task:
 
-b. The Audit Function: `validateNode()`
-`console.log('Started Audit', new Date(), process.env.KEYWORD )`
+- File Name: `submission.js`
+- Function: `task()`
+- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
 
-c. Generate Proofs: `fetchSubmission()`
-`console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
+b. The Audit Function:
 
-d. Assign Rewards: `generateDistributionList()`
-`console.log('Started Distribution', new Date(), process.env.KEYWORD )`
+- File Name: `audit.js`
+- Function: `validateNode()`
+- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
+
+c. Generate Proofs:
+
+- File Name: `submission.js`
+- Function: `fetchSubmission()`
+- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
+
+c. Assign Rewards:
+
+- File Name: `distribution.js`
+- Function: `generateDistributionList()`
+- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
 
 As you save each file, you should see the debugger restart.
 
 Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
 
-Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command.
+Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
 
 In the next section, we'll talk about what the output here means.
 

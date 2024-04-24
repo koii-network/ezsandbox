@@ -4,25 +4,6 @@ require('dotenv').config();
 const Debugger = require('./debugger');
 const Tail = require('tail').Tail;
 
-/*
-    This script is used to watch for file changes in the project and trigger a build and copy the webpacked file to the Desktop Node runtime folder.
-    It also tails the logs for messages containing a keyword specified in the .env file.
-    Example Usage:
-    - Add the following to your package.json file:
-        "scripts": {
-            "prod-debug": "node prod-debug.js"
-        }
-    - Create a .env file in the root of the project with the following content: 
-        WEBPACKED_FILE_PATH=dist/hello-world.js
-        DESTINATION_PATH=/_some_CID_task_file_name_.js
-        LOG_PATH=/logs/_some_Task_ID_.log
-        KEYWORD=DEBUG
-        NODE_DIR=/path/to/node/dir/
-    - Run the script using the command: yarn prod-debug
-    - Change a file in the project and see the script trigger a build and copy the file to the Desktop Node runtime folder
-    - Check the logs from the desktop node that contain your keyword
-*/
-
 const startWatching = async () => {
   console.log('Watching for file changes...');
   // watch and trigger builds
@@ -78,7 +59,7 @@ const copyWebpackedFile = async () => {
 /* tail logs */
 const tailLogs = async (desktopNodeLogPath, keywords, taskID) => {
   console.log('Watchings logs for messages containing ', keywords);
-  
+
   // Ensure the log file exists, or create it if it doesn't
   try {
     await fs.promises.access(desktopNodeLogPath, fs.constants.F_OK);
