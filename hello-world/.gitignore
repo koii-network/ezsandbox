@@ -3,8 +3,12 @@ build
 node_modules
 package-lock.json
 migrate.sh
-localKOIIDB.db
-.DS_Store
-config-task.yml
-taskStateInfoKeypair.json
+*/dev.js
+data/*
+executables/*
+namespace/*
+config/*
+.env.local
 .env
+taskStateInfoKeypair.json
+localKOIIDB.db
