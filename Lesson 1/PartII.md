@@ -8,11 +8,11 @@ Now that your node is up and running, you'll want to start by getting a feel for
 
 For example, try tail'ing the logs file and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs update in real time.
 
-i.e. `tail -f main.log`
+i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` directory!
 
 ### AutoBuild
 
-To make building you task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node.
+To make building your task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node.
 
 To configure the module, open .env.sample and update the template to point to the correct Task Node folder (get the url in the last lesson).
 
