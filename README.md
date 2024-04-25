@@ -41,7 +41,7 @@ Once we've got the basics down, we can move on to some standard use cases for de
 
 To get started, we'll build out a simple file server and add some HTTP server endpoints. Once that's online, we will deploy our app onto a group of nodes with docker, and have them send a file around to eachother.
 
-[Start Here](./Lesson%202/README.md)
+[Start Here](./Lesson%202/PartI.md)
 
 ## Lesson 3: Data Sharing & Replication Incentives
 
