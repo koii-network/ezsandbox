@@ -43,7 +43,13 @@ To get started, we'll build out a simple file server and add some HTTP server en
 
 [Start Here](./Lesson%202/README.md)
 
-## Lesson 3: Data Sharing & Replication Incentives
+## Lesson 3: Crawlers and Secrets
+
+One of the best use cases for Koii nodes is to gather data from the web. In this tutorial, we'll show you how to use local secrets on your node, and how to build out a full web crawler that runs on any participating Task Nodes.
+
+Start Here (coming soon)
+
+## Lesson 4: Data Sharing & Replication Incentives
 
 With this step online, we can now start to add audit mechanisms and incentives.
 
@@ -53,19 +59,25 @@ Incentives allow the Task to make payments, either in KOII, USDC, or another tok
 
 Start Here (Coming Soon)
 
-## Lesson 4: Security and Hardening
+## Lesson 5: Security and Hardening
 
 with the basics implemented, this lesson will cover how to add authorized accounts, verify signatures, and manage general authentication and data authority issues.
 
 Start Here (Coming Soon)
 
-## Lesson 5: Getting faucet tokens and deploying your task
+## Lesson 6: Using Custom Tokens for Tasks
+
+This lesson will teach you how to deploy your own custom SPL token on Koii.
+
+Start Here (coming soon)
+
+## Lesson 7: Getting faucet tokens and deploying your task
 
 Once everything is tightened down, it's time to get your community and start running nodes. We'll get you a small grant in KOII to fund your task bounty, deploy the task, and run it on your node.
 
 Start Here (Coming Soon)
 
-## Lesson 6: Performance Improvements & Iteration Lifecycle
+## Lesson 8: Performance Improvements & Iteration Lifecycle
 
 After your task is live, it's time to consider improving your work.
 
