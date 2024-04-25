@@ -35,4 +35,4 @@ Audits are not always necessary, especially if you're just starting out. It may 
 
 You've reached the end of this lesson which means you've now mastered the fundamentals of your node, debugging, and tasks! The next lesson will take you through guides on how to enable node-to-node communicate to allow storage and networking.
 
-[Click here to start Lesson 2](../Lesson%202/PartI.md)
+[Click here to start Lesson 2](../Lesson%202/README.md)
