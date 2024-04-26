@@ -45,13 +45,13 @@ All the interesting logic for communicating with other Nodes can be found in the
 
 3. `task()`
    - You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core logic for the task and it's submission is. In this case, we are using this function to grab the value from a particular Node's endpoint
-   - We simply use Axios to make a `get` request to the Node's endpoint, then store the result!
+   - We simply use Axios to make a `get` request to the Node's endpoint, then store the result
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
 
 ## Exercise
 
-Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`!
+Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`.
 
 In the next section, we'll learn how to test networking tasks locally, with a group of Dockerized Nodes!
 

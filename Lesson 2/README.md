@@ -1,10 +1,10 @@
-# Lesson 2: Storage & Networking
+# Lesson 2: Networking & Storage
 
 This lesson covers how to allow nodes to interact with one another.
 
 ## Part I. Node to Node Communication
 
-So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've done so far has only really invovled a single node, with a task that was independent of other nodes.
+So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've until now has only really invovled a single node, with a task that was independent of other nodes.
 
 This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for mathematical computations, file sharing, or even instant messaging.
 
@@ -24,7 +24,7 @@ Additionally, check the advanced tab to download the required UPnP binaries if y
 
 ### UPnP Security on Koii
 
-As mentioned above, UPnP is awesome because it greatly reduces the complexity required for having interconnected devices. One of the tradeoffs for this functionality, is that there may be some security concerns regarding allowing direct access into your device.
+As mentioned above, UPnP is awesome because it greatly reduces the complexity required for having interconnected devices. One of the tradeoffs for this functionality is that there may be some security concerns regarding allowing direct access into your device.
 
 At Koii, we recognize the potential security concerns which is why UPnP is NOT required for you to use the Node. You are free to enable or disable it as you see fit. Additionally, if you want to use UPnP but still stay secure, you can manually use tunneling by toggling the `Enforce Tunneling` option as shown in the screenshot above.
 
