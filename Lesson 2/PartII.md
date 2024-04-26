@@ -1,12 +1,18 @@
-# Part II: Writing Networking Tasks
+# Part II. Writing Networking Tasks
 
-Now that you've got a basic understanding of how networking is done in the Node, it's time for deploy our own task that uses UPnP!
+Now that you've got a basic understanding of how networking is done in the Node, it's time for deploy your own task that utilizes REST APIs!
+
+Prerequisites:
+
+- Understanding of UPnP
+- Basic understanding of task template
+- Knowledge on task deployment
 
 ## Initial Setup
 
-Attached under this lesson is a skeleton template for a UPnP task that you can deploy. Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`.
+Attached under this lesson is a skeleton template for a UPnP task that you can deploy. If you're not familiar how to deploy task, [try deploying a basic task](https://docs.koii.network/develop/command-line-tool/create-task-cli/create-task) first then come back here!
 
-You don't need to change anything here, and we will discuss this file further in [Lesson 3](../README.md) but if you are writing your own UPnP task, make sure that you have the `REQUIRE_INTERNET` addon specified, as shown below:
+Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`. You don't need to change anything here, and we will discuss this file further in [Lesson 3](../README.md) but if you are writing your own UPnP task, make sure that you have the `REQUIRE_INTERNET` addon specified, as shown below:
 
 ![Require Internet Addon](./imgs/require-internet.png)
 
@@ -45,7 +51,7 @@ All the interesting logic for communicating with other Nodes can be found in the
 
 3. `task()`
    - You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core logic for the task and it's submission is. In this case, we are using this function to grab the value from a particular Node's endpoint
-   - We simply use Axios to make a `get` request to the Node's endpoint, then store the result
+   - We simply use Axios to make a `get` request to the randomly selected other Node's endpoint, then store the result
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
 

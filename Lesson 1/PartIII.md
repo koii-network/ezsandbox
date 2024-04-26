@@ -2,6 +2,10 @@
 
 This final section in Lesson 1 gives a high level overview on our gradual consensus mechanism. While this section is mostly conceptual, it is important to help your understanding of how to develop tasks much smoother.
 
+Prerequisites:
+
+- Nothing!
+
 <br>
 
 Each round, all nodes have an opportunity to claim rewards proportionate to the work they've contributed.

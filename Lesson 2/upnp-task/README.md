@@ -1,54 +1,48 @@
-## Available Scripts
+# Koii UPnP Task
 
-### `npm test`
-Runs tests using Jest.
+This is a simple networking task that makes use of UPnP to enable node-to-node communication!
 
-### `npm run webpack`
-Builds the project and generates the main script: `dist/main.js`.
+## How to Setup
 
-## Task Flow
-Tasks operate within a periodic structure known as 'rounds'. Each round consists of the following steps:
+1. Clone this repo
+2. Run `yarn install`
+3. Run `yarn run test` for Jest testing or `yarn prod-debug.js` for the live debugger
 
-1. **Perform the Task:** Execute the necessary actions for the round.
-2. **Audit Work:** Review the work completed by other nodes.
-3. **Rewards and Penalties:** Distribute rewards and apply stack slash as necessary.
+## Structure Breakdown
 
-Rounds are defined by specific time periods, with nodes participating through actions such as uploading data to IPFS, posting CIDs to the K2 settlement layer, and communicating via REST APIs and WebSockets.
+The task template contains three separate JavaScript files in the task folder that contain all of the functions for a Koii task to function properly.
 
-For detailed insights into the task flow and its operations, refer to [the runtime environment documentation](https://docs.koii.network/develop/microservices-and-tasks/what-are-tasks/gradual-consensus#why-is-it-gradual).
+```bash
+📦upnp-task
+ ┣ 📂_koiiNode
+ ┃ ┗ 📜koiiNode.js // Contains all the components that task connect to K2.
+ ┣ 📂task
+ ┃ ┣ 📜index.js // Main file that contains the task function.
+ ┃ ┣ 📜submission.js // Contains the main UPnP client logic.
+ ┃ ┣ 📜audit.js // Contains the auditTask function.
+ ┃ ┗ 📜distribution.js // Contains the submitDistributionList and auditDistribution function.
+ ┣ 📂tests
+ ┣ 📜config-task.yml
+ ┣ 📜coreLogic.js
+ ┣ 📜routes.js // contains the endpoints available from the node
+ ┗ 📜index.js
+```
 
+## What's in the Template
 
-## Development Guide
+### Core files
 
-Feeling lost at the start? Curious about our template structure or the specifics of certain functions? Wondering how to test your task locally? Interested in learning how to upload data to Spheron via IPFS? Unsure about the process for whitelisting your task or selecting the right cluster? Start with the [Development Guide](https://docs.koii.network/develop/write-a-koii-task/task-development-guide/).
+- index.js — is the hub of your app, and ties the other pieces together. This will be the entry point when your task runs on task nodes.
 
-Looking to bring better structure to your task? Explore our [Task Organizer](https://www.figma.com/community/file/1220194939977550205/Task-Outline) for better organization.
+- \_koiiNode — is a directory that contains koiiNode.js which has the interfaces to make API calls to the core of the task node. It contains all the necessary functions required to submit and audit the work, as well as the distribution lists. Check [here](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/using-the-task-namespace/the-namespace-object) to learn more about namespace functions.
 
-## Environment Requirements
+### Task Directory
 
-- [Node >=16.0.0](https://nodejs.org)
-- [Docker Compose](https://docs.docker.com/get-started/08_using_compose/)
+It houses three key files: submission.js, audit.js and distribution.js. These files are where you define your task, audit, and distribution logic, enabling you to control the core functionality of the task.
 
-## Tool Requirements
-- [Koii CLI Suite](https://docs.koii.network/develop/command-line-tool/koii-cli/install-cli)
-- [Create Task CLI](https://docs.koii.network/develop/command-line-tool/create-task-cli/install)
+This structure allows a modular approach to task development. By only utilizing these three files, you can easily modify and test your task logic without having to worry about the other aspects. To understand the theory behind this, please refer to the
+[Runtime Flow](https://docs.koii.network/concepts/gradual-consensus/runtime-flow).
 
-## Runtime Options
+Finally, in the index.js file, all these functions are combined as a task, which is then imported and used in corelogic.js. It is advisable to organize separate features into sub-files and import them into the relevant files before web-packing for better code management and maintainability. This modular approach allows for a more organized and efficient development process.
 
-There are two ways to run your task during development:
-
-1. With `GLOBAL_TIMERS="true"` (refer to `.env.local.example`) - When this option is enabled, IPC calls are made by calculating the average time slots of all tasks running on your node.
-
-2. With `GLOBAL_TIMERS="false"` - This option allows for manual calls to K2 and disables the automatic triggers for round management on K2. Transactions are only accepted during the correct time period. Instructions for manual calls can be found in `index.js`.
-
-## Environment Variables
-
-Rename the `.env.local.example` file to `.env.local` and make the necessary modifications. Here, you can include environment variables that your task requires. This is particularly useful if you're utilizing [custom secrets](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/using-the-task-namespace/keys-and-secrets).
-
-## Tips
-
-- Always ensure your secret files, such as `.env` files, are secure! Implement a robust `.gitignore` strategy.
-- Continue innovating with Koii!
-
-Should you encounter any issues, don't hesitate to reach out by opening a ticket on [Discord](https://discord.gg/koii-network).
-
+For more information about how to customize your own task, please check our docs [here](https://docs.koii.network/develop/write-a-koii-task/task-development-guide/introduction).

@@ -1,16 +1,24 @@
 # Lesson 2: Networking & Storage
 
-This lesson covers how to allow nodes to interact with one another.
+This lesson covers how to allow nodes to interact with one another. Here is the lesson plan:
+
+- [Part I. Node to Node Communication](./README.md) - Explains on a conceptual level how networking works on your Node with focus on UPnP
+- [Part II. Writing Networking Tasks](./PartII.md) - Showcases how you can write your own tasks utilizing UPnP with an example and explains how the Node behaves as a client and server
+- [Part III. Docker Node Clusters](./PartIII.md) - Highlights local testing practices using groups of Docker Nodes to simulate networking
+
+Prerequisites:
+
+- Lesson 1 completed with an understanding on how to navigate your node
 
 ## Part I. Node to Node Communication
 
-So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've until now has only really invovled a single node, with a task that was independent of other nodes.
+So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've until now has only really involved a single node, with a task that was independent of other nodes.
 
-This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for mathematical computations, file sharing, or even instant messaging.
+This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for decentralized social applications and Web3 gaming.
 
 ### Koii on UPnP
 
-Koii makes this possible with the help of Universal Plug and Play (UPnP). Put simply, UPnP is a set of networking protocols that allows a network of devices to seamlessly connect to eachother. UPnP is most commonly used by devices like gaming consoles and smart devices which makes connecting to these devices very straight forward.
+Koii makes this possible with the help of Universal Plug and Play (UPnP). Put simply, UPnP is a set of networking protocols that allows a network of devices to seamlessly connect to each other. UPnP is most commonly used by devices like gaming consoles and smart devices which makes connecting to these devices very straight forward.
 
 You can think of your Node like a personal gaming console where enabling UPnP allows you to connect with other players!
 
@@ -34,4 +42,4 @@ UPnP allows Koii tasks to utilize our vast network of over 60,000 Nodes to commu
 
 In the next lesson, we'll learn how we can write our own task that makes use of UPnP for networking!
 
-[Click here to start PartII: Writing Networking Tasks](./PartII.md)
+[Click here to start PartII. Writing Networking Tasks](./PartII.md)
