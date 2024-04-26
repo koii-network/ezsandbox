@@ -1,10 +1,20 @@
-# Part II: Task Flow
+# Part II. Task Flow
 
-Now that your node is up and running, you'll want to start by getting a feel for the logs.
+Now that your Node is up and running, you'll want to get familiar with the [basic task template codebase](./hello-world/). We'll also get you well acquainted with logs and live debugging.
+
+Prerequisites:
+
+- Latest [Koii Node](https://koii.network) version installed
 
 ## Debugging
 
+Before you learn how to develop your own tasks, it's very important to know how to **debug** them.
+
+_"Give a man a fish and you feed him for a day. Teach him how to fish and you feed him for a lifetime"_
+
 ### Logs
+
+Logs are the bread and butter of tasks and can give you all sorts of information on what's really going on under the hood.
 
 For example, try tail'ing the logs file and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs update in real time.
 
@@ -12,9 +22,11 @@ i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` director
 
 ### AutoBuild
 
-To make building your task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node.
+To make building your task as easy as possible, you can use the AutoBuild module to build your Task Executable and copy it into your Node.
 
-To configure the module, open .env.example and update the template to point to the correct TaskID (EZSandbox Task ID provided by default). Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
+To configure the module, open .env.example and update the template to point to the correct TaskID. You can use any already deployed task for this example, but we use our EZSandbox task by default which provides a great starting point to experiment.
+
+Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
 
 By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
 
@@ -79,4 +91,4 @@ Now, wait and watch the logs to see the tags you just added. They should be prin
 
 In the next section, we'll talk about what the output here means.
 
-[Click here to start PartIII: Consensus](./PartIII.md)
+[Click here to start PartIII. Consensus](./PartIII.md)
