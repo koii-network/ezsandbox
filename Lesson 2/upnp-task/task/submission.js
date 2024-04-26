@@ -13,16 +13,15 @@ class Submission {
       console.log('ROUND', round);
       const IPAddressArray = await this.getAddressArray(); // Get the avaliable IP address array
       // console.log(IPAddressArray);
-      let randomNode;
 
       try {
-        const values = Object.values(IPAddressArray);
-        const randomIndex = Math.floor(Math.random() * values.length);
-        const randomNode = values[randomIndex];
+        const randomNode = this.getRandomNodeEndpoint(IPAddressArray);
+        console.log('RANDOM NODE', randomNode);
 
         // pick a random one from nodeList and use axios to fetch data
-        console.log('RANDOM NODE', randomNode);
+
         const response = await axios.get(`${randomNode}/task/${TASK_ID}/value`);
+
         if (response.status === 200) {
           const value = response.data.value;
           console.log('VALUE', value);
@@ -89,6 +88,12 @@ class Submission {
     } catch (e) {
       console.log('ERROR GETTING TASK STATE', e);
     }
+  }
+
+  async getRandomNodeEndpoint(IPAddressArray) {
+    const values = Object.values(IPAddressArray);
+    const randomIndex = Math.floor(Math.random() * values.length);
+    return values[randomIndex];
   }
 }
 const submission = new Submission();
