@@ -14,7 +14,7 @@ i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` director
 
 To make building your task as easy as possible, you can use the autobuild module to build your Task Executable and copy it into your Node.
 
-To configure the module, open .env.example and update the template to point to the correct TaskID (EZSandbox Task ID provided by default). Please see [hello-world's README](../hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
+To configure the module, open .env.example and update the template to point to the correct TaskID (EZSandbox Task ID provided by default). Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
 
 By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
 

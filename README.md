@@ -35,7 +35,7 @@ This lesson will teach you:
 
 [Start Here](./Lesson%201/README.md)
 
-## Lesson 2: Storage & Networking
+## Lesson 2: Networking & Storage
 
 Once we've got the basics down, we can move on to some standard use cases for decentralized applications.
 

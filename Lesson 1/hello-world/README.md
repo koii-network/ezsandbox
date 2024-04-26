@@ -1,6 +1,6 @@
-# Koii Task Template
+# Koii Hello World Task
 
-This is the new K2 Task Template which uses Webpack to allow support of all node modules and project structures instead of a single file executable for the Koii task.
+This is a simple task which uses Webpack to allow support of all node modules and project structures instead of a single file executable for the Koii task. The main purpose is to simply print `hello world`!
 
 ## How to Setup
 
@@ -13,7 +13,7 @@ This is the new K2 Task Template which uses Webpack to allow support of all node
 The task template contains three separate JavaScript files in the task folder that contain all of the functions for a Koii task to function properly.
 
 ```bash
-📦K2-TASK-TEMPLATE
+📦hello-world
  ┣ 📂_koiiNode
  ┃ ┗ 📜koiiNode.js // Contains all the components that task connect to K2.
  ┣ 📂task
