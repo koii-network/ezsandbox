@@ -12,7 +12,7 @@ Prerequisites:
 
 Attached under this lesson is a skeleton template for a UPnP task that you can deploy. If you're not familiar how to deploy task, [try deploying a basic task](https://docs.koii.network/develop/command-line-tool/create-task-cli/create-task) first then come back here!
 
-Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`. You don't need to change anything here, and we will discuss this file further in [Lesson 3](../README.md) but if you are writing your own UPnP task, make sure that you have the `REQUIRE_INTERNET` addon specified, as shown below:
+Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`. You don't need to change anything here, and we will discuss this file further in [Lesson 3](../Lesson%203/README.md) but if you are writing your own UPnP task, make sure that you have the `REQUIRE_INTERNET` addon specified, as shown below:
 
 ![Require Internet Addon](./imgs/require-internet.png)
 

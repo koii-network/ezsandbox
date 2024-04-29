@@ -39,27 +39,27 @@ This lesson will teach you:
 
 Once we've got the basics down, we can move on to some standard use cases for decentralized applications.
 
-To get started, we'll build out a simple file server and add some HTTP server endpoints. Once that's online, we will deploy our app onto a group of nodes with docker, and have them communicate to each other locally.
+To get started, we'll build out a simple data server and add some HTTP server endpoints. Once that's online, we will deploy our app onto a group of nodes with docker, and have them communicate to each other locally.
 
 [Start Here](./Lesson%202/README.md)
 
-## Lesson 3: Crawlers and Secrets
+## Lesson 3: Crawlers & Secrets
 
 One of the best use cases for Koii nodes is to gather data from the web. In this tutorial, we'll show you how to use local secrets on your node, and how to build out a full web crawler that runs on any participating Task Nodes.
 
-Start Here (coming soon)
+[Start Here](./Lesson%203/README.md)
 
 ## Lesson 4: Data Sharing & Replication Incentives
 
 With this step online, we can now start to add audit mechanisms and incentives.
 
-Audits keep things secure, allowing nodes to verify eachother's work.
+Audits keep things secure, allowing nodes to verify each other's work.
 
 Incentives allow the Task to make payments, either in KOII, USDC, or another token (your own, if you dare!) and reward nodes that pass audits.
 
 Start Here (Coming Soon)
 
-## Lesson 5: Security and Hardening
+## Lesson 5: Security & Hardening
 
 with the basics implemented, this lesson will cover how to add authorized accounts, verify signatures, and manage general authentication and data authority issues.
 
@@ -71,7 +71,7 @@ This lesson will teach you how to deploy your own custom SPL token on Koii.
 
 Start Here (coming soon)
 
-## Lesson 7: Getting faucet tokens and deploying your task
+## Lesson 7: Getting faucet tokens & deploying your task
 
 Once everything is tightened down, it's time to get your community and start running nodes. We'll get you a small grant in KOII to fund your task bounty, deploy the task, and run it on your node.
 
