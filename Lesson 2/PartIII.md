@@ -7,8 +7,9 @@ Prerequisites:
 - Completed upnp-task template
 - Basic understanding of Docker
 - Koii CLI installed
+- Docker and Docker Compose installed
 
-Testing tasks locally through Docker is a process that requires a little set up. Essentially, we have to create a local version of the backend that's typically used to verify task work, K2. After creating our local K2, we'll deploy the task there for testing!
+Testing tasks locally through Docker is a process that requires a little set up. Essentially, we have to create a local version of the backend that's used to verify a task's work, which is known as K2. After creating our local K2, we'll deploy the task there for testing!
 
 ## Environment Setup
 
@@ -30,7 +31,7 @@ Keypair Path: ~/.config/koii/id.json
 Commitment: confirmed
 ```
 
-3. With the backend taken care of, lets make sure our task aims to be deployed to the right environment. Within `env.local`, ensure you change `K2_NODE_URL` to point to the right endpoint:
+3. With the backend taken care of, lets make sure our task wants to deploy to the right environment. Within `env.local`, ensure you change `K2_NODE_URL` to point to the right endpoint:
 
 ```javascript
 K2_NODE_URL = "http://127.0.0.1:8899"; //Linux
@@ -48,7 +49,7 @@ NOTE: If you're worried about rent costs, keep in mind that this is a local envi
 TASKS="hLt4w79EqmMeWj6FNZKgkf4ZqYWaMWUpSNxnPzvnwHL" //Your task's ID
 ```
 
-6. If you've previously deployed your task, you'll need to navigate to `dist` and rename `main.js` to `<YOUR CID>.js`, where your CID is the executable's CID you saved!
+6. If you've previously deployed your task, you'll need to navigate to the `dist` folder and rename `main.js` to `<YOUR CID>.js`. In this case, your CID is the executable's CID you saved!
 
 ## Using Docker
 
@@ -56,13 +57,13 @@ Once the task is deployed, we can finally use Docker! Navigate to `docker-compos
 
 Finally, in a separate terminal from the one running `koii-test-validator`, run `docker compose up` and you'll have a Dockerized instance of your task spun up!
 
-This terminal features all the logs in real time that you could expect from deploying your task live on the Node. You can observe rounds, submissions, errors, warnings, or anything else you find interesting!
+This terminal will now showcase all the logs in real time that you could expect from deploying your task live on the Node. You can observe rounds, submissions, errors, warnings, or anything else you find interesting!
 
-If you ran into any issues or want to understand more in depth, learn more about [Dockerized Tasks here!](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/test/docker-test)
+If you ran into any issues or want to understand this topic more in depth, learn more about [Dockerized Tasks here!](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/test/docker-test)
 
 <br>
 <br>
 
-You've reached the end of this lesson which means you're now familiar with building tasks that can network as well as test them locally with Docker! The next lesson will introduce using secrets and building our very own web crawler.
+You've reached the end of this lesson which means you're now familiar with building tasks that can network. Additionally, you now know how to test them locally with Docker! The next lesson will introduce using secrets and building our very own web crawler.
 
 [Click here to start Lesson 3](../Lesson%203/README.md)

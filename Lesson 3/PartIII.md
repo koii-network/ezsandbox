@@ -1,6 +1,6 @@
 # Part III. Building a Crawler
 
-We've laid all the preliminary ground work, now we can get to the fun stuff! Simple-crawler provides you with a simple skeleton for building your own web crawler. We will fill in this template in this guide, but feel free to code your own logic if you feel confident!
+We've laid all the preliminary ground work, so now we can get to the fun stuff! Simple-crawler provides you with an easy to follow skeleton for building your own web crawler. We will fill in this template in this guide, but feel free to code your own logic if you feel confident!
 
 Prerequisites:
 
@@ -68,6 +68,12 @@ await namespaceWrapper.storeSet("titles", newTitles);
 ```
 
 As you can see, we're simply instantiating the object with the corresponding `KEYWORD` secret that has been provided (either by you locally, or by a user on the node). Once the object is created, we start the crawl, fetch the titles, then store them!
+
+## Deployment
+
+Now that you've built out the web crawler, feel free to deploy it onto the node! Once it's been deployed, navigate to `+Add Task`, then add an advanced task. Paste in your taskID you saved, and you should see your web crawler task load with all the secrets you specified as shown below:
+
+![simple-crawler task](./imgs/simple-crawler.png)
 
 Just like that, you've successfully created your very own web crawler! This template is very customizable and relatively simple. As you encounter more dynamic webpages, you may find it more difficult to web crawl. If you're concerned about websites with logging in, cookies, or dynamic content, we recommend checking out our [Twitter Archiver!](https://github.com/koii-network/task-X)
 

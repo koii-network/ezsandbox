@@ -3,8 +3,8 @@
 This lesson covers how to allow nodes to interact with one another. Here is the lesson plan:
 
 - [Part I. Node to Node Communication](./README.md) - Explains on a conceptual level how networking works on your Node with focus on UPnP
-- [Part II. Writing Networking Tasks](./PartII.md) - Showcases how you can write your own tasks utilizing UPnP with an example and explains how the Node behaves as a client and server
-- [Part III. Dockerized Node Testing](./PartIII.md) - Highlights local testing practices using groups of Docker Nodes to simulate networking
+- [Part II. Writing Networking Tasks](./PartII.md) - Showcases how you can write your own tasks utilizing UPnP with an example and explains how the Node behaves as a client and server simultaneously
+- [Part III. Dockerized Node Testing](./PartIII.md) - Highlights local testing practices using a Dockerized task to simulate networking
 
 Prerequisites:
 
@@ -12,9 +12,9 @@ Prerequisites:
 
 ## Part I. Node to Node Communication
 
-So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've until now has only really involved a single node, with a task that was independent of other nodes.
+So far, we've become familiar with deploying and debugging our own tasks on the Node application. Everything we've done until now has only really involved a single node, with a task that was independent of other nodes.
 
-This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for decentralized social applications and Web3 gaming.
+This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for decentralized social applications, Web3 gaming, and many other smaller tasks such as mathematical computations.
 
 ### Koii on UPnP
 

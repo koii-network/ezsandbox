@@ -1,6 +1,6 @@
 # Part II. Crawler Task Structure
 
-Before we start writing our own crawler code, it's helpful to understand how many of Koii's web crawler tasks are structured, including this one. In this template, a lot of the IPFS logic is provided for your ease of use.
+Before we start writing our own crawler code, it's helpful to understand how a plethora of Koii's web crawler tasks are structured, including this one. In this template, a lot of the IPFS logic is provided for your ease of use.
 
 Prerequisites:
 
@@ -10,7 +10,7 @@ Prerequisites:
 
 1. `task()`: In this function, we will create an instance of our Crawler Object to start the web crawling for a round. Whatever work gets done by the crawler will then be stored and submitted.
 
-2. `storeFiles()`: This function is used to store the submissions in IPFS. It first has to create a json filed called `dealsData.json`, then, it rights this json file to IPFS. This will be later fetched with functions from the crawler object.
+2. `storeFiles()`: This function is used to store the submissions in IPFS. It first has to create a json file called `dealsData.json`, then, it writes this json file to IPFS. This will later be fetched with functions from the crawler object.
 
 ## Crawler Folder
 
@@ -18,7 +18,7 @@ This folder contains the core logic for the web crawling aspect of the task. For
 
 Here are the key functions:
 
-1. `crawl()`: If you're familiar with web crawling, this will be very familiar to you. If you're new to puppeteer, [click here](https://pptr.dev/)! In short, we'll be using puppeteer to go through each post on redflagdeals and add the title to a list. This list will be stored in IPFS later.
+1. `crawl()`: If you're familiar with web crawling, this will be very familiar to you. If you're new to puppeteer, [click here](https://pptr.dev/)! In short, we'll be using puppeteer to go through each post on [redflagdeals](https://forums.redflagdeals.com/hot-deals-f9/) and add the title to a list. This list will be stored in IPFS later.
 
 2. `retrieveAndValidateFile()`: This function is used by `fetchSubmission` in the task logic to grab a particular submission from IPFS. This acts as our `GET` function from the decentralized database.
 

@@ -50,7 +50,7 @@ All the interesting logic for communicating with other Nodes can be found in the
    - This is a simple utility function that selects a random endpoint from the list of endpoints provided by all Nodes participating in the network task
 
 3. `task()`
-   - You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core logic for the task and it's submission is. In this case, we are using this function to grab the value from a particular Node's endpoint
+   - You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core logic for the task and submission is located. In this case, we are using this function to grab the value from a particular Node's endpoint
    - We simply use Axios to make a `get` request to the randomly selected other Node's endpoint, then store the result
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!

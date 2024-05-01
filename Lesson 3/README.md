@@ -14,7 +14,7 @@ DISCLAIMER: _This should only be used for educational and legal purposes such as
 
 ## Part I. Secrets
 
-One of the best use cases for Koii tasks is web crawling. While there are many webpages that allow users to endlessly scroll without having an account, most webpages only give a small snippet of content without logging in. Having an autonomous web crawler without having a means to login would be severely limited on many apps.
+One of the best use cases for Koii tasks is web crawling. While there are many webpages that allow users to endlessly scroll without having an account, most webpages only give a small snippet of content without logging in. Having an autonomous web crawler without having a means to login would be severely limiting on many apps.
 
 This is where secrets become very handy!
 
