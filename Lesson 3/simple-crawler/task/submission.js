@@ -8,9 +8,8 @@ class Submission {
 
   async task(round) {
     try {
-      const newTask = new SimpleCrawlerTask(process.env.KEYWORD);
-      const newTitles = await newTask.crawl();
-      await namespaceWrapper.storeSet('titles', newTitles);
+      // YOUR CODE HERE
+
       return 'Done';
     } catch (err) {
       console.error('ERROR IN EXECUTING TASK', err);
