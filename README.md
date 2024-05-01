@@ -39,7 +39,7 @@ This lesson will teach you:
 
 Once we've got the basics down, we can move on to some standard use cases for decentralized applications.
 
-To get started, we'll build out a simple data server and add some HTTP server endpoints. Once that's online, we will deploy our app onto a group of nodes with docker, and have them communicate to each other locally.
+To get started, we'll build out a simple file server and add some HTTP server endpoints. Once that's online, we will deploy our app on a Dockerized node, and test it out locally.
 
 [Start Here](./Lesson%202/README.md)
 
