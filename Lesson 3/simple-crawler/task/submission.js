@@ -8,7 +8,7 @@ class Submission {
 
   async task(round) {
     try {
-      const newTask = new RedFlag(process.env.SEARCH_TERM);
+      const newTask = new SimpleCrawlerTask(process.env.KEYWORD);
       const newTitles = await newTask.crawl();
       await namespaceWrapper.storeSet('titles', newTitles);
       return 'Done';
