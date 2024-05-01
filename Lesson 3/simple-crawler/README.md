@@ -7,7 +7,7 @@ This is a simple web crawler that scavenges redflagdeals!
 1. Clone this repo
 2. Run `yarn install`
 3. Set `.env` with corresponding variables
-4. Run `yarn run test` for Jest testing or `yarn prod-debug.js` for the live debugger
+4. Run `yarn run test` for Jest testing
 
 ## Structure Breakdown
 

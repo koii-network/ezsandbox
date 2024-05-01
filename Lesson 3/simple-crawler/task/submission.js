@@ -68,9 +68,9 @@ class Submission {
 
   async fetchSubmission(round) {
     console.log('fetchSubmission called with round', round);
-    const news = await namespaceWrapper.storeGet('titles');
-    console.log('news', news);
-    const cid = await this.storeFiles(news);
+    const deals = await namespaceWrapper.storeGet('titles');
+    console.log('deals', deals);
+    const cid = await this.storeFiles(deals);
     console.log('cid', cid);
     return cid;
   }
