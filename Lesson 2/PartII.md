@@ -59,6 +59,6 @@ As a result of this basic setup, every Node can provide server endpoints to be r
 
 Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`.
 
-In the next section, we'll learn how to test networking tasks locally, with a group of Dockerized Nodes!
+In the next section, we'll learn how to test networking tasks locally, with a Dockerized Node!
 
-[Click here to start PartIII: Docker Node Clusters](./PartIII.md)
+[Click here to start PartIII. Dockerized Node Testing](./PartIII.md)
