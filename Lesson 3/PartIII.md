@@ -41,7 +41,7 @@ await page.keyboard.press("Enter");
 
 <br>
 
-3. **Grab Post Titles** - Now that we have filtered our search results, we move on to the scraping aspect. For this simple example, we'll grab every post header with its corresponding link. We'll store those pairs as a map then return it! Again, the selectors used will vary from website to website and you will have to investigate yourself before you're able to write code for a different webpage. Here's the last bit of code:
+3. **Grab Post Titles** - Now that we have filtered our search results, we move on to the scraping aspect. For this simple example, we'll grab every post header with its corresponding link. We'll store those pairs as a map then return it! Again, the selectors used will vary from website to website and you will have to investigate yourself before you're able to write code for a different webpage. Finally, we'll close the browser because a new one is created with every round. Here's the last bit of code:
 
 ```javascript
 await page.waitForSelector("h2.post_subject");
@@ -55,6 +55,8 @@ try {
 } catch (error) {
   console.log("Error:", error);
 }
+
+await browser.close();
 ```
 
 ## Using the Crawler Object
