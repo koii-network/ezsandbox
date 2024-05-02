@@ -1,0 +1,57 @@
+# Name and metadata of your task
+task_name: 'Simple Crawler'
+author: 'Mahdeen | Koii Network'
+description: 'This is a simple web crawler example task that scrapes information on redflagdeals'
+repositoryUrl: '' #replace with your own repo url
+imageUrl: 'imageUrl'
+
+# network value can be DEVELOPMENT , ARWEAVE or IPFS, Recommended IPFS when deploying to testnet as the cli automatically takes care of uploading the executable with the help of web3.js key
+task_executable_network: 'IPFS'
+
+# Path to your executable webpack if the selected network is IPFS and in case of DEVELOPMENT  name it as main
+task_audit_program: 'dist/main.js'
+
+# Total round time of your task : it must be given in slots and each slot is roughly equal to 408ms
+round_time: 1500
+
+audit_window: 350
+submission_window: 350
+
+# Amounts in KOII
+
+minimum_stake_amount: 1.9
+
+# total_bounty_amount cannot be grater than bounty_amount_per_round
+# total bounty is not accepted in case of update task
+total_bounty_amount: 15
+
+bounty_amount_per_round: 0.01
+
+#Number of times allowed to re-submit the distribution  list in case the distribution list is audited
+allowed_failed_distributions: 3
+
+#Space in MBs for the account size, that holds the task data
+space: 1
+
+# Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
+# To add more global variables and task variables, please refer the type,value,description format shown below
+
+requirementsTags:
+  - type: CPU
+    value: '4-core'
+  - type: RAM
+    value: '5 GB'
+  - type: STORAGE
+    value: '5 GB'
+  - type: TASK_VARIABLE
+    value: 'KEYWORD'
+    description: 'keyword to search for'
+  - type: TASK_VARIABLE
+    value: 'Spheron_Storage'
+    description: 'used to store the data'
+    retrievalInfo: 'https://faucet-api.koii.network/api/get-spheron-storage-key;GET;SYSTEM_WALLET_PUBLIC_KEY'
+
+task_id: ' '
+
+# Provide the description for changes made in new version of task
+migrationDescription: ''

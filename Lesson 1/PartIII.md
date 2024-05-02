@@ -1,4 +1,12 @@
-# Part III: Consensus
+# Part III. Consensus
+
+This final section in Lesson 1 gives a high level overview on our gradual consensus mechanism. While this section is mostly conceptual, it is important to help your understanding of how to develop tasks much smoother.
+
+Prerequisites:
+
+- Nothing!
+
+<br>
 
 Each round, all nodes have an opportunity to claim rewards proportionate to the work they've contributed.
 
@@ -29,3 +37,10 @@ Cyclical programs (see (2.) above) autonomously comb over proofs to see if they 
 Audits can of course be audited, leading to a consensus backed by collateral and reputation but with near-instant settlement. In most cases, even multi-layer audits only take a couple of seconds.
 
 Audits are not always necessary, especially if you're just starting out. It may be easier to permission which public keys can participate in the task, instead of requiring a new node to prove its trustworthiness through past contributions. However, as the network and the stakes grow, the need for audits become more critical to maintain integrity and prevent malicious behaviour.
+
+<br>
+<br>
+
+You've reached the end of this lesson which means you've now mastered the fundamentals of your node, debugging, and tasks! The next lesson will take you through guides on how to enable node-to-node communicate to allow storage and networking.
+
+[Click here to start Lesson 2](../Lesson%202/README.md)

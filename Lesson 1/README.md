@@ -1,6 +1,14 @@
 # Lesson 1: Your Node
 
-This lesson covers how to get started hacking on your node.
+This lesson covers how to get started hacking on your node. Here's the lesson plan:
+
+- [Part I. Getting Started](./README.md) - Covers the basics of your Node, including installation and an overview of logs
+- [Part II. Task Flow](./PartII.md) - Dives deeper into task structure, discussing topics such as use cases, live debugging, and key functions
+- [Part III. Consensus](./PartIII.md) - Gives a high level overview of our gradual consensus mechanism
+
+Prerequisites:
+
+- Nothing!
 
 ## Part I. Getting Started
 
@@ -16,7 +24,7 @@ Visit [the Koii website](https://koii.network) to download the client and instal
 
 ### Test Your API In the Browser
 
-Once your node is running, you can test your webserver in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
+Once your node is running, you can test your web server in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
 
 ### Open The Node Application Folder
 
@@ -65,6 +73,6 @@ KOII-Desktop-Node % tree -d -L 2./
 
 The key here is that each 'namespace' belongs to one Task, and all requisite logs, databases, and other information are stored here. Tasks cannot access anything outside of their own namespace, so master logs are kept at a node level as well (see `logs/main.log`)
 
-In the next lesson we'll make use of this to start hacking on our node.
+In the next section we'll make use of this to start hacking on our node.
 
-[Start Hacking in Part II: Task Flow](./PartII.md)
+[Start Hacking in Part II. Task Flow](./PartII.md)
