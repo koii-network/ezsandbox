@@ -64,3 +64,4 @@ node mint_token.js
 #### Additional Tips
 - Token Decimals: Remember that the amount to mint should consider the decimal places defined in your token creation. For example, to mint 1000 tokens with 9 decimals, you multiply 1000 by 10^9. 
 - Security: Handle the Keypair and token details securely. Avoid hardcoding sensitive information directly into your scripts.
+[Continue to Part III. RPC API](./PartIII.md)
