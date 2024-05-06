@@ -69,7 +69,7 @@ Start Here (Coming Soon)
 
 This lesson will teach you how to deploy your own custom SPL token on Koii.
 
-Start Here (coming soon)
+[Start Here](./Lesson%206/README.md)
 
 ## Lesson 7: Getting faucet tokens & deploying your task
 
