@@ -1,3 +1,6 @@
+
+<img width="max" alt="banner__1_" src="https://github.com/koii-network/ezsandbox/assets/66934242/5181782b-1594-4de0-9e80-879d34517784">
+
 Powered by [Koii](https://koii.network) - Over 60,000 community devices at your fingertips
 
 # Welcome to EZSandbox
