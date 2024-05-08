@@ -1,5 +1,5 @@
 const { namespaceWrapper } = require('../_koiiNode/koiiNode');
-const CaeserCipher = require('../caeser-cipher/caeser-cipher');
+const CaesarCipher = require('../caesar-cipher/caesar-cipher');
 
 class Audit {
   /**

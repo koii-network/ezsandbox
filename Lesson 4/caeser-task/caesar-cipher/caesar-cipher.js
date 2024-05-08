@@ -1,4 +1,4 @@
-class CaeserCipher {
+class CaesarCipher {
   static getRandomShiftNum() {
     return Math.floor(Math.random() * 5) + 1;
   }
@@ -29,4 +29,4 @@ class CaeserCipher {
   }
 }
 
-module.exports = CaeserCipher;
+module.exports = CaesarCipher;

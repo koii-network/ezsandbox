@@ -1,5 +1,5 @@
 const { namespaceWrapper } = require('../_koiiNode/koiiNode');
-const CaeserCipher = require('../caeser-cipher/caeser-cipher');
+const CaesarCipher = require('../caesar-cipher/caesar-cipher');
 
 class Submission {
   /**
@@ -12,8 +12,8 @@ class Submission {
     try {
       console.log('ROUND', round);
       const originalMsg = 'koii rocks!';
-      const randomShift = CaeserCipher.getRandomShiftNum();
-      const encryptedMsg = CaeserCipher.encrypt(originalMsg, randomShift);
+      const randomShift = CaesarCipher.getRandomShiftNum();
+      const encryptedMsg = CaesarCipher.encrypt(originalMsg, randomShift);
       const value = randomShift + encryptedMsg;
 
       console.log(
