@@ -15,7 +15,7 @@ Prerequisites:
 
 If you recall from [Lesson 1](../Lesson%201/PartIII.md), we discussed gradual consensus and how tasks are able to do work, verify each other's work, then distribute rewards based on those verified results. So far, all we've really done as developers is build out the task side of things i.e, we've only built the "work" part of a Koii task.
 
-Auditing is the next big step for us as it helps us ensure that our tasks are being run properly and it prevents bad actors from exploiting us for free rewards.
+Auditing is the next big step for us as it helps us ensure that our tasks are being run properly and it prevents bad actors from exploiting us for free rewards. You can typically find a task's audit logic in `task/audit.js`.
 
 ### The Purpose of Audits
 
@@ -73,7 +73,7 @@ This task's job is to simply submit a hardcoded value, `Hello, World!`. This mak
 
 This audit operation is great when you have a deterministic value that you're looking for as a result. This doesn't necessarily mean you need to hard code For example, if you wanted to build a task that does prime factorization, then the deterministic result would simply be the original number!
 
-#### 2. UPnP Task - Lesson 2
+#### 2. UPnP Task - [Lesson 2](../Lesson%202/upnp-task/task/audit.js)
 
 ```javascript
   async validateNode(submission_value, round) {
@@ -98,7 +98,7 @@ In this task, we allowed nodes to act as both a server and a client. As servers,
 
 Instead, we can create an audit mechanism that health checks the endpoints by ensuring the retrieved value exists and is of an expected type. Another example of where this kind of audit may come in handy is when the fetched data follows a specific kind of structure, such as a `json` file. If you know what kinds of data to expect, then the value of the data can be arbitrary!
 
-#### 3. Simple Crawler Task - Lesson 3
+#### 3. Simple Crawler Task - [Lesson 3](../Lesson%203/simple-crawler/task/audit.js)
 
 ```javascript
   async validateNode(submission_value, round) {
