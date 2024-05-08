@@ -57,7 +57,7 @@ Audits keep things secure, allowing nodes to verify each other's work.
 
 Incentives allow the Task to make payments, either in KOII, USDC, or another token (your own, if you dare!) and reward nodes that pass audits.
 
-[Start Here](./Lesson4/README.md)
+[Start Here](./Lesson%204/README.md)
 
 ## Lesson 5: Security & Hardening
 
