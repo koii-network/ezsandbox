@@ -54,7 +54,7 @@ Open the `hello-world/` folder again and we'll start hacking through some files.
 1. Start the Debugger
    `yarn prod-debug`
 
-2. Add Debugs to Cyclical Functions.
+2. Add Debugging logs.
    Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
 In each case, navigate to the correct file within the `task` directory, then find the target function. Paste the following code line as shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
