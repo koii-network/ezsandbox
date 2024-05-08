@@ -5,6 +5,8 @@ Now that your Node is up and running, you'll want to get familiar with the [basi
 Prerequisites:
 
 - Latest [Koii Node](https://koii.network) version installed
+- [Node.js](https://nodejs.org/en/download/current)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable)
 
 ## Debugging
 
