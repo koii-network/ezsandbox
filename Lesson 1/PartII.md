@@ -24,7 +24,7 @@ i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` director
 
 To make building your task as easy as possible, you can use the AutoBuild module to build your Task Executable and copy it into your Node.
 
-To configure the module, open .env.example and update the template to point to the correct TaskID. You can use any already deployed task for this example, but we use our EZSandbox task by default which provides a great starting point to experiment.
+We have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in .env.example.
 
 Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
 
@@ -56,13 +56,17 @@ First, we'll add some debug logs, and then we can watch how these functions run 
 
 Open the `hello-world/` folder again and we'll start hacking through some files. Open `hello-world/task` to get started.
 
-1. Start the Debugger
+1. Rename .env.example to .env.
+
+2. Start the Debugger
    `yarn prod-debug`
 
-2. Add Debugs to Cyclical Functions.
+3. Add Debugs to Cyclical Functions.
    Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-In each case, navigate to the correct file within the `task` directory, then find the target function. Paste the following code line as shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
+In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
+
+.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
 
 a. The Core Task:
 
