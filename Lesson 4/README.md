@@ -1,6 +1,6 @@
 # Lesson 4: Data Sharing & Replication Incentives
 
-This lesson covers audit mechanisms and how to write different types of mechanisms for different tasks. Here is the lesson plan:
+This lesson covers how data is shared through audit and distribution mechanisms and how to write different types of mechanisms for different tasks. Here is the lesson plan:
 
 - [Part I. Auditing Concepts](./README.md) - Explains on a conceptual level how auditing works for tasks and showcases the different kinds of existing audit operations.
 - [Part II. Distribution Concepts](./PartII.md) - Discusses how distributions work and showcases different distribution schemes
@@ -27,7 +27,7 @@ For a problem such as calculating a math problem, how can you easily verify this
 
 ### Controlled Redundancy
 
-When you create your task's audit mechanism, you can decide exactly how much you need to review work. If I have a mission critical task, then I may require 20 nodes to verify a result before I'm able to confidently claim that it's correct. For a different task, such as a simple addition, maybe I'm confident that only 2 nodes need to verify as result. Koii gives you the freedom to scrutinize work with a customizable level of control, enabling you to make those decisions precisely for your use case.
+When you create your task's audit mechanism, you can decide exactly how much you need to review work. If you have a mission critical task, then you may require 20 nodes to verify a result before you're able to confidently claim that it's correct. For a different task, such as a simple addition, maybe you're confident that only 2 nodes need to verify as result. Koii gives you the freedom to scrutinize work with a customizable level of control, enabling you to make those decisions precisely for your use case.
 
 You could even start off with a highly redundant system and slowly reduce the amount of audits that are done based on a node's reputation. [Learn more about reputation here!](https://docs.koii.network/concepts/what-are-tasks/designing-tasks/using-reputation#definition-of-carp)
 

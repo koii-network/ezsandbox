@@ -1,6 +1,6 @@
 # Part III. Building Audit and Distribution Mechanisms
 
-The last couple parts were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
+The first two sections were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
 
 Prerequisites:
 
@@ -9,7 +9,7 @@ Prerequisites:
 
 ## Caesar Task
 
-If you navigate to the attached task for this lesson, you'll see that it simulate a mini Caesar cipher. For this task, the submission logic is completed for you but it's up to _you_ to _decipher_ the audit logic! Let's take a look at what's going on in the `task()` function from `submissions.js`
+If you navigate to the attached task for this lesson, you'll see that it simulates a mini Caesar cipher. For this task, the submission logic is completed for you but it's up to you to _decipher_ the audit logic! Let's take a look at what's going on in the `task()` function from `submissions.js`
 
 ```javascript
 const originalMsg = "koii rocks!";
@@ -18,9 +18,9 @@ const encryptedMsg = CaesarCipher.encrypt(originalMsg, randomShift);
 const value = randomShift + encryptedMsg;
 ```
 
-1. We're first specifying an original message that will be encrypted and submitted. It looks like the message you decided with is "koii rocks!". We agree!
+1. We're first specifying an original message that will be encrypted and submitted. It looks like you decided with the message, "koii rocks!". We agree!
 
-2. Next, we get a random number from 1-5 to shift our Caesar cipher by. This is specifically done to make your life a little harder! We don't want your audit logic to be as simple as checking if the value equals `"koii rocks!"`, that'd be no fun. But, for simplicity sake, we decided to keep the shift between 1 and 5 letters
+2. Next, we get a random number from 1-5 to shift our Caesar cipher by. This is specifically done to make your life a little harder! We don't want your audit logic to be as simple as checking if the value equals `"koii rocks!"`, that'd be no fun. But, for simplicity sake, we decided to keep the shift between 1 and 5 letters.
 
 3. We encrypt the message with a standard Caesar cipher using the random number we want to shift by. If you're curious about the code used to do this, feel free to investigate `caesar-cipher/caesar-cipher.js`.
 
@@ -32,7 +32,7 @@ Now, if we navigate to the `validateNode()` function in `audit.js`, we'll see th
 
 Hint: Remember the value we prepended at the start of our submission? That might come in handy!
 
-If you're having a little trouble figuring it out, no worries. Here's the answer, we'll break it down for you:
+If you're having a little trouble figuring it out, no worries. Here's one possible answer, we'll break it down for you:
 
 ```javascript
   async validateNode(submission_value, round) {

@@ -144,6 +144,15 @@ If the node **has** received votes, it's time to tally them up! After the votes 
 
 Once we have the final list of nodes who should receive rewards, we can begin to distribute the bounty! Typically, you can distribute a round's bounty equally amongst all participants, but this mechanism is up to you. If you want to hard code your rewards mechanism and give everyone 1 token, you could. If you wanted to give more tokens based on reputation, you could. Whatever you feel is the best way to distribute rewards for your use case, feel free to use that system!
 
+## Shared Data
+
+One thing to note about generating distribution lists is that it's a singular node's responsibility, that is, only one node is chosen to do it per round. Once this list is generated, it needs to be shared and audited by other nodes, similar to regular audit logic. So remember, there are two audits:
+
+1. Auditing a node's task work
+2. Auditing the round's distribution list
+
+Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to Link State routing. If you want to learn more about data sharing across a task, [click here!](https://docs.koii.network/develop/linktree/data-sharing)
+
 Just like that we've successfully gone through both audit and distribute mechanisms and we're now ready to write our own.
 
 [Click here to start PartIII. Building Audit and Distribution Mechanisms](./PartIII.md)
