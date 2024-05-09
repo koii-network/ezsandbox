@@ -30,9 +30,9 @@ Please see [hello-world's README](./hello-world/README.md) for help setting up t
 
 By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
 
-## Task Flow
+<!-- ## Task Flow
 
-Tasks run in round-based cycles, similar to Epochs in a Proof-of-History flow.
+Tasks run in round-based cycles, similar to Epochs in a [Proof-of-History](https://www.youtube.com/watch?v=rywOYfGu4EA) flow.
 
 Tasks include two kinds of programs:
 
@@ -43,14 +43,15 @@ Tasks include two kinds of programs:
    - c. Utility Modules
 
 2. Cyclical: These run once per round (you'll set the `round_time` when you deploy later on)
-   - a. Governance Functions
-   - b. Timed Workloads like Replication
+   a. Governance Functions
+   b. Timed Workloads like Replication -->
 
 ### Add the Task to Your Node
 
 Before you begin debugging, you'll need to add the task to your node. Go to the `Add Task` tab and click on the "Advanced" link at the bottom left. Paste in the EZSandbox Task ID and set your stake to 1.9 KOII (you should have gotten some from the [faucet](https://faucet.koii.network/) when you set up your node). Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
 
-### Debugging Flow
+
+### Your First Debugging
 
 First, we'll add some debug logs, and then we can watch how these functions run over time.
 
@@ -61,7 +62,9 @@ Open the `hello-world/` folder again and we'll start hacking through some files.
 2. Start the Debugger
    `yarn prod-debug`
 
-3. Add Debugs to Cyclical Functions.
+
+3. Add Debugging logs.
+
    Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
 In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
