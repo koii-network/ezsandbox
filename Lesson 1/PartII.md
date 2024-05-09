@@ -37,13 +37,14 @@ Tasks run in round-based cycles, similar to Epochs in a Proof-of-History flow.
 Tasks include two kinds of programs:
 
 1. Continuous: These run like a normal server, and start whenever the Task reboots
-   a. REST APIs
-   b. Databases
-   c. Utility Modules
+
+   - a. REST APIs
+   - b. Databases
+   - c. Utility Modules
 
 2. Cyclical: These run once per round (you'll set the `round_time` when you deploy later on)
-   a. Governance Functions
-   b. Timed Workloads like Replication
+   - a. Governance Functions
+   - b. Timed Workloads like Replication
 
 ### Add the Task to Your Node
 
