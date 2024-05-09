@@ -45,6 +45,10 @@ Tasks include two kinds of programs:
    a. Governance Functions
    b. Timed Workloads like Replication
 
+### Add the Task to Your Node
+
+Before you begin debugging, you'll need to add the task to your node. Go to the `Add Task` tab and click on the "Advanced" link at the bottom left. Paste in the EZSandbox Task ID and set your stake to 1.9 KOII (you should have gotten some from the [faucet](https://faucet.koii.network/) when you set up your node). Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
+
 ### Debugging Flow
 
 First, we'll add some debug logs, and then we can watch how these functions run over time.
