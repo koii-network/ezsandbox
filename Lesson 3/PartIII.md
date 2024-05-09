@@ -84,4 +84,4 @@ Just like that, you've successfully created your very own web crawler! This temp
 
 You've reached the end of this lesson which means you're now able to create your very own web crawler for any simple webpage! The next lesson will discuss data sharing and replication incentives.
 
-[Click here to start Lesson 4](../README.md)
+[Click here to start Lesson 4](../Lesson%204//README.md)
