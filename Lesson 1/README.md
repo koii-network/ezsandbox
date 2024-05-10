@@ -20,7 +20,7 @@ To build on Koii, we'll get started by getting to know your node.
 
 ### Install Your Node
 
-Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the faucet while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s))
+Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the [faucet](https://faucet.koii.network/) while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s))
 
 ### Test Your API In the Browser
 

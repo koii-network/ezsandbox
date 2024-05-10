@@ -20,7 +20,7 @@ In this project, we'll start by demonstrating the key features of the Node compu
 
 Koii is a network of people, using their nodes to support a diverse ecosystem of products and services, all operated by community members like you.
 
-Decentralized Applications on the Koii Cloud run in modules called 'Tasks' and anyone can join by installing a Koii Node. You can think of a Koii Node as a Tool, sort of like a document-editor or web browser which reads and operates Tasks instead of documents or web pages.
+Decentralized Applications on the Koii Cloud run in modules called 'Tasks' and anyone can join by running a Koii Node, a program users install which manages and runs Tasks.
 
 At the end of these tutorials, you'll be ready to build your first Koii Application that other community members can then run on their Node.
 
@@ -79,7 +79,7 @@ Audits keep things secure, allowing nodes to verify each other's work.
 
 Incentives allow the Task to make payments, either in KOII, USDC, or another token (your own, if you dare!) and reward nodes that pass audits.
 
-Start Here (Coming Soon)
+[Start Here](./Lesson%204/README.md)
 
 <br>
 <br>

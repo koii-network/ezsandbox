@@ -46,7 +46,7 @@ NOTE: If you're worried about rent costs, keep in mind that this is a local envi
 5. Now that your task is live, note down the taskID and executable CID. Place your taskID in your `.env.local` as shown below:
 
 ```
-TASKS="hLt4w79EqmMeWj6FNZKgkf4ZqYWaMWUpSNxnPzvnwHL" //Your task's ID
+TASKS="ETHVehVJbepd4RZjUqoR2iveYTAsauLpd4kiCRnPUE7Y" //Your task's ID
 ```
 
 6. If you've previously deployed your task, you'll need to navigate to the `dist` folder and rename `main.js` to `<YOUR CID>.js`. In this case, your CID is the executable's CID you saved!
