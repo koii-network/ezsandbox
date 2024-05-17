@@ -26,6 +26,8 @@ The task template contains three separate JavaScript files in the task folder th
  ┃ ┗ 📜distribution.js // Contains the submitDistributionList and auditDistribution function.
  ┣ 📂tests
  ┣ 📜config-task.yml
+ ┣ 📜debugger.js
+ ┣ 📜prod-debug.js // used for live debugging
  ┣ 📜coreLogic.js
  ┗ 📜index.js
 ```
