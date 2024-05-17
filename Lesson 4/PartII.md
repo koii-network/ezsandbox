@@ -35,11 +35,19 @@ For this example, we've decided to use [Lesson 1's Hello World Task distribution
       /****** SAMPLE LOGIC FOR GENERATING DISTRIBUTION LIST ******/
       let distributionList = {};
       let distributionCandidates = [];
-      let taskAccountDataJSON = await namespaceWrapper.getTaskState();
-      if (taskAccountDataJSON == null) taskAccountDataJSON = _dummyTaskState;
+      let taskAccountDataJSON = null;
+      let taskStakeListJSON = null;
+      try {
+        taskAccountDataJSON = await namespaceWrapper.getTaskSubmissionInfo(
+          round,
+        );
+      } catch (error) {
+        console.error('ERROR IN FETCHING TASK SUBMISSION DATA', error);
+        return distributionList;
+      }
       const submissions = taskAccountDataJSON.submissions[round];
-      const submissions_audit_trigger =
-        taskAccountDataJSON.submissions_audit_trigger[round];
+      const submissions_audit_trigger = taskAccountDataJSON.submissions_audit_trigger[round];
+
       if (submissions == null) {
         console.log(`NO SUBMISSIONS FOUND IN ROUND ${round}`);
         return distributionList;
@@ -58,6 +66,13 @@ The first thing we do is initialize our distribution lists. We also fetch all th
         const values = Object.values(submissions);
         const size = values.length;
         console.log('SUBMISSIONS FROM LAST ROUND: ', keys, values, size);
+        taskStakeListJSON = await namespaceWrapper.getTaskState({
+          is_stake_list_required: true,
+        });
+        if (taskStakeListJSON == null) {
+          console.error('ERROR IN FETCHING TASK STAKING LIST');
+          return distributionList;
+        }
         // Slashing the stake of the candidate who has been audited and found to be false
         for (let i = 0; i < size; i++) {
           const candidatePublicKey = keys[i];
@@ -65,13 +80,15 @@ The first thing we do is initialize our distribution lists. We also fetch all th
             submissions_audit_trigger &&
             submissions_audit_trigger[candidatePublicKey]
           ) {
-            console.log('DISTRIBUTION AUDIT TRIGGER VOTES', submissions_audit_trigger[candidatePublicKey].votes);
+            console.log(
+              'DISTRIBUTION AUDIT TRIGGER VOTES',
+              submissions_audit_trigger[candidatePublicKey].votes,
+            );
             const votes = submissions_audit_trigger[candidatePublicKey].votes;
+
             if (votes.length === 0) {
               // Slash 70% of the stake as still the audit is triggered but no votes are casted
-              // Note that the votes are on the basis of the submission value
-              // To do so we need to fetch the stakes of the candidate from the task state
-              const stake_list = taskAccountDataJSON.stake_list;
+              const stake_list = taskStakeListJSON.stake_list;
               const candidateStake = stake_list[candidatePublicKey];
               const slashedStake = candidateStake * 0.7;
               distributionList[candidatePublicKey] = -slashedStake;
@@ -95,11 +112,11 @@ Slashing refers to the penalty that's issued to a node for completing a task inc
                 else numOfVotes--;
               }
 
-              if (numOfVotes < 0) {
+              if (numOfVotes < 0 && taskStakeListJSON) {
                 // slash 70% of the stake as the number of false votes are more than the number of true votes
                 // Note that the votes are on the basis of the submission value
                 // to do so we need to fetch the stakes of the candidate from the task state
-                const stake_list = taskAccountDataJSON.stake_list;
+                const stake_list = taskStakeListJSON.stake_list;
                 const candidateStake = stake_list[candidatePublicKey];
                 const slashedStake = candidateStake * 0.7;
                 distributionList[candidatePublicKey] = -slashedStake;
@@ -127,8 +144,8 @@ If the node **has** received votes, it's time to tally them up! After the votes 
       // Distribute the rewards based on the valid submissions
       // Here it is assumed that all the nodes doing valid submission gets the same reward
       const reward = Math.floor(
-        taskAccountDataJSON.bounty_amount_per_round /
-        distributionCandidates.length,
+        taskStakeListJSON.bounty_amount_per_round /
+          distributionCandidates.length,
       );
       console.log('REWARD RECEIVED BY EACH NODE', reward);
       for (let i = 0; i < distributionCandidates.length; i++) {
