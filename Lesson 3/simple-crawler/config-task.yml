@@ -1,6 +1,6 @@
 # Name and metadata of your task
 task_name: 'Simple Crawler'
-author: 'Mahdeen | Koii Network'
+author: 'Your Name | Koii Network'
 description: 'This is a simple web crawler example task that scrapes information on redflagdeals'
 repositoryUrl: '' #replace with your own repo url
 imageUrl: 'imageUrl'

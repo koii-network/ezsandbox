@@ -14,7 +14,7 @@ This is a simple web crawler that scavenges redflagdeals!
 The task template contains three separate JavaScript files in the task folder that contain all of the functions for a Koii task to function properly.
 
 ```bash
-📦upnp-task
+📦simple-crawler
  ┣ 📂_koiiNode
  ┃ ┗ 📜koiiNode.js // Contains all the components that task connect to K2.
  ┣ 📂crawler
@@ -26,6 +26,8 @@ The task template contains three separate JavaScript files in the task folder th
  ┃ ┗ 📜distribution.js // Contains the submitDistributionList and auditDistribution function.
  ┣ 📂tests
  ┣ 📜config-task.yml
+ ┣ 📜debugger.js
+ ┣ 📜prod-debug.js // used for live debugging
  ┣ 📜coreLogic.js
  ┗ 📜index.js
 ```

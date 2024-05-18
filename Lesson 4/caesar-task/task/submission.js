@@ -17,7 +17,7 @@ class Submission {
       const value = randomShift + encryptedMsg;
 
       console.log(
-        'Original: %s, Encrypted: %s, Shift: %d',
+        'TEST - Original: %s, Encrypted: %s, Shift: %d',
         originalMsg,
         encryptedMsg,
         randomShift,

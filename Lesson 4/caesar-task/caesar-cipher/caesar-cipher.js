@@ -3,7 +3,7 @@ class CaesarCipher {
     return Math.floor(Math.random() * 5) + 1;
   }
 
-  encode(text, shift) {
+  static encode(text, shift) {
     let encodedText = '';
     for (let i = 0; i < text.length; i++) {
       const char = text[i];

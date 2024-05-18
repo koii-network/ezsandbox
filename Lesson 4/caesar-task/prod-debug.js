@@ -79,9 +79,8 @@ const tailLogs = async (desktopNodeLogPath, keywords, taskID) => {
   );
 
   tail.on('line', function (data) {
-    // console.log(data);
     if (keywords.some(keyword => data.includes(keyword))) {
-      console.log(`PROD$ ${data}`);
+      console.log(data);
     }
   });
 

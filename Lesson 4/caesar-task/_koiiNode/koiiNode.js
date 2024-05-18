@@ -365,10 +365,11 @@ class NamespaceWrapper {
   // async signEth(transaction) {
   //   return await genericHandler('signEth', transaction);
   // }
-  async getTaskState() {
+  async getTaskState(options) {
     if (taskNodeAdministered) {
-      const response = await genericHandler('getTaskState');
+      const response = await genericHandler('getTaskState', options);
       if (response.error) {
+        console.log('Error in getting task state', response.error);
         return null;
       }
       return response;
@@ -377,16 +378,16 @@ class NamespaceWrapper {
     }
   }
 
-  async logMessage(level, message) {
+  async logMessage(level, message, action) {
     switch (level) {
       case LogLevel.Log:
-        console.log(message);
+        console.log(message, action);
         break;
       case LogLevel.Warn:
-        console.warn(message);
+        console.warn(message, action);
         break;
       case LogLevel.Error:
-        console.error(message);
+        console.error(message, action);
         break;
       default:
         console.log(
@@ -409,11 +410,11 @@ class NamespaceWrapper {
    * @returns {boolean} // true if the message is logged successfully otherwise false
    */
 
-  async logger(level, message) {
+  async logger(level, message, action) {
     if (taskNodeAdministered) {
-      return await genericHandler('logger', level, message);
+      return await genericHandler('logger', level, message, action);
     } else {
-      return await this.logMessage(level, message);
+      return await this.logMessage(level, message, action);
     }
   }
 
@@ -638,10 +639,33 @@ class NamespaceWrapper {
     }
   }
 
+  async getTaskSubmissionInfo(round) {
+    if (taskNodeAdministered) {
+      const taskSubmissionInfo = await genericHandler(
+        'getTaskSubmissionInfo',
+        round,
+      );
+      if (taskSubmissionInfo.error) {
+        return null;
+      }
+      return taskSubmissionInfo;
+    } else {
+      return this.#testingTaskState.submissions[round];
+    }
+  }
+
   async validateAndVoteOnNodes(validate, round) {
     console.log('******/  IN VOTING /******');
-    const taskAccountDataJSON = await this.getTaskState();
-
+    let taskAccountDataJSON = null;
+    try {
+      taskAccountDataJSON = await this.getTaskSubmissionInfo(round);
+    } catch (error) {
+      console.error('Error in getting submissions for the round', error);
+    }
+    if (taskAccountDataJSON == null) {
+      console.log('No submissions found for the round', round);
+      return;
+    }
     console.log(
       `Fetching the submissions of round ${round}`,
       taskAccountDataJSON.submissions[round],
@@ -714,10 +738,34 @@ class NamespaceWrapper {
     }
   }
 
+  async getTaskDistributionInfo(round) {
+    if (taskNodeAdministered) {
+      const taskDistributionInfo = await genericHandler(
+        'getTaskDistributionInfo',
+        round,
+      );
+      if (taskDistributionInfo.error) {
+        return null;
+      }
+      return taskDistributionInfo;
+    } else {
+      return this.#testingTaskState.distribution_rewards_submission[round];
+    }
+  }
+
   async validateAndVoteOnDistributionList(validateDistribution, round) {
     // await this.checkVoteStatus();
     console.log('******/  IN VOTING OF DISTRIBUTION LIST /******');
-    const taskAccountDataJSON = await this.getTaskState();
+    let taskAccountDataJSON = null;
+    try {
+      taskAccountDataJSON = await this.getTaskDistributionInfo(round);
+    } catch (error) {
+      console.error('Error in getting distributions for the round', error);
+    }
+    if (taskAccountDataJSON == null) {
+      console.log('No distribution submissions found for the round', round);
+      return;
+    }
     console.log(
       `Fetching the Distribution submissions of round ${round}`,
       taskAccountDataJSON.distribution_rewards_submission[round],
@@ -834,23 +882,10 @@ class NamespaceWrapper {
   async getAverageSlotTime() {
     if (taskNodeAdministered) {
       try {
-        const current_rpc = await namespaceWrapper.getRpcUrl();
-        const current_connection = new Connection(current_rpc);
-        const slotSamples =
-          await current_connection.getRecentPerformanceSamples(60);
-        let samplesLength = slotSamples.length;
-
-        const averageSlotTime =
-          slotSamples.reduce((avgSlotTime, slotSample) => {
-            return (
-              avgSlotTime +
-              1000 * (slotSample.samplePeriodSecs / slotSample.numSlots)
-            );
-          }, 0) / samplesLength;
-        return averageSlotTime;
+        return await genericHandler('getAverageSlotTime');
       } catch (error) {
         console.error('Error getting average slot time', error);
-        return null;
+        return 400;
       }
     } else {
       return 400;
@@ -858,7 +893,18 @@ class NamespaceWrapper {
   }
 
   async nodeSelectionDistributionList(round, isPreviousFailed) {
-    const taskAccountDataJSON = await namespaceWrapper.getTaskState();
+    let taskAccountDataJSON = null;
+    try {
+      taskAccountDataJSON = await this.getTaskSubmissionInfo(round);
+    } catch (error) {
+      console.error('Task submission not found', error);
+      return;
+    }
+
+    if (taskAccountDataJSON == null) {
+      console.error('Task state not found');
+      return;
+    }
     console.log('EXPECTED ROUND', round);
 
     const submissions = taskAccountDataJSON.submissions[round];
@@ -867,70 +913,75 @@ class NamespaceWrapper {
       return 'No submisssions found in N-1 round';
     } else {
       // getting last 3 submissions for the rounds
-      const rounds = Object.keys(taskAccountDataJSON.submissions)
-        .map(Number)
-        .sort((a, b) => b - a);
       let keys;
-      // Find the index of the input round
-      const inputRoundIndex = rounds.indexOf(round);
+      const latestRounds = [round, round - 1, round - 2].filter(r => r >= 0);
 
-      // Check if the input round exists in the submissions
-      if (inputRoundIndex != -1 && rounds.length >= inputRoundIndex + 2) {
-        // Get the latest rounds (input round and two previous available rounds)
-        const latestRounds = rounds.slice(inputRoundIndex, inputRoundIndex + 3);
-
-        // Create sets of keys for each round
-        const keySets = latestRounds.map(
-          r => new Set(Object.keys(taskAccountDataJSON.submissions[r])),
-        );
-
-        // Find the keys present in all three rounds
-        keys = [...keySets[0]].filter(key =>
-          keySets.every(set => set.has(key)),
-        );
-        if (keys.length == 0) {
-          console.log('No common keys found in last 3 rounds');
-          keys = Object.keys(submissions);
+      const promises = latestRounds.map(async r => {
+        if (r == round) {
+          return new Set(Object.keys(submissions));
+        } else {
+          let roundSubmissions = null;
+          try {
+            roundSubmissions = await this.getTaskSubmissionInfo(r);
+            if (roundSubmissions && roundSubmissions.submissions[r]) {
+              return new Set(Object.keys(roundSubmissions.submissions[r]));
+            }
+          } catch (error) {
+            console.error('Error in getting submissions for the round', error);
+          }
+          return new Set();
         }
-      } else {
+      });
+
+      const keySets = await Promise.all(promises);
+
+      // Find the keys present in all the rounds
+      keys =
+        keySets.length > 0
+          ? [...keySets[0]].filter(key => keySets.every(set => set.has(key)))
+          : [];
+      if (keys.length == 0) {
+        console.log('No common keys found in last 3 rounds');
         keys = Object.keys(submissions);
       }
       console.log('KEYS', keys.length);
-      const values = Object.values(submissions);
+      const values = keys.map(key => submissions[key]);
 
       let size = keys.length;
       console.log('Submissions from N-2  round: ', size);
 
       // Check the keys i.e if the submitter shall be excluded or not
+      try {
+        const distributionData = await this.getTaskDistributionInfo(round);
+        const audit_record = distributionData?.distributions_audit_record;
+        if (audit_record && audit_record[round] == 'PayoutFailed') {
+          console.log('ROUND DATA', audit_record[round]);
+          console.log(
+            'SUBMITTER LIST',
+            distributionData.distribution_rewards_submission[round],
+          );
+          const submitterList =
+            distributionData.distribution_rewards_submission[round];
+          const submitterKeys = Object.keys(submitterList);
+          console.log('SUBMITTER KEYS', submitterKeys);
+          const submitterSize = submitterKeys.length;
+          console.log('SUBMITTER SIZE', submitterSize);
 
-      const audit_record = taskAccountDataJSON.distributions_audit_record;
-      console.log('AUDIT RECORD');
-      console.log('ROUND DATA', audit_record[round]);
-
-      if (audit_record[round] == 'PayoutFailed') {
-        console.log(
-          'SUBMITTER LIST',
-          taskAccountDataJSON.distribution_rewards_submission[round],
-        );
-        const submitterList =
-          taskAccountDataJSON.distribution_rewards_submission[round];
-        const submitterSize = Object.keys(submitterList).length;
-        console.log('SUBMITTER SIZE', submitterSize);
-        const submitterKeys = Object.keys(submitterList);
-        console.log('SUBMITTER KEYS', submitterKeys);
-
-        for (let j = 0; j < submitterSize; j++) {
-          console.log('SUBMITTER KEY CANDIDATE', submitterKeys[j]);
-          const id = keys.indexOf(submitterKeys[j]);
-          console.log('ID', id);
-          if (id != -1) {
-            keys.splice(id, 1);
-            values.splice(id, 1);
-            size--;
+          for (let j = 0; j < submitterSize; j++) {
+            console.log('SUBMITTER KEY CANDIDATE', submitterKeys[j]);
+            const id = keys.indexOf(submitterKeys[j]);
+            console.log('ID', id);
+            if (id != -1) {
+              keys.splice(id, 1);
+              values.splice(id, 1);
+              size--;
+            }
           }
-        }
 
-        console.log('KEYS FOR HASH CALC', keys.length);
+          console.log('KEYS FOR HASH CALC', keys.length);
+        }
+      } catch (error) {
+        console.log('Error in getting distribution data', error);
       }
 
       // calculating the digest
@@ -1030,10 +1081,15 @@ class NamespaceWrapper {
     );
     console.log('Selected Node', selectedNode);
     const submitPubKey = await this.getSubmitterAccount();
-    if (selectedNode == undefined || submitPubKey == undefined) return;
+    if (
+      selectedNode == undefined ||
+      selectedNode == '' ||
+      submitPubKey == undefined
+    )
+      return;
     if (selectedNode == submitPubKey?.publicKey.toBase58()) {
       await submitDistributionList(round);
-      const taskState = await this.getTaskState();
+      const taskState = await this.getTaskState({});
       if (taskState == null) {
         console.error('Task state not found');
         return;

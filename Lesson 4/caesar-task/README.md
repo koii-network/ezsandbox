@@ -1,6 +1,6 @@
-# Koii Hello World Task
+# Koii Caesar Task
 
-This is a simple task which uses Webpack to allow support of all node modules and project structures instead of a single file executable for the Koii task. The main purpose is to simply print `hello world`!
+This is a simple task that uses a Caesar cipher to teach you about audit and distribution logic!
 
 ## How to Setup
 
@@ -13,9 +13,11 @@ This is a simple task which uses Webpack to allow support of all node modules an
 The task template contains three separate JavaScript files in the task folder that contain all of the functions for a Koii task to function properly.
 
 ```bash
-📦hello-world
+📦caesar-task
  ┣ 📂_koiiNode
  ┃ ┗ 📜koiiNode.js // Contains all the components that task connect to K2.
+ ┣ 📂caesar-cipher
+ ┃ ┗ 📜caesar-cipher.js // Contains logic for the caesar encryption and decryption
  ┣ 📂task
  ┃ ┣ 📜index.js // Main file that contains the task function.
  ┃ ┣ 📜submission.js // Contains the task function and submitTask function.

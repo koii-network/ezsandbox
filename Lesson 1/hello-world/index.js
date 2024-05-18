@@ -8,10 +8,12 @@ const {
 if (app) {
   //  Write your Express Endpoints here.
   //  Ex. app.post('/accept-cid', async (req, res) => {})
-  
+
   // Sample API that return your task state
   app.get('/taskState', async (req, res) => {
-    const state = await namespaceWrapper.getTaskState();
+    const state = await namespaceWrapper.getTaskState({
+      is_stake_list_required: true,
+    });
     console.log('TASK STATE', state);
     res.status(200).json({ taskState: state });
   });
@@ -42,7 +44,10 @@ async function setup() {
       coreLogic.task(m.roundNumber);
     } else if (m.functionCall == 'generateAndSubmitDistributionList') {
       console.log('generateAndSubmitDistributionList called');
-      coreLogic.selectAndGenerateDistributionList(m.roundNumber, m.isPreviousRoundFailed);
+      coreLogic.selectAndGenerateDistributionList(
+        m.roundNumber,
+        m.isPreviousRoundFailed,
+      );
     } else if (m.functionCall == 'distributionListAudit') {
       console.log('distributionListAudit called');
       coreLogic.auditDistribution(m.roundNumber);
