@@ -111,25 +111,6 @@ Instead, we can create an audit mechanism that health checks the endpoints by en
   }
 ```
 
-```javascript
-  async retrieveAndValidateFile(cid) {
-    const client = new SpheronClient({ token: this.spheronApiKey });
-
-    try {
-      const upload = await client.getUpload(uploadId);
-      if (upload) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error('Failed to download or validate file from IPFS:', error);
-      throw error;
-    }
-  }
-```
-
-In this case, we need a way to verify that nodes are correctly storing the data that has been archived from webpages. Because we're using Spheron, we can try to retrieve the data from IPFS based on its CID. You can further verify this data by referencing the link stored to check if it really exists online, but in the above example we excluded this for simplicity.
-
 This type of audit can be extended or simplified as needed, but follows the same general format of fetching the stored data to ensure it exists. All web crawlers can follow this audit pattern.
 
 Additionally, you can see that audit logic can be made to be modular and flexible to your own needs which is why we decide to use a function from the crawler class for better organization.
