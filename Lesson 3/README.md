@@ -30,6 +30,7 @@ These Task Extensions/Secrets can be used by the task developer to bypass the is
 
 In [Lesson 2](../Lesson%202/README.md), we added something to our `task-config.yml` requirements section to make UPnP configuration work. Now, we can see that a task developer can also use the requirements section to specify any number of secrets they may need for a task to function! The image below showcases `Archive Twitter's` requirements section:
 
+<!-- TODO: Change to text -->
 ![Archive Twitter Requirements](./imgs/twitter-reqs.png)
 
 As you can see, each task extension has a corresponding value and description, which will be used by the Node. On the development side, the task extensions will be automatically linked as environment variables and can be used as such e.g/ `process.env.TWITTER_USERNAME`

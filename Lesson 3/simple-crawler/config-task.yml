@@ -46,10 +46,6 @@ requirementsTags:
   - type: TASK_VARIABLE
     value: 'KEYWORD'
     description: 'keyword to search for'
-  - type: TASK_VARIABLE
-    value: 'Spheron_Storage'
-    description: 'used to store the data'
-    retrievalInfo: 'https://faucet-api.koii.network/api/get-spheron-storage-key;GET;SYSTEM_WALLET_PUBLIC_KEY'
 
 task_id: ' '
 
