@@ -39,15 +39,3 @@ One final thing to note is that during development, you must specify your own co
 Think about the requirements tag section as an interface for users to easily create their own `.env` file, then run the task code using it.
 
 If you're interested in looking at the `Twitter Archive` task more in depth, [click here!](https://github.com/koii-network/task-X)
-
-### Spheron Storage Secret
-
-You may have noticed with this task, and many others, the presence of a `Spheron_Storage` task extension. In fact, this extension is so important it automatically links for you!
-
-![Spheron Storage Linked](./imgs/spheron-linked.png)
-
-Spheron storage is a service that allows us to use IPFS for storage. Put simply, IPFS is a protocol that allows for decentralized storing and sharing of data in a distributed file system. Spheron is simply a popular dApp that allows us to easily make use of IPFS, which is why a Spheron key is required for many tasks. Learn more about IPFS [here!](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/using-the-task-namespace/storage-via-ipfs)
-
-With a basic understanding of secrets and their usages in both the Node and during task development, we can start looking at how to create our very own crawler!
-
-[Click here to start PartII. Crawler Task Structure](./PartII.md)
