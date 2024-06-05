@@ -1,6 +1,5 @@
 const { namespaceWrapper } = require('../_koiiNode/koiiNode');
-const SimpleCrawlerTask = require('../crawler/SimpleCrawlerTask');
-const { SpheronClient, ProtocolEnum } = require('@spheron/storage');
+const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 const fs = require('fs');
 
 class Submission {
@@ -34,25 +33,17 @@ class Submission {
   }
 
   async storeFiles(data, filename = 'dealsData.json') {
-    const client = new SpheronClient({ token: process.env.Spheron_Storage });
-    const basePath = await namespaceWrapper.getBasePath();
-    fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
-
-    let currentlyUploaded = 0;
-
     try {
-      const { uploadId, bucketId, protocolLink, dynamicLinks, cid } =
-        await client.upload(`${basePath}/${filename}`, {
-          protocol: ProtocolEnum.IPFS,
-          name: 'taskData',
-          onUploadInitiated: uploadId => {
-            console.log(`Upload with id ${uploadId} started...`);
-          },
-          onChunkUploaded: (uploadedSize, totalSize) => {
-            currentlyUploaded += uploadedSize;
-            console.log(`Uploaded ${currentlyUploaded} of ${totalSize} Bytes.`);
-          },
-        });
+      const client = new KoiiStorageClient();
+      const basePath = await namespaceWrapper.getBasePath();
+      fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
+
+      let currentlyUploaded = 0;
+      const userStaking = await namespaceWrapper.getSubmitterAccount();
+
+
+
+      const { cid } = await client.uploadFile(`${basePath}/${filename}`,userStaking);
 
       console.log(`Stored file CID: ${cid}`);
       fs.unlinkSync(`${basePath}/${filename}`);
