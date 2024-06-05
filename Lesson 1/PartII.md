@@ -1,106 +1,67 @@
-# Part II. Task Flow
+# Lesson 1: Introduction to Koii Tasks
 
-Now that your Node is up and running, you'll want to get familiar with the [basic task template codebase](./hello-world/). We'll also get you well acquainted with logs and live debugging.
+## Part II: Introduction to the Node
 
-Prerequisites:
+The big advantage of building with Koii is that our community of node operators are already prepared and eager to join your new project. Node operators run their Node in the background on personal devices, so they can use excess capacity to run your app. To understand how this process works, let's take a look at the node software.
 
-- Latest [Koii Node](https://koii.network) version installed
-- [Node.js](https://nodejs.org/en/download/current)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable)
+### Install Your Node
 
-## Debugging
+In order to run a task, you'll need to have the Desktop Node installed. Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the [faucet](https://faucet.koii.network/) while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s)). Once your node is running, you can test your web server in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
 
-Before you learn how to develop your own tasks, it's very important to know how to **debug** them.
+### The Node Application Folder
 
-_"Give a man a fish and you feed him for a day. Teach him how to fish and you feed him for a lifetime"_
+To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'View Logs' as shown below:
+![Open the logs file](./imgs/my-node-open-logs.png)
+
+The path to your logs will be
+`<OS-specific path>/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
+
+On Windows, the first part of your path will look something like this:
+`/Users/<username>/AppData/Roaming`
+
+On Mac, it would look something like this:
+`/Users/<username>/Library/Application Support`
+
+And on Linux, it would look something like this:
+`/home/<username>/.config`
+
+The parent directory for your node is up a couple of folders:
+`<OS-specific path>/KOII-Desktop-Node`
+
+This parent folder contains a couple of key items, which we will mostly work with from a distance.
+
+```bash
+KOII-Desktop-Node % tree -d -L 2./
+.
+├── executables
+├── logs
+├── namespace
+│   ├── 2H6BDyQrDZp7WgkPB8c29nAKRwgrZjU29ovLUipNUWLy
+│   ├── 6GPu4gqQycYVJxw2oXK1QkkqXgtF9geft1L7ZHoDP4MQ
+│   ├── 6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F
+│   ├── CXjifqMWhR4QJT8MNY7BADJ5nstCbGLTgh7xreT9gmWp
+│   ├── DZbRm6qRxy5ERPD61RHhVcS2sFootJ5fzSTWrzgoQmhf
+│   ├── Gp2BcsuGgrvcEux3NER3fdtkjWQADY6S2h23c27HTAQ3
+│   └── wJme8ZBopdCj54J556AxZeysBjDngnFbzDrKtJHg3E4
+├── updater-cache
+│   └── desktop-node-updater
+└── wallets
+
+14 directories
+```
+
+The key here is that each 'namespace' contains one Task, and all requisite logs, databases, and other information are stored here. Tasks cannot access anything outside of their own namespace, so master logs are kept at the node level as well (`<OS-specific path>/KOII-Desktop-Node/logs/main.log`).
 
 ### Logs
 
+Before you learn how to develop your own tasks, it's very important to know how to **debug** them.
+
+> _"Give a man a fish and you feed him for a day. Teach him how to fish and you feed him for a lifetime"_
+
 Logs are the bread and butter of tasks and can give you all sorts of information on what's really going on under the hood.
 
-For example, try tail'ing the logs file and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs update in real time.
+For example, try running `tail -f main.log` and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs update in real time.
 
-i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` directory!
+**NOTE:** Make sure your terminal is in the [`logs`](#the-node-application-folder) directory!
 
-### AutoBuild
-
-To make building your task as easy as possible, you can use the AutoBuild module to build your Task Executable and copy it into your Node.
-
-We have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in .env.example.
-
-Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
-
-By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
-
-<!-- ## Task Flow
-
-Tasks run in round-based cycles, similar to Epochs in a [Proof-of-History](https://www.youtube.com/watch?v=rywOYfGu4EA) flow.
-
-Tasks include two kinds of programs:
-
-1. Continuous: These run like a normal server, and start whenever the Task reboots
-
-   - a. REST APIs
-   - b. Databases
-   - c. Utility Modules
-
-2. Cyclical: These run once per round (you'll set the `round_time` when you deploy later on)
-   a. Governance Functions
-   b. Timed Workloads like Replication -->
-
-### Add the Task to Your Node
-
-Before you begin debugging, you'll need to add the task to your node. Go to the `Add Task` tab and click on the "Advanced" link at the bottom left. Paste in the EZSandbox Task ID and set your stake to 1.9 KOII (you should have gotten some from the [faucet](https://faucet.koii.network/) when you set up your node). Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
-
-### Your First Debugging
-
-First, we'll add some debug logs, and then we can watch how these functions run over time.
-
-Open the `hello-world/` folder again and we'll start hacking through some files. Open `hello-world/task` to get started.
-
-1. Rename .env.example to .env.
-
-2. Start the Debugger
-   `yarn prod-debug`
-
-3. Add Debugging logs.
-
-Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
-
-In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
-
-.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
-
-a. The Core Task:
-
-- File Name: `submission.js`
-- Function: `task()`
-- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
-
-b. The Audit Function:
-
-- File Name: `audit.js`
-- Function: `validateNode()`
-- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
-
-c. Generate Proofs:
-
-- File Name: `submission.js`
-- Function: `fetchSubmission()`
-- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
-
-c. Assign Rewards:
-
-- File Name: `distribution.js`
-- Function: `generateDistributionList()`
-- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
-
-As you save each file, you should see the debugger restart.
-
-Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
-
-Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
-
-In the next section, we'll talk about what the output here means.
-
-[Click here to start PartIII. Consensus](./PartIII.md)
+Now that you've had a look at the node, let's run your first task! [Part III: Running a Task](./PartIII.md)

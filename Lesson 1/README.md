@@ -1,78 +1,27 @@
-# Lesson 1: Your Node
+# Lesson 1: Introduction to Koii Tasks
 
-This lesson covers how to get started hacking on your node. Here's the lesson plan:
+## Part 1: What is a Koii Task?
 
-- [Part I. Getting Started](./README.md) - Covers the basics of your Node, including installation and an overview of logs
-- [Part II. Task Flow](./PartII.md) - Dives deeper into task structure, discussing topics such as use cases, live debugging, and key functions
-- [Part III. Consensus](./PartIII.md) - Gives a high level overview of our gradual consensus mechanism
+### Overview
 
-Prerequisites:
+A Koii Task is a way for you to run a computing job in a distributed fashion, across our network of Nodes. To distribute the task while ensuring that it's done  correctly, we break the work into rounds with these main components:
 
-- Nothing!
+1. **Task**: This is the main work the node needs to do in each round.
+2. **Submission**: The result of the work is submitted to be checked.
+3. **Audit**: The work is verified by other Nodes in the network.
+4. **Distribution**: Rewards are handed out to each Node that successfully completed the work.
 
-## Part I. Getting Started
+For more information on how this process works, see [Consensus](./Appendix/Consensus.md).
 
-The big advantage of building with Koii is that our community of node operators are already prepared and eager to join your new project.
+To understand how a Koii Task works, let's take a look at an existing task.
 
-Node operators run their Node in the background on personal devices, so they can use excess capacity to run your app.
+### Example
 
-To build on Koii, we'll get started by getting to know your node.
+To get you started, we've provided the code for a simple task in the [`hello-world/`](./hello-world/) folder. The four job components in this case are:
 
-### Install Your Node
+1. **Task**: Save the string "Hello, World!" to the local database. This can be found in [`Submission.task()`](./hello-world/task/submission.js#L9)
+2. **Submission**: Retrieves the value stored in the database and submits it for verification. This can be found in [`Submission.fetchSubmission()`](./hello-world/task/submission.js#L51)
+3. **Audit**: Auditing nodes check to confirm that the value submitted was the string "Hello, World!". This can be found in [`Audit.validateNode()`](./hello-world/task/audit.js#L11)
+4. **Distribution**: A bounty per round (set in `config-task.yml`, which we'll discuss later) is distributed equally among all successful submissions for the round. This can be found in [`Distribution.generateDistributionList()`](./hello-world/task/audit.js#L50)
 
-Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the [faucet](https://faucet.koii.network/) while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s))
-
-### Test Your API In the Browser
-
-Once your node is running, you can test your web server in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
-
-### Open The Node Application Folder
-
-To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'View Logs' as shown below:
-![Open the logs file](./imgs/my-node-open-logs.png)
-
-On Windows, the path to your logs will look something like this:
-`/Users/almorris/AppData/Roaming/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
-
-<br>
-
-On Mac, it would look something like this:
-`/Users/almorris/Library/Application Support/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log'`
-
-<br>
-
-And on linux, it would look something like this:
-`/home/almorris/.config/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
-
-<br>
-
-The parent directory for your node is up a couple of folders:
-`/Users/almorris/Library/Application Support/KOII-Desktop-Node`
-
-This parent folder contains a couple of key items, which we will mostly work with from a distance.
-
-```
-KOII-Desktop-Node % tree -d -L 2./
-.
-├── executables
-├── logs
-├── namespace
-│   ├── 2H6BDyQrDZp7WgkPB8c29nAKRwgrZjU29ovLUipNUWLy
-│   ├── 6GPu4gqQycYVJxw2oXK1QkkqXgtF9geft1L7ZHoDP4MQ
-│   ├── 6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F
-│   ├── CXjifqMWhR4QJT8MNY7BADJ5nstCbGLTgh7xreT9gmWp
-│   ├── DZbRm6qRxy5ERPD61RHhVcS2sFootJ5fzSTWrzgoQmhf
-│   ├── Gp2BcsuGgrvcEux3NER3fdtkjWQADY6S2h23c27HTAQ3
-│   └── wJme8ZBopdCj54J556AxZeysBjDngnFbzDrKtJHg3E4
-├── updater-cache
-│   └── desktop-node-updater
-└── wallets
-
-14 directories
-```
-
-The key here is that each 'namespace' belongs to one Task, and all requisite logs, databases, and other information are stored here. Tasks cannot access anything outside of their own namespace, so master logs are kept at a node level as well (see `logs/main.log`)
-
-In the next section we'll make use of this to start hacking on our node.
-
-[Start Hacking in Part II. Task Flow](./PartII.md)
+Next, let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)

@@ -1,4 +1,4 @@
-# Part II. Writing Networking Tasks
+# Part II. Writing a Networking Task
 
 Now that you've got a basic understanding of how networking is done in the Node, it's time for deploy your own task that utilizes REST APIs!
 
