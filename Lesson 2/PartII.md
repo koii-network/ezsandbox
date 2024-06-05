@@ -56,6 +56,8 @@ The endpoints you define in `routes.js` will dictate what kinds of communication
 
 This creates a `/value` endpoint that can be accessed as described above - but more importantly, this endpoint is accessible from other Nodes. This allows you to share the information for use by other nodes.
 
+**Note**: You'll also need to add a 'VALUE' entry to your .env file for this to work when you run it. This value can be whatever you like.
+
 ### Your Node as a Client
 
 With our own endpoints set up, we now need to make calls to other Node's endpoints and access their `value`s.
@@ -136,10 +138,43 @@ async task(round) {
 
 You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core logic for the task is located. In this case, we are grabbing the value from a particular Node's endpoint using the `getAddressArray()` and `getRandomNodeEndpoint()` functions we just defined.
 
+### Auditing
+
+The last thing we'll need to do is audit the results. Because the value can vary from node to node, we won't be able to check a specific value. Instead, we'll just confirm that the value is a string.
+
+In `task/audit.js` find the `validateNode()` function:
+
+```javascript
+  async validateNode(submission_value, round) {
+    let vote;
+    console.log('SUBMISSION VALUE', submission_value, round);
+    try {
+      // Verify the value
+      if ( /* EDIT HERE: Check the submission value */ ) {
+        vote = true;
+      } else {
+        vote = false;
+      }
+    } catch (e) {
+      console.error(e);
+      vote = false;
+    }
+    return vote;
+  }
+```
+
+and change the if condition as follows:
+
+```javascript
+if (typeof submission_value === 'string' && submission_value.length > 0) {
+   ...
+}
+```
+
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
 
 ### Exercise
 
 Now that you've seen how to create an endpoint and retrieve data from it, try it yourself! Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`.
 
-In the next section, we'll learn how to store and share files. [Click here to start PartIII. File Storage & Sharing](./PartIII.md)
+In the next section, we'll learn how to store and share files. [Click here to start Part III. File Storage & Sharing](./PartIII.md)
