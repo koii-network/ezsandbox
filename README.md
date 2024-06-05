@@ -24,6 +24,9 @@ Decentralized Applications on the Koii Cloud run in modules called 'Tasks' and a
 
 At the end of these tutorials, you'll be ready to build your first Koii Application that other community members can then run on their Node.
 
+<br />
+<br />
+
 ![Koii tasks](https://github.com/koii-network/ezsandbox/assets/113378734/04edd56a-04e8-4a9f-9b89-752ba046b3ad)
 
 ## Lesson 1: Introduction to Koii Tasks
@@ -43,7 +46,7 @@ This lesson will teach you:
 
 ![Writing a task](https://github.com/koii-network/ezsandbox/assets/113378734/8dab766d-36b7-434a-b19c-6e68c70a9a80)
 
-## Lesson 2: Networking & Storage
+## Lesson 2: Writing a Task
 
 Once we've got the basics down, we can move on to writing a task of our own. We'll learn how to use networking and storage with the example of a simple file server. We'll also see how to deploy our app on a Dockerized node and test it out locally.
 
@@ -84,7 +87,7 @@ Now that you've seen several different types of tasks, this lesson will cover ho
 
 <!-- TODO: GET  TASK FOR THIS LESSON -->
 
-Start Here (Coming Soon)
+[Start Here](./Lesson%205/README.md)
 
 <br />
 <br />
@@ -95,7 +98,7 @@ Start Here (Coming Soon)
 
 This lesson will teach you how to deploy your own custom KPL token on Koii.
 
-Start Here (coming soon)
+[Start Here](./Lesson%206/README.md)
 
 <br />
 <br />
@@ -106,7 +109,7 @@ Start Here (coming soon)
 
 Once everything is tightened down, it's time to get your community and start running nodes. We'll get you a small grant in KOII to fund your task bounty, deploy the task, and run it on your node.
 
-Start Here (Coming Soon)
+[Start Here](./Lesson%207/README.md)
 
 <br />
 <br />
@@ -117,7 +120,7 @@ Start Here (Coming Soon)
 
 After your task is live, it's time to consider improving your work. In this final lesson, we'll cover some tips on debugging, multi-node simulations, and how to publish an update to your Task.
 
-Start Here (Coming Soon)
+[Start Here](./Lesson%208/README.md)
 
 <br />
 <br />

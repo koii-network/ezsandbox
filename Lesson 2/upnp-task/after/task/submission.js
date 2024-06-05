@@ -1,6 +1,7 @@
 const { namespaceWrapper, TASK_ID } = require('../_koiiNode/koiiNode');
 const { default: axios } = require('axios');
-const { createHash } = require('crypto');
+const getData = require('getData');
+
 class Submission {
   /**
    * Executes your task, optionally storing the result.
@@ -11,15 +12,15 @@ class Submission {
   async task(round) {
     try {
       console.log('ROUND', round);
-      const IPAddressArray = await this.getAddressArray(); // Get the avaliable IP address array
-      // console.log(IPAddressArray);
+      // Get a list of the available IP addresses
+      const IPAddressArray = await getData.getAddressArray();
 
       try {
-        const randomNode = this.getRandomNodeEndpoint(IPAddressArray);
+        // Get a random node from the list
+        const randomNode = getData.getRandomNodeEndpoint(IPAddressArray);
         console.log('RANDOM NODE', randomNode);
 
-        // pick a random one from nodeList and use axios to fetch data
-
+        // Fetch the value from the random node
         const response = await axios.get(`${randomNode}/task/${TASK_ID}/value`);
 
         if (response.status === 200) {
@@ -75,25 +76,6 @@ class Submission {
     const value = await namespaceWrapper.storeGet('value'); // retrieves the value
     // Return cid/value, etc.
     return value;
-  }
-
-  async getAddressArray() {
-    try {
-      // Get the task state from the K2
-      const taskState = await namespaceWrapper.getTaskState();
-      // console.log('TASK STATE', taskState);
-      const nodeList = taskState.ip_address_list;
-      console.log('Node List', nodeList);
-      return nodeList;
-    } catch (e) {
-      console.log('ERROR GETTING TASK STATE', e);
-    }
-  }
-
-  async getRandomNodeEndpoint(IPAddressArray) {
-    const values = Object.values(IPAddressArray);
-    const randomIndex = Math.floor(Math.random() * values.length);
-    return values[randomIndex];
   }
 }
 const submission = new Submission();
