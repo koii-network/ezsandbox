@@ -1,4 +1,4 @@
-# Lesson II. Writing a Task
+# Lesson 2: Writing a Networking & Storage Task
 
 ## Part II: Writing the Task
 
@@ -12,7 +12,7 @@ Prerequisites:
 
 ### Initial Setup
 
-Attached under this lesson is a skeleton template for a task in the [`upnp-task/before`] folder. Try writing the task yourself; you can check the [`upnp-task/after`] folder if you get stuck.
+Attached under this lesson is a skeleton template for a task in the [`upnp-basics/before`] folder. Try writing the task yourself; you can check the [`upnp-basics/after`] folder if you get stuck.
 
 Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`. We will discuss this file further in [Lesson 3](../Lesson%203/README.md) but we have specified the `REQUIRE_INTERNET` addon, as shown below:
 
@@ -138,10 +138,8 @@ You learned in [Lesson 1](../Lesson%201/README.md) that this is where the core l
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
 
-## Exercise
+### Exercise
 
-Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`.
+Now that you've seen how to create an endpoint and retrieve data from it, try it yourself! Create your own custom endpoint for a Node that sends a message to another Node. Remember to create a new route in `routes.js`, along with a new fetch request in the `task()` function from `submission.js`.
 
-In the next section, we'll learn how to test networking tasks locally, with a Dockerized Node!
-
-[Click here to start PartIII. Dockerized Node Testing](./PartIII.md)
+In the next section, we'll learn how to store and share files. [Click here to start PartIII. File Storage & Sharing](./PartIII.md)

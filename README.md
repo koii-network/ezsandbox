@@ -46,7 +46,7 @@ This lesson will teach you:
 
 ![Writing a task](https://github.com/koii-network/ezsandbox/assets/113378734/8dab766d-36b7-434a-b19c-6e68c70a9a80)
 
-## Lesson 2: Writing a Task
+## Lesson 2: Writing a Networking & Storage Task
 
 Once we've got the basics down, we can move on to writing a task of our own. We'll learn how to use networking and storage with the example of a simple file server. We'll also see how to deploy our app on a Dockerized node and test it out locally.
 

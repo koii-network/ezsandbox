@@ -1,4 +1,4 @@
-# Lesson 2: Writing a Task
+# Lesson 2: Writing a Networking & Storage Task
 
 ## Part I: Node to Node Communication
 
