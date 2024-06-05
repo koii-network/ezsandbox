@@ -123,4 +123,4 @@ This takes the submission value, which is the CID, and passes it to `isValidFile
 
 And that's it! You've successfully written a task that uses IPFS to store data.
 
-Next up, we'll take a look at secrets and the config options in [Lesson 3: Secrets & Config](../Lesson%203/README.md).
+Finally, let's see how to deploy a task locally with Docker. [Part IV. Deploying Locally](./PartIV.md)
