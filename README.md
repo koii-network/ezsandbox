@@ -67,7 +67,7 @@ Start Here (Coming Soon)
 
 ## Lesson 6: Using Custom Tokens for Tasks
 
-This lesson will teach you how to deploy your own custom SPL token on Koii.
+This lesson will teach you how to deploy your own custom KPL token on Koii.
 
 [Start Here](./Lesson%206/README.md)
 

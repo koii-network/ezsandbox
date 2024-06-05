@@ -1,6 +1,6 @@
 
 ## Part III. RPC API
-In this section of our guide, we'll explore how to use JSON RPC API to interact with SPL Tokens. Specifically, we'll look at finding all token accounts for a specific mint address. This operation is crucial for understanding the distribution and accessibility of a token on the network. In this section, we will give a example, further cases you can reference our [RPC API Docs](https://docs.koii.network/develop/rpcapi/http/). 
+In this section of our guide, we'll explore how to use JSON RPC API to interact with KPL Tokens. Specifically, we'll look at finding all token accounts for a specific mint address. This operation is crucial for understanding the distribution and accessibility of a token on the network. In this section, we will give a example, further cases you can reference our [RPC API Docs](https://docs.koii.network/develop/rpcapi/http/). 
 
 ### Finding All Token Accounts for a Specific Mint
 To retrieve all token accounts associated with a specific mint, we utilize the `getProgramAccounts` RPC method. This method allows us to query multiple accounts that meet specified criteria.
@@ -38,11 +38,11 @@ curl https://testnet.koii.network -X POST -H "Content-Type: application/json" -d
 #### Explanation of Parameters:
 - method: getProgramAccounts is used to fetch accounts managed by a specific program.
 - params:
-    - The first parameter is the program ID of the SPL Token program (TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA).
+    - The first parameter is the program ID of the KPL Token program (TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA).
     - The second parameter specifies the encoding and filters:
     - encoding: jsonParsed provides the account data in a human-readable JSON format.
     - filters:
-        - dataSize: 165 indicates the size of a typical SPL Token account.
+        - dataSize: 165 indicates the size of a typical KPL Token account.
         - memcmp: Filters accounts where the mint address matches the specified mint.
 
 This command returns all the accounts that are token accounts under the specified mint address, making it easier to analyze the distribution and usage of the token.
@@ -51,4 +51,4 @@ This command returns all the accounts that are token accounts under the specifie
 Run the above curl command in your terminal to fetch the token accounts. The response will include details about each account, such as the owner, the amount of tokens held, and other relevant metadata.
 
 ### Conclusion
-Understanding how to interact with the blockchain through RPC calls is essential for developers working with SPL Tokens. This method provides a powerful way to query and manage blockchain data efficiently. 
+Understanding how to interact with the blockchain through RPC calls is essential for developers working with KPL Tokens. This method provides a powerful way to query and manage blockchain data efficiently. 

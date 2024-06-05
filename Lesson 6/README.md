@@ -1,13 +1,13 @@
 # Lesson 6: Using Custom Tokens for Tasks
 
-This lesson covers how to create, mint, and send a SPL Token. Here is the lesson plan:
+This lesson covers how to create, mint, and send a KPL Token. Here is the lesson plan:
 
-- [Part I. Create a SPL Token](./README.md) - Explains and showcases an example of how to create a SPL token on our chain. 
+- [Part I. Create a KPL Token](./README.md) - Explains and showcases an example of how to create a KPL token on our chain. 
 - [Part II. Operations](./PartII.md) - Discusses operations within the JavaScript package about how to mint, transfer, etc. 
-- [Part III. RPC API](./PartIII.md) - Walks through the RPC APIs related to our SPL Token Operations. 
+- [Part III. RPC API](./PartIII.md) - Walks through the RPC APIs related to our KPL Token Operations. 
 
-## Part I. Create a SPL Token
-Creating a custom SPL Token can be crucial for specific tasks in decentralized applications. This part of the lesson demonstrates how to create your own SPL Token using the `@solana/spl-token` JavaScript package.
+## Part I. Create a KPL Token
+Creating a custom KPL Token can be crucial for specific tasks in decentralized applications. This part of the lesson demonstrates how to create your own KPL Token using the `@solana/spl-token` JavaScript package.
 
 ### Overview
 1. Setting Up Your Project
@@ -26,8 +26,8 @@ Before we begin, ensure you have the following:
 1. Setting Up Your Project
 First, create a new directory for your project and initialize it with npm:
 ```bash
-mkdir koii-spl-token
-cd koii-spl-token
+mkdir koii-kpl-token
+cd koii-kpl-token
 npm init -y
 npm install @_koi/web3.js @solana/spl-token
 ```
@@ -75,6 +75,6 @@ Additional Considerations:
 Token Decimals: Define the token precision. In our example, we used 9 decimals.
 Mint Authority: The wallet is allowed to mint new tokens. In this script, the payer is the mint authority.
 
-This script demonstrates the initial steps to create a SPL Token. In the next parts, we will cover how to mint, transfer tokens, and utilize them in tasks.
+This script demonstrates the initial steps to create a KPL Token. In the next parts, we will cover how to mint, transfer tokens, and utilize them in tasks.
 
 [Continue to Part II. Operations](./PartII.md)
