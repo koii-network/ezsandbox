@@ -47,7 +47,7 @@ K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 
 5. Now that your task is live, note down the taskID and executable CID. Place your taskID in your `.env.local` as shown below:
 
-```
+```dotenv
 TASKS="ETHVehVJbepd4RZjUqoR2iveYTAsauLpd4kiCRnPUE7Y" //Your task's ID
 ```
 
