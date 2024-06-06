@@ -156,6 +156,6 @@ This audit combines elements of the UPnP and Simple Crawler tasks - it verifies 
 
 ### Controlling the Number of Auditing Nodes
 
-In some cases, you may want to set the number of nodes you'd like to perform an audit each round. For this, you can add custom logic to the `validateAndVoteOnNodes()` function. You can see an example from the Twitter Archive task [here](https://gitlab.com/koii-network/dev-blue/task-X/-/blob/main/namespaceWrapper.js?ref_type=heads#L579-592)
+In some cases, you may want to set the number of nodes you'd like to perform an audit each round. For this, you can add custom logic to the `validateAndVoteOnNodes()` function. Note that unlike other functions we've worked with before, this one is located in [`NamespaceWrapper`](./caesar-task/_koiiNode/koiiNode.js#L657). You can see an example from the Twitter Archive task [here](https://gitlab.com/koii-network/dev-blue/task-X/-/blob/main/namespaceWrapper.js?ref_type=heads#L579-592)
 
-[Click here to start PartII. Distribution Concepts](./PartII.md)
+Now let's take a look at distribution concepts in [PartII](./PartII.md)
