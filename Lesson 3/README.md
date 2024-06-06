@@ -1,9 +1,9 @@
-# Lesson 3: Secrets & Crawlers
+# Lesson 3: Secrets & Config
 
 This lesson covers how to use secrets to build out full web crawlers. Here is the lesson plan:
 
 - [Part I. Secrets](./README.md) - Explains and showcases with an example how to implement and use secrets for tasks
-- [Part II. Crawler Task Structure](./PartII.md) - Discusses a conceptual overview on what the crawler task structure entails and what the development plan is
+- [Part II. The Task Config File](./PartII.md) - Explains the various options in the `config-task.yml` file
 - [Part III. Building a Crawler](./PartIII.md) - Walks through exactly how to build out a simple and customizable template for a web crawler
 
 Prerequisites:

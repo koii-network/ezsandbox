@@ -1,4 +1,4 @@
-# Lesson 3: Secrets & Crawlers
+# Lesson 3: Secrets & Config
 
 ## Part II. The Task Config File
 
@@ -66,6 +66,6 @@ migrationDescription: ''
 
 ```
 
-<!-- TODO: More explanantion of how to choose values for some of these options -->
+<!-- TODO: More explanation of how to choose values for some of these options -->
 
 Now that we've discussed the config options, let's move on to writing our crawler task. [Part III. Building a Crawler](./PartIII.md)

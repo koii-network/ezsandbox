@@ -7,6 +7,7 @@ class Submission {
 
   async task(round) {
     try {
+      console.log('task called with round', round);
       // YOUR CODE HERE
 
       return 'Done';
@@ -38,7 +39,6 @@ class Submission {
       const basePath = await namespaceWrapper.getBasePath();
       fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
 
-      let currentlyUploaded = 0;
       const userStaking = await namespaceWrapper.getSubmitterAccount();
 
 
@@ -58,9 +58,7 @@ class Submission {
 
   async fetchSubmission(round) {
     console.log('fetchSubmission called with round', round);
-    const deals = await namespaceWrapper.storeGet('titles');
-    console.log('deals', deals);
-    const cid = await this.storeFiles(deals);
+    const cid = await namespaceWrapper.storeGet('cid');
     console.log('cid', cid);
     return cid;
   }
