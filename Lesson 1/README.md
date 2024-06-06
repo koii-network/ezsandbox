@@ -11,7 +11,7 @@ A Koii Task is a way for you to run a computing job in a distributed fashion, ac
 3. **Audit**: The work is verified by other Nodes in the network.
 4. **Distribution**: Rewards are handed out to each Node that successfully completed the work.
 
-For more information on how this process works, see [Consensus](./Appendix/Consensus.md).
+For more information on how this process works, see [Gradual Consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus).
 
 To understand how a Koii Task works, let's take a look at an existing task.
 

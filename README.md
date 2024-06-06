@@ -123,10 +123,4 @@ After your task is live, it's time to consider improving your work. In this fina
 [Start Here](./Lesson%208/README.md)
 
 <br />
-<br />
-
-## Appendix: Important Koii Concepts
-
-Go deeper into understanding key concepts of Koii Tasks.
-
-[Read more here](./Appendix/README.md)
+<br />c
