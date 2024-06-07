@@ -4,7 +4,7 @@ In this lesson, we are only discussing namespaceWrapper functions, so we don't h
 
 ## Using Signatures
 
-To improve security, you might want to verify that data the data you're receiving is coming from the source you expect. This can be done by verifying messages with signatures.
+To improve security, you might want to verify that the data you're receiving is coming from the source you expect. This can be done by verifying messages with signatures.
 
 A message can be signed like so, using [`namespaceWrapper.payloadSigning()`](./koiiNode.js#L222):
 
