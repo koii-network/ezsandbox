@@ -565,7 +565,7 @@ class NamespaceWrapper {
       ] = {
         submission_value: submissionValue,
         slot: 100,
-        round: 1,
+        round,
       };
     }
   }
@@ -650,7 +650,8 @@ class NamespaceWrapper {
       }
       return taskSubmissionInfo;
     } else {
-      return this.#testingTaskState.submissions[round];
+      // console.log(this.#testingTaskState)
+      return this.#testingTaskState;
     }
   }
 
@@ -686,7 +687,7 @@ class NamespaceWrapper {
         let candidatePublicKey = keys[i];
         console.log('FOR CANDIDATE KEY', candidatePublicKey);
         let candidateKeyPairPublicKey = new PublicKey(keys[i]);
-        if (candidatePublicKey == submitterPubkey) {
+        if (candidatePublicKey == submitterPubkey && taskNodeAdministered) {
           console.log('YOU CANNOT VOTE ON YOUR OWN SUBMISSIONS');
         } else {
           try {
@@ -749,7 +750,7 @@ class NamespaceWrapper {
       }
       return taskDistributionInfo;
     } else {
-      return this.#testingTaskState.distribution_rewards_submission[round];
+      return this.#testingTaskState;
     }
   }
 
