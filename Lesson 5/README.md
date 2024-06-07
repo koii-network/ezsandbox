@@ -12,7 +12,7 @@ A message can be signed like so, using [`namespaceWrapper.payloadSigning()`](./k
 const message = "Hello World!";
 
 // Sign payload
-const signature = await namespaceWrapper.payloadSigning(message);
+const signedMessage = await namespaceWrapper.payloadSigning(message);
 ```
 
 The `payloadSigning()` function will take care of accessing the node's private key for the signing.
@@ -27,7 +27,7 @@ const keypair = await namespaceWrapper.payloadSigning(message);
 const publicKey = keypair.publicKey;
 ```
 
-You can then send the message and the public key to another node to be verified and decoded. This can be done with [`namespaceWrapper.verifySignature()`](./koiiNode.js#L254):
+You can then send the signed message and the public key to another node to be verified and decoded. This can be done with [`namespaceWrapper.verifySignature()`](./koiiNode.js#L254):
 
 ```javascript
 // Assuming you've already retrieved the signed message and the public key
