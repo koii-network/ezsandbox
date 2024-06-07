@@ -1,15 +1,15 @@
 # Lesson 4: Auditing & Distribution
 
-## Part III. Building Audit and Distribution Mechanisms
+## Part III: Building Audit and Distribution Mechanisms
 
 The first two sections were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
 
 Prerequisites:
 
-- Understanding of Audit and Distribution Mechanisms
-- Basic knowledge of [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
+- Understanding of [Audit](./README.md) and [Distribution](./PartII.md) Mechanisms
+- Basic knowledge of a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
-### Caesar Task
+### Caesar Cipher Task
 
 If you navigate to the attached task for this lesson, you'll see that it simulates a mini Caesar cipher. For this task, the submission logic is completed for you but it's up to you to _decipher_ the audit logic! Let's take a look at what's going on in the `task()` function from `submissions.js`
 
@@ -56,4 +56,4 @@ Again, if you run into difficulties, you can see our answer in the [`after` fold
 
 You've reached the end of this lesson which means you're now familiar with audit and distribution mechanisms. The next lesson will discuss security and hardening.
 
-[Click here to start Lesson 5](../README.md)
+Now we'll talk about security and hardening in [Lesson 5](../Lesson%205/README.md)

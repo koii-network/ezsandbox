@@ -1,21 +1,15 @@
-# Lesson 4: Auditing and Distribution
+# Lesson 4: Auditing & Distribution
 
-This lesson covers how data is shared through audit and distribution mechanisms and how to write different types of mechanisms for different tasks. Here is the lesson plan:
-
-- [Part I. Auditing Concepts](./README.md) - Explains on a conceptual level how auditing works for tasks and showcases the different kinds of existing audit operations.
-- [Part II. Distribution Concepts](./PartII.md) - Discusses how distributions work and showcases different distribution schemes
-- [Part III. Building Audit and Distribution Mechanisms](./PartIII.md) - Walks through creating your own audit and distribution mechanism for a task.
-
-Prerequisites:
-
-- General understanding of gradual consensus and task flow
-- Lesson 1-3 completion
-
-## Part I. Auditing Concepts
+## Part I: Auditing Concepts
 
 If you recall from [Lesson 1](../Lesson%201/PartIII.md), we discussed how tasks are able to do work, verify each other's work, then distribute rewards based on those verified results. We've touched briefly on auditing, but for the most part we've focused on building out the task side of things i.e, we've only built the "work" part of a Koii task.
 
-Auditing is the next big step for us as it helps us ensure that our tasks are being run properly and it prevents bad actors from exploiting tasks for free rewards. You can typically find a task's audit logic in `task/audit.js`.
+Auditing is the next big step for us as it helps us ensure that our tasks are being run properly and it prevents bad actors from exploiting us for free rewards. You can typically find a task's audit logic in `task/audit.js`.
+
+Prerequisites:
+
+- General understanding of [gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus) and task flow
+- Lessons 1-3 completed
 
 ### The Purpose of Audits
 
@@ -158,4 +152,4 @@ This audit combines elements of the UPnP and Simple Crawler tasks - it verifies 
 
 In some cases, you may want to set the number of nodes you'd like to perform an audit each round. For this, you can add custom logic to the `validateAndVoteOnNodes()` function. Note that unlike other functions we've worked with before, this one is located in [`NamespaceWrapper`](./caesar-task/_koiiNode/koiiNode.js#L657). You can see an example from the Twitter Archive task [here](https://gitlab.com/koii-network/dev-blue/task-X/-/blob/main/namespaceWrapper.js?ref_type=heads#L579-592)
 
-Now let's take a look at distribution concepts in [PartII](./PartII.md)
+Now let's take a look at distribution concepts in [Part II](./PartII.md)

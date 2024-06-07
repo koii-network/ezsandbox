@@ -1,13 +1,15 @@
-# Part II. Distribution Concepts
+# Lesson 4: Auditing & Distribution
+
+## Part II: Distribution Concepts
 
 At this point, you should be familiar with how a task is developed, and how you can verify as task's work. The final piece of the puzzle is looking at how rewards are distributed.
 
 Prerequisites:
 
 - General understanding of [gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus) and task flow
-- Understanding of audit mechanisms
+- Understanding of [audit mechanisms](./README.md)
 
-## Distributing Rewards
+### Distributing Rewards
 
 Now that we've figured out different ways to verify if a node is doing honest work, we should also figure out how we want to reward that honesty. Majority of the distribution logic of a task can be found in `task/distribution.js`.
 
@@ -22,7 +24,7 @@ Distributing mechanisms commonly (_but aren't required to_) follow this format:
 
 The most important function regarding distribution is `generateDistributionList()` so we'll cover this. If you're interested in the other distribution functions, [click here!](https://docs.koii.network/develop/write-a-koii-task/task-development-guide/template-structure/distribute-rewards)
 
-## `generateDistributionList()`
+### `generateDistributionList()`
 
 For this example, we'll look at [Lesson 1's Hello World Task distribution logic](../Lesson%201/hello-world/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
 
@@ -161,7 +163,7 @@ If the node **has** received votes, it's time to tally them up. After the votes 
 
 Once we have the final list of nodes that should receive rewards, we can begin to distribute the bounty. How you distribute the bounty is entirely up to you. Typically you distribute the round's bounty amount equally between all participants (as we have done here), but if you want to distribute a fixed amount or scale the rewards based on reputation or staked amount, you are free to do so.
 
-## Shared Data
+### Shared Data
 
 One thing to note about generating distribution lists is that only one node per round is chosen to generate the list. Once this list is generated, it needs to be shared and audited by other nodes, similar to regular audit logic. So remember, there are two audits:
 
@@ -172,4 +174,4 @@ Data can be shared to all nodes in the network by fetching a list of all the oth
 
 Just like that we've successfully gone through both audit and distribution mechanisms and we're now ready to write our own.
 
-[Click here to start PartIII. Building Audit and Distribution Mechanisms](./PartIII.md)
+Now let's try building our own audit and distribution mechanisms in [Part III](./PartIII.md)
