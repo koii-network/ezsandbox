@@ -1,31 +1,71 @@
-# Part II. Crawler Task Structure
+# Lesson 3: Secrets & Config
 
-Before we start writing our own crawler code, it's helpful to understand how a plethora of Koii's web crawler tasks are structured, including this one. In this template, a lot of the IPFS logic is provided for your ease of use.
+## Part II. The Task Config File
 
-Prerequisites:
+This is a good point to take a closer look at the `config-task.yml` file and understand what the various options mean.
 
-- General understanding of IPFS
+```yaml
+# Task Metadata - this will be displayed in the user's node in the task listing
+task_name: 'task name'
+author: 'Koii'
+description: 'description'
+repositoryUrl: 'https://github.com/koii-network/task-template'
+imageUrl: 'imageUrl'
 
-## Submission.js
+# This is the method used to manage the distribution of the task executable to the users' nodes. You will not usually need to change this
+# Possible values: DEVELOPMENT, ARWEAVE or IPFS
+# IPFS is the default value, as the CLI automatically manages the upload process via the Koii Storage SDK.
+task_executable_network: 'IPFS'
 
-1. `task()`: In this function, we will create an instance of our Crawler Object to start the web crawling for a round. Whatever work gets done by the crawler will then be stored and submitted.
+# Path to your executable webpack if the selected network is IPFS
+# If DEVELOPMENT name it as main
+task_audit_program: 'dist/main.js'
 
-2. `storeFiles()`: This function is used to store the submissions in IPFS. It first has to create a json file called `dealsData.json`, then, it writes this json file to IPFS. This will later be fetched with functions from the crawler object.
+# The total duration of your task, measured in slots (with each slot approximately equal to 408ms)
+round_time: 1500
+# The length in slots of the window for auditing submissions each round
+audit_window: 350
+# The length in slots of the window for ??
+submission_window: 350
 
-## Crawler Folder
+# The minimum amount of KOII that a user must stake in order to participate in the task
+# Staked KOII can be retrieved when the user is finished running the task
+# Staked KOII can be lost if the user's submission fails an audit
+minimum_stake_amount: 1.9
 
-This folder contains the core logic for the web crawling aspect of the task. For simplicity, we create a class called `SimpleCrawlerTask.js` which contains the various functions that will be utilized by the task. Feel free to organize the code in a way that makes sense to you.
 
-Here are the key functions:
+# The total bounty amount that will be distributed to the task
+## when updating a task, this cannot be
+total_bounty_amount: 100
+# must be less than or equal to total_bounty_amount
+bounty_amount_per_round: 100
 
-1. `crawl()`: If you're familiar with web crawling, this will be very familiar to you. If you're new to puppeteer, [click here](https://pptr.dev/)! In short, we'll be using puppeteer to go through each post on [redflagdeals](https://forums.redflagdeals.com/hot-deals-f9/) and add the title to a list. This list will be stored in IPFS later.
+# allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
+allowed_failed_distributions: 3
 
-2. `retrieveAndValidateFile()`: This function is used by `fetchSubmission` in the task logic to grab a particular submission from IPFS. This acts as our `GET` function from the decentralized database.
+# space: Space in MBs for the account size, that holds the task data.
+space: 1
 
-## Environment Variable
+# Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
+# To add more global variables and task variables, please refer the type, value, description format shown below
 
-As mentioned in the [first part of this lesson](./README.md), because we're working with secrets/task extensions, we also need to ensure that we have a local `.env` file defined. There is a `.env.example` file that you can use as a reference for your own!
+requirementsTags:
+  - type: CPU
+    value: '4-core'
+  - type: RAM
+    value: '5 GB'
+  - type: STORAGE
+    value: '5 GB'
 
-Now that we have a better understanding of what to expect, we can go ahead and implement the crawler now!
+# ONLY provide the task_id and migrationDescription if you are updating the task otherwise leave blank
+# Previous task id
+task_id: ''
 
-[Click here to start PartIII. Building a Crawler](./PartIII.md)
+# A description of changes made in new version of task
+migrationDescription: ''
+
+```
+
+<!-- TODO: More explanation of how to choose values for some of these options -->
+
+Now that we've discussed the config options, let's move on to writing our crawler task. [Part III. Building a Crawler](./PartIII.md)

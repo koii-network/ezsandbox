@@ -1,0 +1,14 @@
+dist
+build
+node_modules
+package-lock.json
+migrate.sh
+*/dev.js
+data/*
+executables/*
+namespace/*
+config/*
+.env.local
+.env
+taskStateInfoKeypair.json
+localKOIIDB.db
