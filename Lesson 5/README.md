@@ -1,6 +1,10 @@
 # Lesson 5: Security & Hardening
 
-In this lesson, we are only discussing namespaceWrapper functions, so we don't have a full task.
+In this lesson, we are only discussing namespaceWrapper functions, so we don't have a full task. We'll be looking at how to sign and verify messages sent from node to node.
+
+Prerequisites:
+
+- Completion of lessons 1-4
 
 ## Using Signatures
 
