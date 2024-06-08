@@ -20,9 +20,7 @@ Much of the initial setup has been taken care of, but there is one thing to be a
 
 If you are writing your own UPnP task, make sure to add this to your `config-task.yml`.
 
-### Route Endpoints
-
-### Your Node as a Server
+### Create Routes: Your Node as a Server
 
 Head to the `routes.js` file. If you are in the `before` folder, you should see a `setupRoutes()` function with a task state endpoint:
 
@@ -58,7 +56,7 @@ This creates a `/value` endpoint that can be accessed as described above - but m
 
 **Note**: You'll also need to add a 'VALUE' entry to your .env file for this to work when you run it. This value can be whatever you like.
 
-### Your Node as a Client
+### Access Endpoints: Your Node as a Client
 
 With our own endpoints set up, we now need to make calls to other Node's endpoints and access their `value`s.
 
@@ -172,6 +170,10 @@ if (typeof submission_value === 'string' && submission_value.length > 0) {
 ```
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
+
+### Testing
+
+When developing your task, you'll want to iterate quickly, and having to deploy or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `testing/unitTesting.js` and you can run it via `yarn unitTest`.
 
 ### Exercise
 
