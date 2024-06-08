@@ -1,13 +1,15 @@
-# Part II. Distribution Concepts
+# Lesson 4: Auditing & Distribution
 
-At this point, you should be familiar with how a task is developed, and how you can verify as task's work. The final piece of the puzzle is looking at how rewards are distributed!
+## Part II: Distribution Concepts
+
+At this point, you should be familiar with how a task is developed, and how you can verify as task's work. The final piece of the puzzle is looking at how rewards are distributed.
 
 Prerequisites:
 
-- General understanding of gradual consensus and task flow
-- Understanding of audit mechanisms
+- General understanding of [gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus) and task flow
+- Understanding of [audit mechanisms](./README.md)
 
-## Distributing Rewards
+### Distributing Rewards
 
 Now that we've figured out different ways to verify if a node is doing honest work, we should also figure out how we want to reward that honesty. Majority of the distribution logic of a task can be found in `task/distribution.js`.
 
@@ -17,14 +19,14 @@ Distributing mechanisms commonly (_but aren't required to_) follow this format:
 
 1. Decide how much you want to reward
 2. Decide how much you want to penalize
-3. Mark each node as valid or slashed
+3. Mark each node as valid (accepted submission) or slashed (rejected submission)
 4. Distribute!
 
 The most important function regarding distribution is `generateDistributionList()` so we'll cover this. If you're interested in the other distribution functions, [click here!](https://docs.koii.network/develop/write-a-koii-task/task-development-guide/template-structure/distribute-rewards)
 
-## `generateDistributionList()`
+### `generateDistributionList()`
 
-For this example, we've decided to use [Lesson 1's Hello World Task distribution logic](../Lesson%201/hello-world/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
+For this example, we'll look at [Lesson 1's Hello World Task distribution logic](../Lesson%201/hello-world/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
 
 1. Fetch Submissions
 
@@ -55,7 +57,7 @@ For this example, we've decided to use [Lesson 1's Hello World Task distribution
     ...
 ```
 
-The first thing we do is initialize our distribution lists. We also fetch all the submissions that were made for this round on a particular task. If no submissions were made, we simply return the empty distribution list!
+The first thing we do is initialize our distribution lists. We also fetch all the submissions that were made for this round on a particular task. If no submissions were made, we simply return an empty distribution list.
 
 2. Grab Candidate Votes
 
@@ -97,9 +99,9 @@ The first thing we do is initialize our distribution lists. We also fetch all th
     ...
 ```
 
-From the submissions, we can grab the public keys of the nodes that participated. Then, we can check if they should have been audited this round. If they should have been audited but received no votes, this means there was some sort of interference and they will be slashed
+From the submissions, we can grab the public keys of the nodes that participated. Then, we can check if they should have been audited this round. If they should have been audited but received no votes, this means there was some sort of interference preventing voting, so they will be slashed.
 
-Slashing refers to the penalty that's issued to a node for completing a task incorrectly, behaving suspiciously, or trying to exploit rewards. Penalty amounts are completely up to the you, the task creator, but in this case we have gotten rid of 70% of the node's stake. There may be tasks that don't every penalize, or tasks that fully penalize, it just depends on the type of work that's being done and how critical it is.
+Slashing refers to the penalty that's issued to a node for completing a task incorrectly, behaving suspiciously, or trying to exploit rewards. The penalty involves removing some portion of the user's staked KOII. There may be tasks that don't penalize and others that confiscate the entire stake, it just depends on the type of work that's being done and how critical it is. Penalty amounts are completely up to the task creator (that's you!). In this case, we have chosen to confiscate 70% of the node's stake.
 
 3. Tally Votes
 
@@ -135,7 +137,7 @@ Slashing refers to the penalty that's issued to a node for completing a task inc
     ...
 ```
 
-If the node **has** received votes, it's time to tally them up! After the votes are tallied, if the node has more people voting against them, then they will be penalized for not completing the task correctly. Again, you can customize the slashing logic in this case but we decided to also slash 70% of the penalized node's stake.
+If the node **has** received votes, it's time to tally them up. After the votes are tallied, if the node has more people voting against them than for them, then they will be penalized for not completing the task correctly. The slashing logic here can be customized separately from the case where there are no votes. In this case, we have kept it the same and are slashing 70% of the stake.
 
 4. Distribute Rewards
 
@@ -159,17 +161,17 @@ If the node **has** received votes, it's time to tally them up! After the votes 
   }
 ```
 
-Once we have the final list of nodes who should receive rewards, we can begin to distribute the bounty! Typically, you can distribute a round's bounty equally amongst all participants, but this mechanism is up to you. If you want to hard code your rewards mechanism and give everyone 1 token, you could. If you wanted to give more tokens based on reputation, you could. Whatever you feel is the best way to distribute rewards for your use case, feel free to use that system!
+Once we have the final list of nodes that should receive rewards, we can begin to distribute the bounty. How you distribute the bounty is entirely up to you. Typically you distribute the round's bounty amount equally between all participants (as we have done here), but if you want to distribute a fixed amount or scale the rewards based on reputation or staked amount, you are free to do so.
 
-## Shared Data
+### Shared Data
 
-One thing to note about generating distribution lists is that it's a singular node's responsibility, that is, only one node is chosen to do it per round. Once this list is generated, it needs to be shared and audited by other nodes, similar to regular audit logic. So remember, there are two audits:
+One thing to note about generating distribution lists is that only one node per round is chosen to generate the list. Once this list is generated, it needs to be shared and audited by other nodes, similar to regular audit logic. So remember, there are two audits:
 
 1. Auditing a node's task work
 2. Auditing the round's distribution list
 
-Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to Link State routing. If you want to learn more about data sharing across a task, [click here!](https://docs.koii.network/develop/linktree/data-sharing)
+Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to Link State routing. If you want to learn more about data sharing across a task, [click here](https://docs.koii.network/develop/linktree/data-sharing).
 
-Just like that we've successfully gone through both audit and distribute mechanisms and we're now ready to write our own.
+Just like that we've successfully gone through both audit and distribution mechanisms and we're now ready to write our own.
 
-[Click here to start PartIII. Building Audit and Distribution Mechanisms](./PartIII.md)
+Now let's try building our own audit and distribution mechanisms in [Part III](./PartIII.md)
