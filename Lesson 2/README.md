@@ -4,6 +4,8 @@
 
 So far, we've seen how to navigate the node and run a simple task. In this lesson, we'll get an introduction to writing our own tasks by looking at node-to-node communication. First, we'll enable networking on our node.
 
+![Lesson_2](https://github.com/koii-network/ezsandbox/assets/66934242/9bd0b45d-c6fe-4b0e-b823-a67fd059bc55)
+
 ### UPnP
 
 Everything we've done until now has only really involved a single node, with a task that was independent of other nodes. This may not always be the case however; having a way to collaborate with other nodes can be extremely useful for writing tasks used for decentralized social applications, Web3 gaming, and many other tasks such as mathematical computations.
