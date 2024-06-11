@@ -4,13 +4,13 @@
 
 ### Setting Up Your First Task
 
-Clone this repository and navigate to the `hello-world/` directory. This folder contains the code for running your first task.
+Clone this repository and navigate to the `EZ-testing-task/` directory. This folder contains the code for running your first task.
 
 In order to run a task, you need to build a Task Executable and copy it into your Node. To make this process as easy as possible, we have created the AutoBuild module to do this for you. By default, you can just run `yarn prod-debug` inside the task directory and your task will be rebuilt and copied to the correct folder in your node.
 
 In this case, we have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in  your .env file.
 
-Please see [hello-world's README](./hello-world/README.md) for more information setting up the EZSandbox task.
+Please see [EZ-testing-task's README](./EZ-testing-task/README.md) for more information setting up the EZSandbox task.
 
 ### Add the Task to Your Node
 
@@ -20,7 +20,7 @@ Before you begin debugging, you'll need to add the task to your node. Go to the 
 
 First, we'll add some debug logs, and then we can watch how these functions run over time.
 
-Open the `hello-world/` folder again and we'll start hacking through some files. Open `hello-world/task` to get started.
+Open the `EZ-testing-task/` folder again and we'll start hacking through some files. Open `EZ-testing-task/task` to get started.
 
 1. Rename .env.example to .env.
 

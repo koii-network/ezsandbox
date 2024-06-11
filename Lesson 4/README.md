@@ -42,7 +42,7 @@ We've mentioned some of the audit mechanisms in the previous lessons, but let's 
 
 As you can see with this audit logic, we're simply returning true for the vote no matter what. While this seems trivial, it is useful in cases where a task doesn't require an audit.
 
-#### 1. Hello World Task - [Lesson 1](../Lesson%201/hello-world/task/audit.js)
+#### 1. Hello World Task - [Lesson 1](../Lesson%201/EZ-testing-task/task/audit.js)
 
 ```javascript
   async validateNode(submission_value, round) {
