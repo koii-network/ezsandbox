@@ -27,7 +27,7 @@ You could even start off with a highly redundant system and slowly reduce the am
 
 ### Audit Operations
 
-While writing your own audit might seem difficult, you can think of it as a combination of basic operations, similar to BEDMAS. Different types of tasks can be grouped based on their mechanism. For example, every web crawler task will have a similar audit system. With more complicated tasks, you can break down what your requirements into more basic steps to better conceptualize the audit mechanism.
+While writing your own audit might seem difficult, you can think of it as a combination of basic operations, similar to BEDMAS. Different types of tasks can be grouped based on their mechanism. For example, every web crawler task will have a similar audit system. With more complicated tasks, you can break down your requirements into more basic steps to better conceptualize the audit mechanism.
 
 We've mentioned some of the audit mechanisms in the previous lessons, but let's go over them again:
 
