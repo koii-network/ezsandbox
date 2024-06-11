@@ -27,7 +27,7 @@ You could even start off with a highly redundant system and slowly reduce the am
 
 ### Audit Operations
 
-While writing your own audit might seem difficult, you can think of it as a combination of basic operations, similar to BEDMAS. Different types of tasks can be grouped based on their mechanism. For example, every web crawler task will have a similar audit system. With more complicated tasks, you can break down what your requirements into more basic steps to better conceptualize the audit mechanism.
+While writing your own audit might seem difficult, you can think of it as a combination of basic operations, similar to BEDMAS. Different types of tasks can be grouped based on their mechanism. For example, every web crawler task will have a similar audit system. With more complicated tasks, you can break down your requirements into more basic steps to better conceptualize the audit mechanism.
 
 We've mentioned some of the audit mechanisms in the previous lessons, but let's go over them again:
 
@@ -42,7 +42,7 @@ We've mentioned some of the audit mechanisms in the previous lessons, but let's 
 
 As you can see with this audit logic, we're simply returning true for the vote no matter what. While this seems trivial, it is useful in cases where a task doesn't require an audit.
 
-#### 1. Hello World Task - [Lesson 1](../Lesson%201/hello-world/task/audit.js)
+#### 1. Hello World Task - [Lesson 1](../Lesson%201/EZ-testing-task/task/audit.js)
 
 ```javascript
   async validateNode(submission_value, round) {

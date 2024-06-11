@@ -26,7 +26,7 @@ The most important function regarding distribution is `generateDistributionList(
 
 ### `generateDistributionList()`
 
-For this example, we'll look at [Lesson 1's Hello World Task distribution logic](../Lesson%201/hello-world/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
+For this example, we'll look at [Lesson 1's Hello World Task distribution logic](../Lesson%201/EZ-testing-task/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
 
 1. Fetch Submissions
 
