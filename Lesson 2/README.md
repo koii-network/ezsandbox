@@ -4,7 +4,7 @@
 
 So far, we've seen how to navigate the node and run a simple task. In this lesson, we'll get an introduction to writing our own tasks by looking at node-to-node communication. First, we'll enable networking on our node.
 
-![Lesson_2](https://github.com/koii-network/ezsandbox/assets/66934242/9bd0b45d-c6fe-4b0e-b823-a67fd059bc55)
+![Lesson_2_updated__1_](https://github.com/koii-network/ezsandbox/assets/66934242/a6ba91f1-7148-47f7-9d4d-b87a1bc28f11)
 
 ### UPnP
 
