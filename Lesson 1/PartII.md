@@ -1,10 +1,11 @@
 # Lesson 1: Introduction to Koii Tasks
 
-## Part II: Logs
+## Part II: Node and Logs
 
 ### Prerequisite
 1. You are runing a [node](https://docs.koii.network/run-a-node/task-nodes/how-to-run-a-koii-node).
-2. You have ran at least a task. 
+2. Create your own wallet by downloading the node and earn tokens through [Faucet](https://docs.koii.network/run-a-node/task-nodes/time-to-node) and through running tasks. 
+3. You have ran at least a task. 
 
 ### The Node Application Folder
 
