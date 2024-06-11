@@ -4,9 +4,9 @@
 
 ### Overview
 
-A Koii Task is a way for you to run a computing job in a distributed fashion, across our network of Nodes. To distribute the task while ensuring that it's done  correctly, we break the work into rounds with these main components:
+A Koii Task is a way for you to run a computing job in a distributed fashion, across our network of Nodes. To distribute the task while ensuring that it's done correctly, we break the work into rounds with these main components:
 
-![Lesson_1_Know_Koii_Task_Basic](https://github.com/koii-network/ezsandbox/assets/66934242/97f6cdd9-b79c-44b2-b9f9-135c32f155eb)
+![Lesson_1_Know_Koii_Task_Basic](https://github.com/koii-network/ezsandbox/blob/main/Lesson%201/imgs/gradual-consensus.png)
 
 1. **Task**: This is the main work the node needs to do in each round.
 2. **Submission**: The result of the work is submitted to be checked.
