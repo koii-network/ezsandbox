@@ -27,6 +27,8 @@ The task we're building here doesn't require any login info, but we'll be asking
 
 In [`SimpleCrawlerTask.js`](./simple-crawler/before/crawler/SimpleCrawlerTask.js) you'll notice there's a bare bones function `crawl()`. We'll implement our web crawling logic here using puppeteer, explaining as we go!
 
+One thing to note here is that when we set up Puppeteer, we're setting the `headless` property to `false`. This will cause Puppeteer to fun visibly so you can see what it's doing. In production, you would want to set `headless` to `true` so it can run silently.
+
 1. **Open Desired Page** - We first need to set up a new user agent and navigate to the corresponding webpage that we are interesting in scraping. In this case, we're looking to scrape [redflagdeals](https://forums.redflagdeals.com/hot-deals-f9/`) as it provides a simple and static page with consistent styling of elements. This makes it a desirable target for web scraping. We can set the page with the following code:
 
 ```javascript
