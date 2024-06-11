@@ -4,26 +4,19 @@
 
 ### Overview
 
-A Koii Task is a way for you to run a computing job in a distributed fashion, across our network of Nodes. To distribute the task while ensuring that it's done correctly, we break the work into rounds with these main components:
+A Koii Task is a decentralized computing job across our network of nodes. Below is a runtime picture to help you understand better.
 
 ![Lesson_1_Know_Koii_Task_Basic](https://github.com/koii-network/ezsandbox/blob/main/Lesson%201/imgs/gradual-consensus.png)
-
-1. **Task**: This is the main work the node needs to do in each round.
-2. **Submission**: The result of the work is submitted to be checked.
-3. **Audit**: The work is verified by other Nodes in the network.
-4. **Distribution**: Rewards are handed out to each Node that successfully completed the work.
-
-For more information on how this process works, see [Gradual Consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus).
 
 To understand how a Koii Task works, let's take a look at an existing task.
 
 ### Example
 
-To get you started, we've provided the code for a simple task in the [`hello-world/`](./hello-world/) folder. The four job components in this case are:
+To get you started, we've provided the code for a simple task in the [`EZ-testing-task/`](./EZ-testing-task/) folder. 
 
-1. **Task**: Save the string "Hello, World!" to the local database. This can be found in [`Submission.task()`](./hello-world/task/submission.js#L9)
-2. **Submission**: Retrieves the value stored in the database and submits it for verification. This can be found in [`Submission.fetchSubmission()`](./hello-world/task/submission.js#L51)
-3. **Audit**: Auditing nodes check to confirm that the value submitted was the string "Hello, World!". This can be found in [`Audit.validateNode()`](./hello-world/task/audit.js#L11)
-4. **Distribution**: A bounty per round (set in `config-task.yml`, which we'll discuss later) is distributed equally among all successful submissions for the round. This can be found in [`Distribution.generateDistributionList()`](./hello-world/task/audit.js#L50)
+
+1. **Submission**: Submit the local computing result. Here it [saves a "Hello, World!" string to the database](./hello-world/task/submission.js#L15), [gets the value stored in the database](./hello-world/task/submission.js#L51) and [submits it](./hello-world/task/submission.js#L37). 
+2. **Audit**: Verification by other nodes in the network. Here it [verifies whether the submitter submitted "Hello, World!"](./hello-world/task/audit.js#L16). 
+3. **Distribution**: Rewards are distributed to each node that completed the work. Here it equally [distributes](./hello-world/task/audit.js#L50) the bounty per round to all successful submissions. 
 
 Next, let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)
