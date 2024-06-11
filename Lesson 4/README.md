@@ -2,6 +2,8 @@
 
 ## Part I: Auditing Concepts
 
+![Lesson 4](https://github.com/koii-network/ezsandbox/assets/66934242/dce7f56b-02e9-4e75-8fef-1e4b8ecf0f95)
+
 If you recall from [Lesson 1](../Lesson%201/PartIII.md), we discussed how tasks are able to do work, verify each other's work, then distribute rewards based on those verified results. We've touched briefly on auditing, but for the most part we've focused on building out the task side of things i.e, we've only built the "work" part of a Koii task.
 
 Auditing is the next big step for us as it helps us ensure that our tasks are being run properly and it prevents bad actors from exploiting us for free rewards. You can typically find a task's audit logic in `task/audit.js`.
