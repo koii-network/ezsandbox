@@ -2,6 +2,8 @@
 
 ## Part III. Building a Crawler
 
+![Lesson 3](https://github.com/koii-network/ezsandbox/assets/66934242/5cc14e75-0c0a-4625-b809-dc12af7d49a1)
+
 Before we start writing our own crawler code, it's helpful to understand how to structure a web crawler task on Koii. We've [previously covered IPFS](../Lesson%202/PartIII.md), so this should be fairly straightforward. We've provided a skeleton for you to use in `simple-crawler/before` and `simple-crawler/after contains the complete crawler.
 
 Prerequisites:
