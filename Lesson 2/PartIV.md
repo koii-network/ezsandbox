@@ -1,4 +1,4 @@
-# Lesson 2: Writing a Networking & Storage Task
+# Lesson 2: Networking and Storage Task
 
 ## Part IV: Deploying Locally
 
