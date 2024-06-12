@@ -3,7 +3,7 @@
 ## Part II: Node and Logs
 
 ### Prerequisite
-1. You are runing a [node](https://docs.koii.network/run-a-node/task-nodes/how-to-run-a-koii-node).
+1. You are running a [node](https://docs.koii.network/run-a-node/task-nodes/how-to-run-a-koii-node).
 2. Create your own wallet by downloading the node and earn tokens through [Faucet](https://docs.koii.network/run-a-node/task-nodes/time-to-node) and through running tasks. 
 3. You have ran at least a task. 
 
