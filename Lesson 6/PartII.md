@@ -1,4 +1,3 @@
-
 ## Part II. Operations
 In this part, we will focus on the minting process using the @solana/spl-token library. Minting is the process of creating new tokens that are added to the circulation within the blockchain. 
 

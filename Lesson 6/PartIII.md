@@ -1,4 +1,3 @@
-
 ## Part III. RPC API
 In this section of our guide, we'll explore how to use JSON RPC API to interact with KPL Tokens. Specifically, we'll look at finding all token accounts for a specific mint address. This operation is crucial for understanding the distribution and accessibility of a token on the network. In this section, we will give a example, further cases you can reference our [RPC API Docs](https://docs.koii.network/develop/rpcapi/http/). 
 
