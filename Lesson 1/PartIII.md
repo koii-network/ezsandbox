@@ -1,46 +1,68 @@
-# Part III. Consensus
+# Lesson 1: Introduction to Koii Tasks
 
-This final section in Lesson 1 gives a high level overview on our gradual consensus mechanism. While this section is mostly conceptual, it is important to help your understanding of how to develop tasks much smoother.
+## Part III: Running a Task
 
-Prerequisites:
+### Setting Up Your First Task
 
-- Nothing!
+Clone this repository and navigate to the `EZ-testing-task/` directory. This folder contains the code for running your first task.
 
-<br>
+In order to run a task, you need to build a Task Executable and copy it into your Node. To make this process as easy as possible, we have created the AutoBuild module to do this for you. By default, you can just run `yarn prod-debug` inside the task directory and your task will be rebuilt and copied to the correct folder in your node.
 
-Each round, all nodes have an opportunity to claim rewards proportionate to the work they've contributed.
+In this case, we have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in  your .env file.
 
-Typically, each node provides some 'proofs' of their work, and these can optionally be audited by another node.
+Please see [EZ-testing-task's README](./EZ-testing-task/README.md) for more information setting up the EZSandbox task.
 
-![Gradual Consensus 1](./imgs/gradual-consensus.png)
-In each round, a series of on-chain transactions are recorded to track the work done, or allow for one node to raise an alarm if they catch another misbehaving.
+### Add the Task to Your Node
 
-![Gradual Consensus 2](./imgs/stacking-rounds.png)
-Because rounds run concurrently, there is always one active Task, Submission, Audit, or Distribution window at any time.
+If you have not already done so, make sure you [add the EZ Testing task to your node](./PartII.md#run-a-task).
 
-## Task (`corelogic.task()`)
+### Your First Debugging
 
-This contains programs that should run at the start of each task.
+First, we'll add some debug logs, and then we can watch how these functions run over time.
 
-## FetchSubmission (`corelogic.fetchSubmission()`)
+Open the `EZ-testing-task/` folder again and we'll start hacking through some files. Open `EZ-testing-task/task` to get started.
 
-This is where we will prepare a submission and the node will attempt to claim rewards.
+1. Rename .env.example to .env.
 
-## Calculate Rewards (`corelogic.generateDistribution()`)
+2. Start the Debugger
+   `yarn prod-debug`
 
-This is where each node will review other's submissions and calculate how much rewards to pay.
+3. Add Debugging logs.
 
-## Audits (`corelogic.validateNode()`)
+Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-Cyclical programs (see (2.) above) autonomously comb over proofs to see if they correspond correctly to the work claimed. If the work doesn't match the expected behaviour, an Audit can be submitted by any node, and any nodes that verify receive a share of the slashed collateral.
+In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
 
-Audits can of course be audited, leading to a consensus backed by collateral and reputation but with near-instant settlement. In most cases, even multi-layer audits only take a couple of seconds.
+.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
 
-Audits are not always necessary, especially if you're just starting out. It may be easier to permission which public keys can participate in the task, instead of requiring a new node to prove its trustworthiness through past contributions. However, as the network and the stakes grow, the need for audits become more critical to maintain integrity and prevent malicious behaviour.
+a. The Core Task:
 
-<br>
-<br>
+- File Name: `submission.js`
+- Function: `task()`
+- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
 
-You've reached the end of this lesson which means you've now mastered the fundamentals of your node, debugging, and tasks! The next lesson will take you through guides on how to enable node-to-node communicate to allow storage and networking.
+b. The Audit Function:
 
-[Click here to start Lesson 2](../Lesson%202/README.md)
+- File Name: `audit.js`
+- Function: `validateNode()`
+- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
+
+c. Generate Proofs:
+
+- File Name: `submission.js`
+- Function: `fetchSubmission()`
+- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
+
+c. Assign Rewards:
+
+- File Name: `distribution.js`
+- Function: `generateDistributionList()`
+- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
+
+As you save each file, you should see the debugger restart.
+
+Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
+
+Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
+
+Congratulations! You've now covered all the basics necessary to start writing a task of your own. [Lesson 2: Writing a Task](../Lesson%202/README.md)

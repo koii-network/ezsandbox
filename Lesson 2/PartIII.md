@@ -1,69 +1,126 @@
-# Part III. Dockerized Node Testing
+# Lesson 2: Networking and Storage Task
 
-You've successfully written your own networking task, now it's time to test it locally!
+## Part III: File Storage & Sharing
 
-Prerequisites:
+Now that we've seen how communication works between nodes, let's try something a little different: working with files.
 
-- Completed upnp-task template
-- Basic understanding of Docker
-- Koii CLI installed
-- Docker and Docker Compose installed
+### IPFS
 
-Testing tasks locally through Docker is a process that requires a little set up. Essentially, we have to create a local version of the backend that's used to verify a task's work, which is known as K2. After creating our local K2, we'll deploy the task there for testing!
+Koii uses IPFS (the InterPlanetary File System) to store data outside of its blockchain. This helps keep transactions fast and cost-effective. We have developed the [Koii Storage SDK](https://www.npmjs.com/package/@_koii/storage-task-sdk) so you can easily upload and retrieve files, and this lesson will go over how to use it.
 
-## Environment Setup
+### Uploading a File
 
-1. Before starting, please ensure your Koii Node app is **NOT** running! To get a local instance of K2, run `koii-test-validator` and leave the terminal running. This will serve as the backend you deploy the task to.
+This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS.
 
-2. Next, we should set your Koii CLI to deploy tasks locally. We can do this using:
-
-```
-koii config set --url localhost
-```
-
-Verify you're using the correct settings with `koii config get`, which should show something like this:
-
-```
-Config File: C:\Users\test\.config\koii\cli\config.yml
-RPC URL: http://localhost:8899
-WebSocket URL: ws://localhost:8900/ (computed)
-Keypair Path: ~/.config/koii/id.json
-Commitment: confirmed
-```
-
-3. With the backend taken care of, lets make sure our task wants to deploy to the right environment. Within `env.local`, ensure you change `K2_NODE_URL` to point to the right endpoint:
+First let's add the logic to store a file to IPFS. In `task/fileUtils/storeFile.js` add the following:
 
 ```javascript
-K2_NODE_URL = "http://127.0.0.1:8899"; //Linux
+const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
+const fs = require('fs');
 
-K2_NODE_URL = "http://host.docker.internal:8899"; //Windows & Mac
+async function storeFile(data, filename = 'value.json') {
+  try {
+    // Create a new instance of the Koii Storage Client
+    const client = new KoiiStorageClient();
+    const basePath = await namespaceWrapper.getBasePath();
+    // Write the data to a temp file
+    fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
+
+    // Get the user staking account, to be used for signing the upload request
+    const userStaking = await namespaceWrapper.getSubmitterAccount();
+
+    // Upload the file to IPFS and get the CID
+    const { cid } = await client.uploadFile(`${basePath}/${filename}`,userStaking);
+
+    console.log(`Stored file CID: ${cid}`);
+    // Delete the temp file
+    fs.unlinkSync(`${basePath}/${filename}`);
+
+    return cid;
+  } catch (error) {
+    console.error('Failed to upload file to IPFS:', error);
+    fs.unlinkSync(`${basePath}/${filename}`);
+    throw error;
+  }
+}
+
+module.exports = storeFile;
 ```
 
-4. With that setup, we can deploy the task using `npx @_koii/create-task-cli@latest`. If you forgot how, [click here!](https://docs.koii.network/develop/command-line-tool/create-task-cli/create-task)
+Next, let's use it in our task. We upload the file and save the CID in the local DB. In `task/submission.js`, edit your `task()` as follows:
 
-NOTE: If you're worried about rent costs, keep in mind that this is a local environment that doesn't reflect your actual wallet. In fact, if you use the command `koii airdrop 10000` you can give yourself plenty of tokens to test with!
-
-5. Now that your task is live, note down the taskID and executable CID. Place your taskID in your `.env.local` as shown below:
-
+```javascript
+async task(round) {
+  try {
+    console.log('ROUND', round);
+    const cid = await storeFile(process.env.VALUE);
+    console.log('cid', cid);
+    if (cid) {
+      await namespaceWrapper.storeSet('cid', cid);
+    }
+    return cid;
+  } catch (err) {
+    console.log('ERROR IN EXECUTING TASK', err);
+    return 'ERROR IN EXECUTING TASK' + err;
+  }
+}
 ```
-TASKS="hLt4w79EqmMeWj6FNZKgkf4ZqYWaMWUpSNxnPzvnwHL" //Your task's ID
+
+Finally, we retrieve the CID from the local DB and send it as the submission value:
+
+```javascript
+async fetchSubmission(round) {
+  console.log('FETCH SUBMISSION');
+  // Fetch the cid from NeDB
+  const cid = await namespaceWrapper.storeGet('cid'); // retrieves the value
+  // Return cid
+  return cid;
+}
 ```
 
-6. If you've previously deployed your task, you'll need to navigate to the `dist` folder and rename `main.js` to `<YOUR CID>.js`. In this case, your CID is the executable's CID you saved!
+### Retrieving a file
 
-## Using Docker
+Now that we've sent the CID as the submission value, we can use it in the audit to retrieve the file and check its contents. First add the code to retrieve the file and validate its contents in `task/fileUtils/isValidFile.js`:
 
-Once the task is deployed, we can finally use Docker! Navigate to `docker-compose.yaml` and verify that `~/.config/koii:/app/config` accurately represents your wallet location.
+```javascript
+const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 
-Finally, in a separate terminal from the one running `koii-test-validator`, run `docker compose up` and you'll have a Dockerized instance of your task spun up!
+async function isValidFile(cid, filename = 'value.json') {
+  const client = new KoiiStorageClient();
 
-This terminal will now showcase all the logs in real time that you could expect from deploying your task live on the Node. You can observe rounds, submissions, errors, warnings, or anything else you find interesting!
+  try {
+    const fileBlob = await client.getFile(cid, filename);
+    if (!fileBlob) return false;
 
-If you ran into any issues or want to understand this topic more in depth, learn more about [Dockerized Tasks here!](https://docs.koii.network/develop/write-a-koii-task/task-development-kit-tdk/test/docker-test)
+    const fileContent = await fileBlob.text();
+    return typeof fileContent === 'string' && fileContent.length > 0;
 
-<br>
-<br>
+  } catch (error) {
+    console.error('Failed to download or validate file from IPFS:', error);
+    throw error;
+  }
+}
 
-You've reached the end of this lesson which means you're now familiar with building tasks that can network. Additionally, you now know how to test them locally with Docker! The next lesson will introduce using secrets and building our very own web crawler.
+module.exports = isValidFile;
+```
 
-[Click here to start Lesson 3](../Lesson%203/README.md)
+Next, we'll use it in `task/audit.js`:
+
+```javascript
+async validateNode(submission_value, round) {
+  try {
+    console.log("AUDIT ROUND", round);
+    // The submission value is the CID
+    return isValidFile(submission_value);
+  } catch (e) {
+    console.log('Error in validate:', e);
+    return false;
+  }
+}
+```
+
+This takes the submission value, which is the CID, and passes it to `isValidFile()`, which retrieves the file with the Storage SDK and checks that the contents of the file are a string.
+
+And that's it! You've successfully written a task that uses IPFS to store data.
+
+Finally, let's see how to deploy a task locally with Docker. [Part IV. Deploying Locally](./PartIV.md)

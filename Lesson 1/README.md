@@ -1,78 +1,33 @@
-# Lesson 1: Your Node
+# Lesson 1: Introduction to Koii Tasks
 
-This lesson covers how to get started hacking on your node. Here's the lesson plan:
+## Part 1: What is a Koii Task?
 
-- [Part I. Getting Started](./README.md) - Covers the basics of your Node, including installation and an overview of logs
-- [Part II. Task Flow](./PartII.md) - Dives deeper into task structure, discussing topics such as use cases, live debugging, and key functions
-- [Part III. Consensus](./PartIII.md) - Gives a high level overview of our gradual consensus mechanism
+### Overview
 
-Prerequisites:
+A Koii Task is a decentralized computing job that runs across our network of nodes. Below is an infographic showing how a task runs (the runtime flow):
 
-- Nothing!
+![Lesson_1_Know_Koii_Task_Basic](./imgs/gradual-consensus.png)
 
-## Part I. Getting Started
+Let's take a look at a minimal example to see how the runtime flow works in practice.
 
-The big advantage of building with Koii is that our community of node operators are already prepared and eager to join your new project.
+### Example
 
-Node operators run their Node in the background on personal devices, so they can use excess capacity to run your app.
+To get you started, we've provided the code for a simple task in the [`EZ-testing-task/`](./EZ-testing-task/) folder. Let's go through it, looking at each step in the runtime flow shown above.
 
-To build on Koii, we'll get started by getting to know your node.
+#### Do the work
 
-### Install Your Node
+1. **Do the job**: [`Submission.task()`](./EZ-testing-task/task/submission.js#L9). This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
 
-Visit [the Koii website](https://koii.network) to download the client and install the node. Follow the prompts to get set up, and get some free tokens from the faucet while you're at it. ([1m tutorial video](https://www.youtube.com/watch?v=n2pvrSl01FI&t=1s))
+#### Review and Audit Work
 
-### Test Your API In the Browser
+2. **Submit proofs**: [`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31). Send the work to be checked. In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
+3. **Review proofs**: [`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3). Other nodes in the network verify the work. Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
 
-Once your node is running, you can test your web server in the browser by visiting [`http://localhost:30017/tasks`](http://localhost:30017/tasks).
+#### Distribute Rewards
 
-### Open The Node Application Folder
+4. **Prepare Distribution List**: [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L50). You may want to alter the logic for penalizing and rewarding nodes (see #4), but you usually won't need to change the code for preparing the distribution list.
+5. **Submit Distribution List**: [`Distribution.submitDistributionList()`](./EZ-testing-task/task/distribution.js#L10). You won't normally need to change this.
+6. **Review Distribution List**: [`Distribution.auditDistribution()`](./EZ-testing-task/task/distribution.js#L38).  You won't normally need to change this.
+7. **Distribute Rewards**: Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89). Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
 
-To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'View Logs' as shown below:
-![Open the logs file](./imgs/my-node-open-logs.png)
-
-On Windows, the path to your logs will look something like this:
-`/Users/almorris/AppData/Roaming/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
-
-<br>
-
-On Mac, it would look something like this:
-`/Users/almorris/Library/Application Support/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log'`
-
-<br>
-
-And on linux, it would look something like this:
-`/home/almorris/.config/KOII-Desktop-Node/namespace/6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F/task.log`
-
-<br>
-
-The parent directory for your node is up a couple of folders:
-`/Users/almorris/Library/Application Support/KOII-Desktop-Node`
-
-This parent folder contains a couple of key items, which we will mostly work with from a distance.
-
-```
-KOII-Desktop-Node % tree -d -L 2./
-.
-├── executables
-├── logs
-├── namespace
-│   ├── 2H6BDyQrDZp7WgkPB8c29nAKRwgrZjU29ovLUipNUWLy
-│   ├── 6GPu4gqQycYVJxw2oXK1QkkqXgtF9geft1L7ZHoDP4MQ
-│   ├── 6iRsCfmqdi7StUGCkbvZXwdxwmAd6txPwupAE76yF67F
-│   ├── CXjifqMWhR4QJT8MNY7BADJ5nstCbGLTgh7xreT9gmWp
-│   ├── DZbRm6qRxy5ERPD61RHhVcS2sFootJ5fzSTWrzgoQmhf
-│   ├── Gp2BcsuGgrvcEux3NER3fdtkjWQADY6S2h23c27HTAQ3
-│   └── wJme8ZBopdCj54J556AxZeysBjDngnFbzDrKtJHg3E4
-├── updater-cache
-│   └── desktop-node-updater
-└── wallets
-
-14 directories
-```
-
-The key here is that each 'namespace' belongs to one Task, and all requisite logs, databases, and other information are stored here. Tasks cannot access anything outside of their own namespace, so master logs are kept at a node level as well (see `logs/main.log`)
-
-In the next section we'll make use of this to start hacking on our node.
-
-[Start Hacking in Part II. Task Flow](./PartII.md)
+We'll revisit this task shortly, but first let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)

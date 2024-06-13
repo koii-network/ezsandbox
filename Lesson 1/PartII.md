@@ -1,94 +1,55 @@
-# Part II. Task Flow
+# Lesson 1: Introduction to Koii Tasks
 
-Now that your Node is up and running, you'll want to get familiar with the [basic task template codebase](./hello-world/). We'll also get you well acquainted with logs and live debugging.
+## Part II: Node and Logs
 
-Prerequisites:
+### Prerequisites
 
-- Latest [Koii Node](https://koii.network) version installed
+- You understand [task runtime flow](./README.md)
 
-## Debugging
+### Install the Node
 
-Before you learn how to develop your own tasks, it's very important to know how to **debug** them.
+To get started, you'll need to download and install the [Desktop Node](https://www.koii.network/node). Complete instruction are available [here](https://docs.koii.network/run-a-node/task-nodes/how-to-run-a-koii-node). As part of this process, a KOII wallet will be created for you. You can find the public key for your Node wallet on the sidebar or under Settings/Accounts:
 
-_"Give a man a fish and you feed him for a day. Teach him how to fish and you feed him for a lifetime"_
+![public key location in desktop node](./imgs/public-key.png)
+
+### Get Some Tokens
+
+In order to run a task, you'll need to have a few tokens for staking. You can get some tokens for free from the [faucet](https://faucet.koii.network/). To use the faucet, you will need to [install Finnie](https://docs.koii.network/concepts/finnie-wallet/introduction).
+
+### Run a Task
+
+If you'd like to earn some extra KOII, you can run any of the tasks from the `Add Task` list in your node.
+
+![View add task list](./imgs/task-list.png)
+
+However, we want to run the EZ Testing task. It is not a public task, so it needs to be added manually. In the `Add Task` tab, click on the "Advanced" link at the bottom left. Paste in the EZ Testing Task ID (`AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv`) and set your stake to 1.9 KOII. Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
+
+![Add an unlisted task](./imgs/add-task-advanced.png)
+
+### The Node Application Folder
+
+To see where the node keeps logs about a specific task, click any of the tasks in your Node and select 'Output Logs' as shown below:
+
+![Open the logs file](./imgs/my-node-open-logs.png)
+
+### Logs Location
+
+Logs for individual tasks are located at `<OS-specific path>/KOII-Desktop-Node/namespace/<taskID>/task.log`. The key here is that each 'namespace' contains one Task, and all requisite logs, databases, and other information are stored here. Tasks cannot access anything outside of their own namespace, so master logs are kept at the node level as well (`<OS-specific path>/KOII-Desktop-Node/logs/main.log`).
+
+The OS-specific paths are as follows:
+
+**Windows**: `/Users/<username>/AppData/Roaming`
+
+**Mac**: `/Users/<username>/Library/Application Support`
+
+**Linux**: `/home/<username>/.config`
 
 ### Logs
 
-Logs are the bread and butter of tasks and can give you all sorts of information on what's really going on under the hood.
+Before you learn how to develop your own tasks, it's very important to know how to **debug** them.
 
-For example, try tail'ing the logs file and then clicking some buttons in the node (i.e. Play and Pause Tasks). You'll immediately see the logs update in real time.
+Try running `tail -f main.log` and then starting and stopping a task. You'll immediately see the logs update in real time.
 
-i.e. `tail -f main.log`. NOTE: Make sure your terminal is in the `logs` directory!
+**NOTE:** Make sure your terminal is in the [`logs`](#the-node-application-folder) directory!
 
-### AutoBuild
-
-To make building your task as easy as possible, you can use the AutoBuild module to build your Task Executable and copy it into your Node.
-
-To configure the module, open .env.example and update the template to point to the correct TaskID. You can use any already deployed task for this example, but we use our EZSandbox task by default which provides a great starting point to experiment.
-
-Please see [hello-world's README](./hello-world/README.md) for help setting up the EZSandbox task if you haven't already.
-
-By default, you can just run `yarn prod-debug` inside the `hello-world/` directory and your task will be rebuilt and copied to the correct folder in your node.
-
-## Task Flow
-
-Tasks run in round-based cycles, similar to Epochs in a Proof-of-History flow.
-
-Tasks include two kinds of programs:
-
-1. Continuous: These run like a normal server, and start whenever the Task reboots
-   a. REST APIs
-   b. Databases
-   c. Utility Modules
-
-2. Cyclical: These run once per round (you'll set the `round_time` when you deploy later on)
-   a. Governance Functions
-   b. Timed Workloads like Replication
-
-### Debugging Flow
-
-First, we'll add some debug logs, and then we can watch how these functions run over time.
-
-Open the `hello-world/` folder again and we'll start hacking through some files. Open `hello-world/task` to get started.
-
-1. Start the Debugger
-   `yarn prod-debug`
-
-2. Add Debugs to Cyclical Functions.
-   Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
-
-In each case, navigate to the correct file within the `task` directory, then find the target function. Paste the following code line as shown. Make sure you've set an environment variable called `KEYWORD` for this to work!
-
-a. The Core Task:
-
-- File Name: `submission.js`
-- Function: `task()`
-- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
-
-b. The Audit Function:
-
-- File Name: `audit.js`
-- Function: `validateNode()`
-- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
-
-c. Generate Proofs:
-
-- File Name: `submission.js`
-- Function: `fetchSubmission()`
-- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
-
-c. Assign Rewards:
-
-- File Name: `distribution.js`
-- Function: `generateDistributionList()`
-- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
-
-As you save each file, you should see the debugger restart.
-
-Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
-
-Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
-
-In the next section, we'll talk about what the output here means.
-
-[Click here to start PartIII. Consensus](./PartIII.md)
+Next, let's run your first task! [Part III: Running a Task](./PartIII.md)
