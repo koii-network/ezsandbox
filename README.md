@@ -27,6 +27,8 @@ At the end of these tutorials, you'll be ready to build your first Koii Applicat
 <br />
 <br />
 
+![Quick Start Guide](https://github.com/koii-network/ezsandbox/assets/5794319/3933b97f-f377-411d-8dd6-e26d96acf230)
+
 ## Lesson 0: Quick Start Guide
 
 Want to skip the explanations and get started quickly? Get a task up and running in 5 minutes.
@@ -53,7 +55,8 @@ This lesson will teach you:
 <br />
 <br />
 
-![Writing a task](https://github.com/koii-network/ezsandbox/assets/113378734/8dab766d-36b7-434a-b19c-6e68c70a9a80)
+![Networking and storage](https://github.com/koii-network/ezsandbox/assets/5794319/14abeb3f-3cb3-4c08-b553-2aa5e2839828)
+
 
 ## Lesson 2: Networking and Storage Task
 
@@ -61,10 +64,10 @@ Once we've got the basics down, we can move on to writing a task of our own. We'
 
 [Start Here](./Lesson%202/README.md)
 
-![Secrets & Config](https://github.com/koii-network/ezsandbox/assets/113378734/2d6c43e6-d51b-4eca-80ce-2365ebafa881)
+<br />
+<br />
 
-<br />
-<br />
+![Secrets & Config](https://github.com/koii-network/ezsandbox/assets/113378734/2d6c43e6-d51b-4eca-80ce-2365ebafa881)
 
 ## Lesson 3: Secrets & Config
 
@@ -72,16 +75,14 @@ One of the best use cases for Koii nodes is to gather data from the web. In this
 
 [Start Here](./Lesson%203/README.md)
 
-![Auditing & Distribution](https://github.com/koii-network/ezsandbox/assets/113378734/d9ecac0d-7c89-4f8e-8038-5f0d77425c63)
+<br />
+<br />
 
-<br />
-<br />
+![Auditing & Distribution](https://github.com/koii-network/ezsandbox/assets/113378734/d9ecac0d-7c89-4f8e-8038-5f0d77425c63)
 
 ## Lesson 4: Auditing & Distribution
 
 We can now start to add audit and distribution mechanisms, learning more about how to verify work and define incentives. We'll also learn how data can be shared between nodes by looking at an example.
-
-<!-- TODO: COME UP WITH A GOOD EXAMPLE FOR THIS, THE CAESAR TASK ISN'T GREAT FOR THIS LESSON -->
 
 [Start Here](./Lesson%204/README.md)
 
@@ -93,8 +94,6 @@ We can now start to add audit and distribution mechanisms, learning more about h
 ## Lesson 5: Security & Hardening
 
 Now that you've seen several different types of tasks, this lesson will cover how to add authorized accounts, verify signatures, and manage general authentication and data authority issues.
-
-<!-- TODO: GET  TASK FOR THIS LESSON -->
 
 [Start Here](./Lesson%205/README.md)
 
@@ -132,4 +131,4 @@ After your task is live, it's time to consider improving your work. In this fina
 [Start Here](./Lesson%208/README.md)
 
 <br />
-<br />c
+<br />
