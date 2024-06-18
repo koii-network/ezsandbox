@@ -31,6 +31,11 @@ At the end of these tutorials, you'll be ready to build your first Koii Applicat
 
 Want to skip the explanations and get started quickly? Get a task up and running in 5 minutes.
 
+[Start Here](./Lesson%200/README.md)
+
+<br />
+<br />
+
 ![Koii tasks](https://github.com/koii-network/ezsandbox/assets/113378734/04edd56a-04e8-4a9f-9b89-752ba046b3ad)
 
 ## Lesson 1: Introduction to Koii Tasks
