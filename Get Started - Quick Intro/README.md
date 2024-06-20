@@ -1,4 +1,4 @@
-# Lesson 0: Quick Start Guide
+# Run Your First Task in 2 Min
 
 1. Install and set up the [desktop node](https://www.koii.network/node).
 
