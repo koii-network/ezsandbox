@@ -25,7 +25,7 @@ When you want to send this signature to another node, you'll also need to includ
 
 ```javascript
 // get current node's keypair
-const keypair = await namespaceWrapper.payloadSigning(message);
+const keypair = await namespaceWrapper.getSubmitterAccount(message);
 
 // get the public key from the keypair
 const publicKey = keypair.publicKey;
