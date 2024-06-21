@@ -28,7 +28,7 @@ Secrets allow a user to save private information so that we can use it without e
 
 ### Secrets in Task Development
 
-In [Lesson 2](../Lesson%202/README.md), we added something to our `task-config.yml` requirements section to make UPnP configuration work. Now, we can see that a task developer can also use the requirements section to specify any number of secrets they may need for a task to function! The image below showcases `Archive Twitter's` requirements section:
+In [Lesson 2](../Lesson%202/README.md), we added something to our `task-config.yml` requirements section to make UPnP configuration work. Now, we can see that a task developer can also use the requirements section to specify any number of secrets they may need for a task to function! For example, this is `Archive Twitter's` requirements section:
 
 ```yml
 requirementsTags:
