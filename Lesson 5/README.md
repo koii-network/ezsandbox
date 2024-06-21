@@ -35,7 +35,7 @@ You can then send the signed message and the public key to another node to be ve
 
 ```javascript
 // Assuming you've already retrieved the signed message and the public key
-const message = namespaceWrapper.verifySignature(signedMessage, pubKey);
+const message = namespaceWrapper.verifySignature(signedMessage, publicKey);
 ```
 
 Next up, we'll look at using custom tokens in [Lesson 6](../Lesson%206/README.md).
