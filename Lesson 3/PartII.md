@@ -35,7 +35,7 @@ minimum_stake_amount: 1.9
 
 
 # The total bounty amount that will be distributed to the task
-## when updating a task, this cannot be
+## when updating a task, this cannot be changed
 total_bounty_amount: 100
 # must be less than or equal to total_bounty_amount
 bounty_amount_per_round: 100
