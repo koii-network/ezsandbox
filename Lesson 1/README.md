@@ -4,7 +4,7 @@
 >
 > Want to skip the explanations and get started quickly?
 >
-> [Get a task up and running in 2 minutes](../Quick%20Start/README.md).
+> [Get a task up and running in 2 minutes](../Get%20Started%20-%20Quick%20Intro/README.md).
 
 ## Part 1: What is a Koii Task?
 
