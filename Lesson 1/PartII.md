@@ -42,7 +42,7 @@ The OS-specific paths are as follows:
 
 **Mac**: `/Users/<username>/Library/Application Support`
 
-**Linux**: `/home/<username>/.config`
+**Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
 
 ### Logs
 
