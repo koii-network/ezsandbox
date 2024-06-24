@@ -10,7 +10,7 @@ Koii uses IPFS (the InterPlanetary File System) to store data outside of its blo
 
 ### Uploading a File
 
-This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS.
+This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS. When the upload is successful, you'll receive a content identifier (CID) that can be used to retrieve the file later.
 
 First let's add the logic to store a file to IPFS. In `task/fileUtils/storeFile.js` add the following:
 
@@ -53,9 +53,11 @@ Next, let's use it in our task. We upload the file and save the CID in the local
 async task(round) {
   try {
     console.log('ROUND', round);
+    // store a value in a file
     const cid = await storeFile(process.env.VALUE);
     console.log('cid', cid);
     if (cid) {
+      // store CID in local DB so it can be used later
       await namespaceWrapper.storeSet('cid', cid);
     }
     return cid;
@@ -71,9 +73,9 @@ Finally, we retrieve the CID from the local DB and send it as the submission val
 ```javascript
 async fetchSubmission(round) {
   console.log('FETCH SUBMISSION');
-  // Fetch the cid from NeDB
+  // Fetch the cid from the local DB
   const cid = await namespaceWrapper.storeGet('cid'); // retrieves the value
-  // Return cid
+  // return the CID to be sent as the submission value
   return cid;
 }
 ```
@@ -89,10 +91,15 @@ async function isValidFile(cid, filename = 'value.json') {
   const client = new KoiiStorageClient();
 
   try {
+    // get the file from IPFS
     const fileBlob = await client.getFile(cid, filename);
+    // if the file can't be found, it's not valid
     if (!fileBlob) return false;
 
+    // read the contents of the file (only works with text files)
     const fileContent = await fileBlob.text();
+
+    // check that the file contains a string of at least 1 character
     return typeof fileContent === 'string' && fileContent.length > 0;
 
   } catch (error) {
