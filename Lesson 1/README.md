@@ -20,7 +20,9 @@ To get started, you'll need to download and install the [Desktop Node](https://w
 
 ![public key location in desktop node](./imgs/public-key.png)
 
-> [!TIP] **Not sure how wallets and public keys work?**
+> [!TIP]
+>
+> **Not sure how wallets and public keys work?**
 >
 > Our [docs](https://docs.koii.network/run-a-node/task-nodes/concepts/tokens-and-wallets) have an explanation.
 
@@ -28,7 +30,9 @@ To get started, you'll need to download and install the [Desktop Node](https://w
 
 In order to run a task, you'll need to have a few tokens for staking. You can get some tokens for free from the [faucet](https://faucet.koii.network/). To use the faucet, you will need to [install Finnie](https://docs.koii.network/concepts/finnie-wallet/introduction).
 
-> [!TIP] **Why do you need tokens to run a task?**
+> [!TIP]
+>
+> **Why do you need tokens to run a task?**
 >
 > Every task requires a stake in tokens. Requiring staking keeps your tasks safe from bad actors: if a task runner acts maliciously, they will be penalized and lose some or all of this stake.
 
