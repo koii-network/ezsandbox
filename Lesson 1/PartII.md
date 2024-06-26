@@ -12,6 +12,12 @@
 
 When you add a task to your node, a Task Executable will be downloaded. This is a JavaScript file that contains all the code needed to run the task. When you deploy a task to the Koii network, you will build a Task Executable and receive a task ID. We'll walk through that process in a later lesson, but to get started quickly, we're going to use an existing task that has already been deployed for us. This is the `EZ Testing Task`, which you should have added to your Node in [part I](./README.md#run-the-task). Because we have already added it to the Node, its executable has been downloaded.
 
+> [!TIP]
+>
+> **Why EZ Testing Task?**
+>
+> We have deployed and example task and provided a task ID to get you up and running quicker. In later lessons, we'll talk about how to 
+
 ### Debugging Your First Task
 
 To run live debugging on a task, we'll use the `prod-debug` tool. This will build a local task executable that will be overwrite the EZ Testing Task's downloaded executable, allowing us to change the code and see the results.
