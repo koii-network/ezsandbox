@@ -1,68 +1,48 @@
 # Lesson 1: Introduction to Koii Tasks
 
-## Part III: Running a Task
+## Part III: How Do Koii Tasks Work?
 
-### Setting Up Your First Task
+### The Basics
 
-Clone this repository and navigate to the `EZ-testing-task/` directory. This folder contains the code for running your first task.
+Each Koii task has 4 main steps:
 
-In order to run a task, you need to build a Task Executable and copy it into your Node. To make this process as easy as possible, we have created the AutoBuild module to do this for you. By default, you can just run `yarn prod-debug` inside the task directory and your task will be rebuilt and copied to the correct folder in your node.
+1. Do the work
+2. Submit the results
+3. Verify the work
+4. Distribute rewards and penalties
 
-In this case, we have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in  your .env file.
+This ensures that each node operator has an incentive to act honestly and perform the task correctly. Their work will be checked, and if they don't perform the task correctly, they will not only miss out on rewards, they could lose some or all of their staked KOII.
 
-Please see [EZ-testing-task's README](./EZ-testing-task/README.md) for more information setting up the EZSandbox task.
+When writing a task, you're able to customize each step: what work you want done, what should be submitted as a result, how that result should be checked, and what rewards and penalties you want to set.
 
-### Add the Task to Your Node
 
-If you have not already done so, make sure you [add the EZ Testing task to your node](./PartII.md#run-a-task).
 
-### Your First Debugging
 
-First, we'll add some debug logs, and then we can watch how these functions run over time.
 
-Open the `EZ-testing-task/` folder again and we'll start hacking through some files. Open `EZ-testing-task/task` to get started.
 
-1. Rename .env.example to .env.
 
-2. Start the Debugger
-   `yarn prod-debug`
+![Lesson_1_Know_Koii_Task_Basic](./imgs/gradual-consensus.png)
 
-3. Add Debugging logs.
+Let's take a look at a minimal example to see how the runtime flow works in practice.
 
-Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
+### Example
 
-In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
+To get you started, we've provided the code for a simple task in the [`EZ-testing-task/`](./EZ-testing-task/) folder. Let's go through it, looking at each step in the runtime flow shown above.
 
-.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
+#### Do the work
 
-a. The Core Task:
+1. **Do the job**: [`Submission.task()`](./EZ-testing-task/task/submission.js#L9). This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
 
-- File Name: `submission.js`
-- Function: `task()`
-- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
+#### Review and Audit Work
 
-b. The Audit Function:
+2. **Submit proofs**: [`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31). Send the work to be checked. In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
+3. **Review proofs**: [`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3). Other nodes in the network verify the work. Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
 
-- File Name: `audit.js`
-- Function: `validateNode()`
-- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
+#### Distribute Rewards
 
-c. Generate Proofs:
+4. **Prepare Distribution List**: [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L50). You may want to alter the logic for penalizing and rewarding nodes (see #4), but you usually won't need to change the code for preparing the distribution list.
+5. **Submit Distribution List**: [`Distribution.submitDistributionList()`](./EZ-testing-task/task/distribution.js#L10). You won't normally need to change this.
+6. **Review Distribution List**: [`Distribution.auditDistribution()`](./EZ-testing-task/task/distribution.js#L38).  You won't normally need to change this.
+7. **Distribute Rewards**: Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89). Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
 
-- File Name: `submission.js`
-- Function: `fetchSubmission()`
-- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
-
-c. Assign Rewards:
-
-- File Name: `distribution.js`
-- Function: `generateDistributionList()`
-- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
-
-As you save each file, you should see the debugger restart.
-
-Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
-
-Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
-
-Congratulations! You've now covered all the basics necessary to start writing a task of your own. [Lesson 2: Writing a Task](../Lesson%202/README.md)
+We'll revisit this task shortly, but first let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)
