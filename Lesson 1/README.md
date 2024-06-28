@@ -8,13 +8,23 @@
 
 ## Part 1: Running an Existing Task
 
-<!-- TODO: Introduction here -->
+Welcome to Koii! We're building an open decentralized computing network, and this is your guide for building tasks to run on the network.
+
+### Why Koii?
+
+- The 1st Layer 1 dedicated to merging AI and DePIN ecosystem development.
+- Intuitive tools for building DePIN apps (AI inference, bandwidth, data scraping, etc).
+- Tens of thousands of compute devices and best-in-class unit economics.
+- A robust Web3 infra for projects.
+- Supports existing altcoins and stablecoins, in addition to $KOII.
 
 ### What is a Koii Task?
 
 A Koii Task is a decentralized computing job that runs across our network of nodes. We'll get into exactly how it works shortly, but for now let's run one and see it in action.
 
-<!-- TODO: add note about unit test if they don't want to use the node -->
+<!-- TODO: add something for people who want to skip the node? -->
+
+Tasks run on Koii nodes, so the first thing we're going to do is set up a node.
 
 ### Install the Node
 
@@ -24,13 +34,11 @@ To get started, you'll need to download and install the [Desktop Node](https://w
 
 > [!TIP]
 >
-> **Not sure how wallets and public keys work?**
->
-> Our [docs](https://docs.koii.network/run-a-node/task-nodes/concepts/tokens-and-wallets) have an explanation.
+> Our docs have more information on [wallets and public keys](https://docs.koii.network/run-a-node/task-nodes/concepts/tokens-and-wallets).
 
 ### Get Some Tokens
 
-In order to run a task, you'll need to have a few tokens for staking. You can get some tokens for free from the [faucet](https://faucet.koii.network/). To use the faucet, you will need to [install Finnie](https://docs.koii.network/concepts/finnie-wallet/introduction).
+In order to run a task, you'll need to have a few tokens for staking. During the node setup process, you were directed to the [faucet](https://faucet.koii.network/) to get some free tokens, so you should be all set!
 
 > [!TIP]
 >
@@ -47,6 +55,12 @@ If you'd like to earn some extra KOII, you can run any of the tasks from the `Ad
 However, we want to run the EZ Testing task. It is not a public task, so it needs to be added manually. In the `Add Task` tab, click on the "Advanced" link at the bottom left. Paste in the EZ Testing Task ID (`AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv`) and set your stake to 1.9 KOII. Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
 
 ![Add an unlisted task](./imgs/add-task-advanced.png)
+
+> [!TIP]
+>
+> **What is a Task ID?**
+>
+> Tasks are deployed to the Koii blockchain. In order to connect to the task on the blockchain, we use a unique identifier for each task, called a Task ID. In a later lesson we'll cover deployment and how to get your own Task ID.
 
 To get a better idea of what the task is doing, we're going to take a look at the log files. This is optional, feel free to skip to the [next step](./PartIII.md) if you'd rather get straight to working with the code.
 
