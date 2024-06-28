@@ -28,10 +28,26 @@ Secrets allow a user to save private information so that we can use it without e
 
 ### Secrets in Task Development
 
-In [Lesson 2](../Lesson%202/README.md), we added something to our `task-config.yml` requirements section to make UPnP configuration work. Now, we can see that a task developer can also use the requirements section to specify any number of secrets they may need for a task to function! The image below showcases `Archive Twitter's` requirements section:
+In [Lesson 2](../Lesson%202/README.md), we added something to our `task-config.yml` requirements section to make UPnP configuration work. Now, we can see that a task developer can also use the requirements section to specify any number of secrets they may need for a task to function! For example, this is `Archive Twitter's` requirements section:
 
-<!-- TODO: Change to text -->
-![Archive Twitter Requirements](./imgs/twitter-reqs.png)
+```yml
+requirementsTags:
+- type: TASK_VARIABLE
+  value: 'TWITTER_USERNAME'
+  description: 'The username of your volunteer Twitter account.'
+- type: TASK_VARIABLE
+  value: 'TWITTER_PASSWORD'
+  description: 'The password of your volunteer Twitter account.'
+- type: TASK_VARIABLE
+  value: 'TWITTER_PHONE'
+  description: 'If verification is required, will use your phone number to login.'
+- type: CPU
+  value: '4-core'
+- type: RAM
+  value: '5 GB'
+- type: STORAGE
+  value: '5 GB'
+```
 
 (You can look at the `Twitter Archive` task more in depth [here](https://github.com/koii-network/task-X).)
 

@@ -13,3 +13,16 @@
 That's it! you can make changes to your task and it will update live in your node. You can add `process.env.TEST_KEYWORD` to your console logs to see them in your console, or you can view the entire task output in the task log file.
 
 ![View task log](../Lesson%201/imgs/my-node-open-logs.png)
+
+## Going Further
+
+Check out our quick reference guides:
+
+- [Networking](./networking.md)
+- [Storage](./storage.md)
+- [Secrets](./secrets.md)
+- [Security](./security.md)
+- [KPL Tokens](./kpl-tokens.md)
+- [Testing](./testing.md)
+<!-- - [Configuration](./configuration.md) -->
+- [Deployment](./deployment.md)

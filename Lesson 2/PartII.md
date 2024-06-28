@@ -16,7 +16,16 @@ Attached under this lesson is a skeleton template for a task in the [`upnp-basic
 
 Much of the initial setup has been taken care of, but there is one thing to be aware of in the `config-task.yml`. We will discuss this file further in [Lesson 3](../Lesson%203/README.md) but we have specified the `REQUIRE_INTERNET` addon, as shown below:
 
-![Require Internet Addon](./imgs/require-internet.png)
+```yml
+requirementsTags:
+- type: TASK_VARIABLE
+  value: 'VALUE'
+  description: 'It could be your name, your username,'
+- type: ADDON
+  value: 'REQUIRE_INTERNET'
+- type: CPU
+  value: '4-core'
+```
 
 If you are writing your own UPnP task, make sure to add this to your `config-task.yml`.
 
@@ -65,24 +74,26 @@ Find the `task/getData.js` file (it should be empty). Add the following code:
 ```javascript
 class getData {
   async getAddressArray() {
-    try {
-      // get the task state from K2 (the Koii blockchain)
-      const taskState = await namespaceWrapper.getTaskState();
-      // get the list of available IP addresses from the task state
-      const nodeList = taskState.ip_address_list;
-      console.log('Node List', nodeList);
-      return nodeList;
-    } catch (e) {
-      console.log('ERROR GETTING TASK STATE', e);
-    }
+  try {
+    // get the task state from K2 (the Koii blockchain)
+    const taskState = await namespaceWrapper.getTaskState();
+
+    // get the list of available IP addresses from the task state
+    // nodeList is an object with key-value pairs in the form stakingKey: ipAddress
+    const nodeList = taskState.ip_address_list;
+
+    // return just the IP addresses
+    return Object.values(IPAddressObj);
+  } catch (e) {
+    console.log('ERROR GETTING TASK STATE', e);
+  }
   }
 
   async getRandomNodeEndpoint(IPAddressArray) {
-    const values = Object.values(IPAddressArray);
    //  Choose a random index
-    const randomIndex = Math.floor(Math.random() * values.length);
-   //  Return the value stored at the random index position
-    return values[randomIndex];
+    const randomIndex = Math.floor(Math.random() * IPAddressArray.length);
+   //  Return the IP address stored at the random index position
+    return IPAddressArray[randomIndex];
   }
 }
 

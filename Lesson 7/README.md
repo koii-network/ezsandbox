@@ -58,7 +58,7 @@ Done in 1.29s.
 
 Now it's time to deploy our executable. For this you'll need to run `npx @_koii/create-task-cli@latest`, which will show you the following menu:
 
-```bash
+```sh
 ? Select operation › - Use arrow-keys. Return to submit.
 ❯   Create a New Local Repository
     Deploy a New Task
@@ -72,23 +72,37 @@ Now it's time to deploy our executable. For this you'll need to run `npx @_koii/
 
 Choose "Deploy a New Task", which will show you the following menu:
 
-```bash
+```sh
 ? Select operation › - Use arrow-keys. Return to submit.
 ❯   using CLI
     using config YML
 ```
 
-Choose "Using config YML" and you will be asked to enter the path to your staking wallet. Visit `<OS-specific path>/KOII-Desktop-Node/namespace/` and you should see a file with the name `<name>stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>stakingWallet.json`)
+Choose "Using config YML" and you will be asked to enter the path to your staking wallet. When you installed the desktop node, a staking wallet was created for you automatically. This is separate from your main wallet, and can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
+
+The OS-specific paths are as follows:
+
+**Windows**: `/Users/<username>/AppData/Roaming`
+
+**Mac**: `/Users/<username>/Library/Application Support`
+
+**Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
+
+Here you should see a file with the name `<name>stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>stakingWallet.json`).
+
+In the example below, this would be `home/laura/.config/KOII-Desktop-Node/namespace/Laura_stakingWallet.json`
+
+![Staking Wallet](./imgs/staking-wallet.png)
 
 You will be then be prompted to confirm that you want to pay the rent and bounty, type 'y' to confirm:
 
-```bash
+```sh
 Your account will be deducted XX KOII for creating the task, which includes the rent exemption(XX KOII) and bounty amount fees (XX KOII) › (y/N)
 ```
 
 Your task should now be deployed successfully and you should see a response similar to this:
 
-```bash
+```sh
 Calling Create Task
 Task Id: 9oDEkeHwyGJVect8iEF1hHPKYdkqbtRToarbi8KQtgNS
 Stake Pot Account Pubkey: stakepotaccountp39zkKbCKoiLp3wZ66TuUu5LtS9d
@@ -96,7 +110,7 @@ Note: Task Id is basically the public key of taskStateInfoKeypair.json
 Success
 ```
 
-Congratulations! You've now got a task deployed to K2.
+Congratulations! You've deployed a task to K2.
 
 ## Whitelisting
 
