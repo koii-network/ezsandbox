@@ -16,7 +16,7 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 >
 > **Why EZ Testing Task?**
 >
-> We have deployed and example task and provided a task ID to get you up and running quicker. In later lessons, we'll talk about how to 
+> We have deployed EZ Testing Task and provided its task ID to get you up and running quicker. In later lessons, we'll talk about how to deploy your own task; if you'd prefer to jump ahead and do that now
 
 ### Debugging Your First Task
 
