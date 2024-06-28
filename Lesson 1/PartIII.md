@@ -13,36 +13,40 @@ Each Koii task has 4 main steps:
 
 This ensures that each node operator has an incentive to act honestly and perform the task correctly. Their work will be checked, and if they don't perform the task correctly, they will not only miss out on rewards, they could lose some or all of their staked KOII.
 
-When writing a task, you're able to customize each step: what work you want done, what should be submitted as a result, how that result should be checked, and what rewards and penalties you want to set.
+When writing a task, you're able to customize each step: what work you want done, what should be submitted as proof, how that proof should be checked, and what rewards and penalties you want to set.
 
+![Runtime flow](./imgs/gradual-consensus.png)
 
+> [!TIP]
+>
+> For a more in-depth explanation of how Koii Tasks run, see our docs on [runtime flow and gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus).
 
-
-
-
-
-![Lesson_1_Know_Koii_Task_Basic](./imgs/gradual-consensus.png)
-
-Let's take a look at a minimal example to see how the runtime flow works in practice.
+Now let's see how runtime flow works in the EZ Testing example.
 
 ### Example
 
-To get you started, we've provided the code for a simple task in the [`EZ-testing-task/`](./EZ-testing-task/) folder. Let's go through it, looking at each step in the runtime flow shown above.
-
 #### Do the work
 
-1. **Do the job**: [`Submission.task()`](./EZ-testing-task/task/submission.js#L9). This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
+[`Submission.task()`](./EZ-testing-task/task/submission.js#L9).
 
-#### Review and Audit Work
+This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
 
-2. **Submit proofs**: [`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31). Send the work to be checked. In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
-3. **Review proofs**: [`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3). Other nodes in the network verify the work. Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
+#### Submit Proofs
+
+[`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31).
+
+In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
+
+#### Review Proofs
+
+[`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3).
+
+Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
 
 #### Distribute Rewards
 
-4. **Prepare Distribution List**: [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L50). You may want to alter the logic for penalizing and rewarding nodes (see #4), but you usually won't need to change the code for preparing the distribution list.
-5. **Submit Distribution List**: [`Distribution.submitDistributionList()`](./EZ-testing-task/task/distribution.js#L10). You won't normally need to change this.
-6. **Review Distribution List**: [`Distribution.auditDistribution()`](./EZ-testing-task/task/distribution.js#L38).  You won't normally need to change this.
-7. **Distribute Rewards**: Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89). Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
+Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89).
 
-We'll revisit this task shortly, but first let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)
+Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
+
+Now that you've run a task and seen how it works, let's start writing our own task! [Lesson 2: Writing a Networking and Storage Task](../Lesson%202/README.md)
