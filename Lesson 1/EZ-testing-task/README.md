@@ -6,7 +6,7 @@ This is a simple task which uses Webpack to allow support of all node modules an
 
 1. Clone this repo
 2. Run `yarn install`
-3. Run `yarn run test` for Jest testing or `yarn prod-debug.js` for the live debugger
+3. Run `yarn run test` for Jest testing or `yarn prod-debug` for the live debugger
 
 ## Structure Breakdown
 
