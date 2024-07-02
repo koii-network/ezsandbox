@@ -33,31 +33,31 @@ Now, to see the task flow in action you'll want to add some log statements to ea
 
 In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
 
-.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
+.env.example has been pre-configured with the `TEST_KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
 
 a. The Core Task:
 
 - File Name: `submission.js`
 - Function: `task()`
-- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
+- Code: `console.log('Started Task', new Date(), process.env.TEST_KEYWORD )`
 
 b. The Audit Function:
 
 - File Name: `audit.js`
 - Function: `validateNode()`
-- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
+- Code: `console.log('Started Audit', new Date(), process.env.TEST_KEYWORD )`
 
 c. Generate Proofs:
 
 - File Name: `submission.js`
 - Function: `fetchSubmission()`
-- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
+- Code: `console.log('Started Submission Phase', new Date(), process.env.TEST_KEYWORD )`
 
 c. Assign Rewards:
 
 - File Name: `distribution.js`
 - Function: `generateDistributionList()`
-- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
+- Code: `console.log('Started Distribution', new Date(), process.env.TEST_KEYWORD )`
 
 As you save each file, you should see the debugger restart.
 
