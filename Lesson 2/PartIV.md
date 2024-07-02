@@ -20,7 +20,7 @@ Testing tasks locally through Docker is a process that requires a little set up.
 2. Next, we should set your Koii CLI to deploy tasks locally. We can do this using:
 
 ```bash
-koii config set --url localhost
+koii config set --url http://localhost:8899
 ```
 
 Verify you're using the correct settings with `koii config get`, which should show something like this:
