@@ -1,6 +1,6 @@
 const { namespaceWrapper, TASK_ID } = require('../_koiiNode/koiiNode');
 const { default: axios } = require('axios');
-const getData = require('getData');
+const getData = require('./getData');
 
 class Submission {
   /**
