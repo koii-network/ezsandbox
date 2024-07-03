@@ -124,7 +124,7 @@ try {
 }
 ```
 
-[isValidFile() utility function](../Lesson 2/file-sharing/after/task/fileUtils/isValidFile.js)
+[`isValidFile()` utility function](../Lesson%202/file-sharing/after/task/fileUtils/isValidFile.js) also from Lesson 2:
 
 ```javascript
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
