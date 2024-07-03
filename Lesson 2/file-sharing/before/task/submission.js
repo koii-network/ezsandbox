@@ -1,4 +1,4 @@
-const { namespaceWrapper } = require('../_koiiNode/koiiNode');
+const { namespaceWrapper } = require('koii-task-node');
 const storeFile = require('./fileUtils/storeFile');
 
 

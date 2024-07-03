@@ -1,4 +1,4 @@
-const { namespaceWrapper } = require('../_koiiNode/koiiNode');
+const { namespaceWrapper } = require('koii-task-node');
 
 class Audit {
   /**
@@ -12,7 +12,7 @@ class Audit {
     let vote;
     console.log('SUBMISSION VALUE', submission_value, round);
     try {
-      // Verify the type of value is string 
+      // Verify the type of value is string
       if (typeof submission_value === 'string' && submission_value.length > 0) {
         vote = true;
       } else {
