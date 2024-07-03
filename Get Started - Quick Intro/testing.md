@@ -23,7 +23,7 @@ You will then be able to run your task in your desktop node and log debugging in
 Configure the Koii CLI to use a local validator:
 
 ```sh
-koii config set --url localhost
+koii config set --url http://127.0.0.1:8899
 ```
 
 You can confirm this was successful with
