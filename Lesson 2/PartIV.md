@@ -45,7 +45,7 @@ K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 
 **NOTE**: This is a local environment that doesn't reflect your actual wallet, so there's no need to worry about cost. In fact, if you use the command `koii airdrop 10000` you can give yourself plenty of tokens to test with!
 
-5. Now that your task is live, note down the taskID and executable CID. Place your taskID in your `.env.local` as shown below:
+5. Now that your task is live, note down the task ID and the executable CID. When you deployed your task, some `TASK DATA` was logged to the console. Look for `task_audit_program_id`; this is your executable CID. Place your taskID in your `.env.local` as shown below:
 
 ```dotenv
 TASKS="ETHVehVJbepd4RZjUqoR2iveYTAsauLpd4kiCRnPUE7Y" //Your task's ID
