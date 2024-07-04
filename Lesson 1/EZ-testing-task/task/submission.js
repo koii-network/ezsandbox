@@ -1,4 +1,4 @@
-const { namespaceWrapper } = require('koii-task-node');
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 class Submission {
   /**
    * Executes your task, optionally storing the result.

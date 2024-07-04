@@ -1,5 +1,5 @@
 const { coreLogic } = require('../coreLogic');
-const { namespaceWrapper, _server } = require('koii-task-node');
+const { namespaceWrapper, _server } = require('@_koii/namespace-wrapper');
 const Joi = require('joi');
 const axios = require('axios');
 beforeAll(async () => {

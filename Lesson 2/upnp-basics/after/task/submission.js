@@ -1,4 +1,4 @@
-const { namespaceWrapper, TASK_ID } = require('koii-task-node');
+const { namespaceWrapper, TASK_ID } = require('@_koii/namespace-wrapper');
 const { default: axios } = require('axios');
 const getData = require('./getData');
 

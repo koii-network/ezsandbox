@@ -1,4 +1,4 @@
-const { namespaceWrapper } = require('koii-task-node');
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const CaesarCipher = require('../caesar-cipher/caesar-cipher');
 
 class Submission {
