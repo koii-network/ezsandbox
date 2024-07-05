@@ -20,15 +20,15 @@ Testing tasks locally through Docker is a process that requires a little set up.
 2. Next, we should set your Koii CLI to deploy tasks locally. We can do this using:
 
 ```bash
-koii config set --url localhost
+koii config set --url http://127.0.0.1:8899
 ```
 
 Verify you're using the correct settings with `koii config get`, which should show something like this:
 
 ```bash
 Config File: C:\Users\test\.config\koii\cli\config.yml
-RPC URL: http://localhost:8899
-WebSocket URL: ws://localhost:8900/ (computed)
+RPC URL: http://127.0.0.1:8899
+WebSocket URL: ws://127.0.0.1:8900/ (computed)
 Keypair Path: ~/.config/koii/id.json
 Commitment: confirmed
 ```

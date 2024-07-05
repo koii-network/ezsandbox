@@ -4,7 +4,7 @@ const {
   namespaceWrapper,
   taskNodeAdministered,
   app,
-} = require('./_koiiNode/koiiNode');
+} = require('@_koii/namespace-wrapper');
 const setupRoutes = require('./routes');
 
 if (app) {
@@ -44,13 +44,13 @@ async function setup() {
 
   /* GUIDE TO CALLS K2 FUNCTIONS MANUALLY
 
-      If you wish to do the development by avoiding the timers then you can do the intended calls to K2 
-      directly using these function calls. 
+      If you wish to do the development by avoiding the timers then you can do the intended calls to K2
+      directly using these function calls.
 
       To disable timers please set the TIMERS flag in task-node ENV to disable
 
       NOTE : K2 will still have the windows to accept the submission value, audit, so you are expected
-      to make calls in the intended slots of your round time. 
+      to make calls in the intended slots of your round time.
 
   */
 
