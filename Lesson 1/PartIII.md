@@ -1,68 +1,55 @@
 # Lesson 1: Introduction to Koii Tasks
 
-## Part III: Running a Task
+## Part III: How Do Koii Tasks Work?
 
-### Setting Up Your First Task
+### The Basics
 
-Clone this repository and navigate to the `EZ-testing-task/` directory. This folder contains the code for running your first task.
+In the previous lesson, we added 4 console logs for Task, Submission, Audit, and Distribution. These are the four main parts of a Koii task:
 
-In order to run a task, you need to build a Task Executable and copy it into your Node. To make this process as easy as possible, we have created the AutoBuild module to do this for you. By default, you can just run `yarn prod-debug` inside the task directory and your task will be rebuilt and copied to the correct folder in your node.
+1. Do the work
+2. Submit the results
+3. Verify the work
+4. Distribute rewards and penalties
 
-In this case, we have pre-configured the Hello World example to use the EZSandbox task ID. Later, when you want to run your own tasks, you'll learn how to get a unique task ID. You can configure the AutoBuild module by updating the task ID in  your .env file.
+This ensures that each node operator has an incentive to act honestly and perform the task correctly. Their work will be checked, and if they don't perform the task correctly, they will not only miss out on rewards, they could lose some or all of their staked KOII.
 
-Please see [EZ-testing-task's README](./EZ-testing-task/README.md) for more information setting up the EZSandbox task.
+When writing a task, you're able to customize each step: what work you want done, what should be submitted as proof, how that proof should be checked, and what rewards and penalties you want to set.
 
-### Add the Task to Your Node
+![Runtime flow](./imgs/gradual-consensus.png)
 
-If you have not already done so, make sure you [add the EZ Testing task to your node](./PartII.md#run-a-task).
+> [!TIP]
+>
+> For a more in-depth explanation of how Koii Tasks run, see our docs on [runtime flow and gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus).
 
-### Your First Debugging
+Now let's see how runtime flow works in the EZ Testing example.
 
-First, we'll add some debug logs, and then we can watch how these functions run over time.
+### Example
 
-Open the `EZ-testing-task/` folder again and we'll start hacking through some files. Open `EZ-testing-task/task` to get started.
+#### Do the work
 
-1. Rename .env.example to .env.
+[`Submission.task()`](./EZ-testing-task/task/submission.js#L9).
 
-2. Start the Debugger
-   `yarn prod-debug`
+This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
 
-3. Add Debugging logs.
+#### Submit Proofs
 
-Now, to see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
+[`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31).
 
-In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
+In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
 
-.env.example has been pre-configured with the `KEYWORD` environment variable set to "TEST". Change this to whatever you'd like.
+#### Review Proofs
 
-a. The Core Task:
+[`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3).
 
-- File Name: `submission.js`
-- Function: `task()`
-- Code: `console.log('Started Task', new Date(), process.env.KEYWORD )`
+Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
 
-b. The Audit Function:
+#### Distribute Rewards
 
-- File Name: `audit.js`
-- Function: `validateNode()`
-- Code: `console.log('Started Audit', new Date(), process.env.KEYWORD )`
+Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89).
 
-c. Generate Proofs:
+Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
 
-- File Name: `submission.js`
-- Function: `fetchSubmission()`
-- Code: `console.log('Started Submission Phase', new Date(), process.env.KEYWORD )`
 
-c. Assign Rewards:
 
-- File Name: `distribution.js`
-- Function: `generateDistributionList()`
-- Code: `console.log('Started Distribution', new Date(), process.env.KEYWORD )`
 
-As you save each file, you should see the debugger restart.
-
-Once all changes have been made, locate the EZSandbox task in your node and press the play/pause button twice to ensure it picks up the new executable file.
-
-Now, wait and watch the logs to see the tags you just added. They should be printed in the output of your `yarn debug` command terminal.
-
-Congratulations! You've now covered all the basics necessary to start writing a task of your own. [Lesson 2: Writing a Task](../Lesson%202/README.md)
+Now that you've run a task and seen how it works, let's start writing our own task! [Lesson 2: Writing a Networking and Storage Task](../Lesson%202/README.md)
