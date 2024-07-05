@@ -58,7 +58,7 @@ b. Submission:
 
 - File Name: `submission.js`
 - Function: [`fetchSubmission()`](./EZ-testing-task/task/submission.js#L51)
-- Code: `console.log('Started Submission Phase', new Date(), process.env.TEST_KEYWORD)`
+- Code: `console.log('Started Submission', new Date(), process.env.TEST_KEYWORD)`
 
 c. Audit:
 
