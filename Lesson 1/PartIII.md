@@ -4,7 +4,7 @@
 
 ### The Basics
 
-Each Koii task has 4 main steps:
+In the previous lesson, we added 4 console logs for Task, Submission, Audit, and Distribution. These are the four main parts of a Koii task:
 
 1. Do the work
 2. Submit the results
@@ -48,5 +48,8 @@ Here we are [verifying whether the submission is the string "Hello, World!"](./E
 Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89).
 
 Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
+
+
+
 
 Now that you've run a task and seen how it works, let's start writing our own task! [Lesson 2: Writing a Networking and Storage Task](../Lesson%202/README.md)
