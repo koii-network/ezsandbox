@@ -6,34 +6,110 @@
 >
 > [Get a task up and running in 2 minutes](../Get%20Started%20-%20Quick%20Intro/README.md).
 
-## Part 1: What is a Koii Task?
+## Part 1: Running an Existing Task
 
-### Overview
+Welcome to Koii! We're building an open decentralized computing network, and this is your guide for building tasks to run on the network.
 
-A Koii Task is a decentralized computing job that runs across our network of nodes. Below is an infographic showing how a task runs (the runtime flow):
+### Why Koii?
 
-![Lesson_1_Know_Koii_Task_Basic](./imgs/gradual-consensus.png)
+- The 1st Layer 1 dedicated to merging AI and DePIN ecosystem development.
+- Intuitive tools for building DePIN apps (AI inference, bandwidth, data scraping, etc).
+- Tens of thousands of compute devices and best-in-class unit economics.
+- A robust Web3 infra for projects.
+- Supports existing altcoins and stablecoins, in addition to $KOII.
 
-Let's take a look at a minimal example to see how the runtime flow works in practice.
+### What is a Koii Task?
 
-### Example
+A Koii Task is a decentralized computing job that runs across our network of nodes. We'll get into exactly how it works shortly, but for now let's run one and see it in action.
 
-To get you started, we've provided the code for a simple task in the [`EZ-testing-task/`](./EZ-testing-task/) folder. Let's go through it, looking at each step in the runtime flow shown above.
+<!-- TODO: add something for people who want to skip the node? -->
 
-#### Do the work
+Tasks run on Koii nodes, so the first thing we're going to do is set up a node.
 
-1. **Do the job**: [`Submission.task()`](./EZ-testing-task/task/submission.js#L9). This task simply [saves the string "Hello, World!" to the local database](./EZ-testing-task/task/submission.js#L15)
+### Install the Node
 
-#### Review and Audit Work
+To get started, you'll need to download and install the [Desktop Node](https://www.koii.network/node). Complete instruction are available [here](https://docs.koii.network/run-a-node/task-nodes/how-to-run-a-koii-node). As part of this process, a KOII wallet will be created for you. You can find the public key for your Node wallet on the sidebar or under Settings/Accounts:
 
-2. **Submit proofs**: [`Submission.fetchSubmission()`](./EZ-testing-task/task/submission.js#L51) and [`Submission.sendTask()`](./EZ-testing-task/task/submission.js#L31). Send the work to be checked. In this case, we are [fetching the string from the local database](./EZ-testing-task/task/submission.js#L54) and [submitting it](./EZ-testing-task/task/submission.js#L37).
-3. **Review proofs**: [`Audit.validateNode()`](./EZ-testing-task/task/audit.js#L3). Other nodes in the network verify the work. Here we are [verifying whether the submission is the string "Hello, World!"](./EZ-testing-task/task/audit.js#L16).
+![public key location in desktop node](./imgs/public-key.png)
 
-#### Distribute Rewards
+> [!TIP]
+>
+> Our docs have more information on [wallets and public keys](https://docs.koii.network/run-a-node/task-nodes/concepts/tokens-and-wallets).
 
-4. **Prepare Distribution List**: [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L50). You may want to alter the logic for penalizing and rewarding nodes (see #4), but you usually won't need to change the code for preparing the distribution list.
-5. **Submit Distribution List**: [`Distribution.submitDistributionList()`](./EZ-testing-task/task/distribution.js#L10). You won't normally need to change this.
-6. **Review Distribution List**: [`Distribution.auditDistribution()`](./EZ-testing-task/task/distribution.js#L38).  You won't normally need to change this.
-7. **Distribute Rewards**: Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distribution.js#L89). Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
+### Get Some Tokens
 
-We'll revisit this task shortly, but first let's take a look at the Desktop Node. [Part II: Introduction to the Node](./PartII.md)
+In order to run a task, you'll need to have a few tokens for staking. During the node setup process, you were directed to the [faucet](https://faucet.koii.network/) to get some free tokens, so you should be all set!
+
+> [!TIP]
+>
+> **Why do you need tokens to run a task?**
+>
+> Every task requires a stake in tokens. Staking keeps your tasks safe from bad actors: if a task runner acts maliciously, they will be penalized and lose some or all of this stake.
+
+### Run the Task
+
+If you'd like to earn some extra KOII, you can run any of the tasks from the `Add Task` list in your node.
+
+![View add task list](./imgs/task-list.png)
+
+However, we want to run the EZ Testing task. It is not a public task, so it needs to be added manually. In the `Add Task` tab, click on the "Advanced" link at the bottom left. Paste in the EZ Testing Task ID (`AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv`) and set your stake to 1.9 KOII. Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
+
+![Add an unlisted task](./imgs/add-task-advanced.png)
+
+> [!TIP]
+>
+> **What is a Task ID?**
+>
+> Tasks are deployed to the Koii blockchain. In order to connect to the task on the blockchain, we use a unique identifier for each task, called a Task ID. In a later lesson we'll cover deployment and how to get your own Task ID.
+
+To get a better idea of what the task is doing, we're going to take a look at the log files. This is optional, feel free to skip to the [next step](./PartIII.md) if you'd rather get straight to working with the code.
+
+### View the Task Log
+
+To view the log for a specific task, click any of the tasks in your Node and select 'Output Logs' as shown below:
+
+![Open the log file](./imgs/my-node-open-logs.png)
+
+This will open a folder containing the `task.log` file:
+
+![Task log](./imgs/task-log.png)
+
+### View the Main Log
+
+In addition to task-specific logs, there's a main log for information about the node. You can access it from the Settings menu:
+
+![Open main log](imgs/open-main-log.png)
+
+![Main log](imgs/main-log.png)
+
+### Real-time Log Updates
+
+#### MacOS and Linux
+
+Try navigating to the logs directory in your terminal:
+
+```sh
+# MacOS
+cd /Users/<username>/Library/Application Support/KOII-Desktop-Node/logs/
+```
+
+```sh
+# Linux
+cd /home/<username>/.config/KOII-Desktop-Node/logs/
+```
+
+You can then run the following command to watch your logs in real time:
+
+```sh
+tail -f main.log
+```
+
+#### Windows
+
+In Windows, there is no `tail` command, but you can run the following command in PowerShell:
+
+```sh
+Get-Content -Path "/Users/<username>/AppData/Roaming/KOII-Desktop-Node/logs/main.log" -Wait
+```
+
+Congratulations! Now that you've set up a node and run your first task, let's try some debugging. [Part II](./PartII.md)

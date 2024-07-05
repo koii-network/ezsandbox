@@ -24,7 +24,7 @@ If you have explored the Node enough, you may have noticed that some tasks requi
 
 ![Archive Twitter Task Extensions](./imgs/secrets-example.png)
 
-Secrets allow a user to save private information so that we can use it without ever having access to the actual values. With the help of secrets, your crawler task can easily utilize a user's account to login, get full access to a webpage's content, and start archiving information - all without knowing their login credentials.
+Secrets allow a user to save private information so that we can use it without ever having access to the actual values. With the help of secrets, your crawler task can easily utilize a user's account to login, get full access to a webpage's content, and start archiving information.
 
 ### Secrets in Task Development
 

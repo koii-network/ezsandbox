@@ -1,4 +1,4 @@
-const { namespaceWrapper } = require('../_koiiNode/koiiNode');
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 
 class Distribution {
   /**

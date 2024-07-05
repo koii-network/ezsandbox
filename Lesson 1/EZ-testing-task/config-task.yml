@@ -22,8 +22,8 @@ minimum_stake_amount: 1.9
 
 # total_bounty_amount cannot be grater than bounty_amount_per_round
 # total bounty_amount: The total bounty amount that will be distributed to the task. (Not accepted in case of update task)
-total_bounty_amount: 100
-bounty_amount_per_round: 100
+total_bounty_amount: 10
+bounty_amount_per_round: 0.1
 
 # allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
 allowed_failed_distributions: 3

@@ -3,7 +3,7 @@ const {
   namespaceWrapper,
   taskNodeAdministered,
   app,
-} = require('./_koiiNode/koiiNode');
+} = require('@_koii/namespace-wrapper');
 
 const setupRoutes = require('./routes');
 

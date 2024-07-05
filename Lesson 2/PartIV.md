@@ -20,15 +20,15 @@ Testing tasks locally through Docker is a process that requires a little set up.
 2. Next, we should set your Koii CLI to deploy tasks locally. We can do this using:
 
 ```bash
-koii config set --url localhost
+koii config set --url http://127.0.0.1:8899
 ```
 
 Verify you're using the correct settings with `koii config get`, which should show something like this:
 
 ```bash
 Config File: C:\Users\test\.config\koii\cli\config.yml
-RPC URL: http://localhost:8899
-WebSocket URL: ws://localhost:8900/ (computed)
+RPC URL: http://127.0.0.1:8899
+WebSocket URL: ws://127.0.0.1:8900/ (computed)
 Keypair Path: ~/.config/koii/id.json
 Commitment: confirmed
 ```
@@ -45,7 +45,7 @@ K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 
 **NOTE**: This is a local environment that doesn't reflect your actual wallet, so there's no need to worry about cost. In fact, if you use the command `koii airdrop 10000` you can give yourself plenty of tokens to test with!
 
-5. Now that your task is live, note down the taskID and executable CID. Place your taskID in your `.env` as shown below:
+5. Now that your task is live, note down the task ID and the executable CID. When you deployed your task, some `TASK DATA` was logged to the console. Look for `task_audit_program_id`; this is your executable CID. Place your taskID in your `.env.local` as shown below:
 
 ```dotenv
 TASKS="ETHVehVJbepd4RZjUqoR2iveYTAsauLpd4kiCRnPUE7Y" //Your task's ID
