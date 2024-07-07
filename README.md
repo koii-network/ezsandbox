@@ -2,6 +2,8 @@
 
 Powered by [Koii](https://koii.network) - Over 60,000 community devices at your fingertips
 
+Curious to see the source code? [Learn More]()
+
 # Welcome to EZSandbox
 
 In this series of workshops, we'll get you up and running to build your first community-hosted application in no time.
@@ -121,3 +123,11 @@ After your task is live, it's time to consider improving your work. In this fina
 
 <br />
 <br />
+
+# Open Source Roadmap
+Koii is committed to being an open source project, but we are a small team and focused on improving developer and user experience at the moment. 
+- K2 has been audited by Halborn, a leading security firm and the original auditor of the Solana codebase which it was forked from. K2 is planned to be open sourced in mid July 2024. [Click here for the Full Audit Report](https://twitter.com/HalbornSecurity/status/1784862949581938785)
+- The Task Node is currently being audited, and we plan to open source that codebase as soon as it has been fully audited. This decision was made to protect the community of node operators from any critical vulnerabilities, but we do offer the source code to community members, and you can ask to receive access by contacting us on [discord](discord.gg/koii-network). Usually these requests are resolved within 48 hrs. 
+
+## We are sorry that we can't do this sooner. 
+This code base has been rapidly iterated, with now over 70 versions, so it was only recently possible to begin audits and we are keen to open source the codebase right away. 
