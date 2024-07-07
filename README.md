@@ -2,7 +2,7 @@
 
 Powered by [Koii](https://koii.network) - Over 60,000 community devices at your fingertips
 
-Curious to see the source code? [Learn More]()
+Curious to see the source code? [Learn More](#open-source-roadmap)
 
 # Welcome to EZSandbox
 
