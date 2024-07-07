@@ -1,4 +1,4 @@
-# Run Your First Task in 2 Min
+i# Run Your First Task in 2 Min
 
 1. Install and set up the [desktop node](https://www.koii.network/node).
 
@@ -6,9 +6,9 @@
 
 ![Add EZ Testing Task](../Lesson%201/imgs/add-task-advanced.png)
 
-3. Clone the [EZ Testing Task](https://github.com/koii-network/ezsandbox/Lesson%201/EZ-testing-task).
+3. Clone this repository and navigate to the [EZ Testing Task](https://github.com/koii-network/ezsandbox/tree/main/Lesson%201/EZ-testing-task#readme)
 
-4. Run `yarn prod-debug` to run the task in your node.
+6. Run `yarn prod-debug` to run the task in your node.
 
 That's it! you can make changes to your task and it will update live in your node. You can add `process.env.TEST_KEYWORD` to your console logs to see them in your console, or you can view the entire task output in the task log file.
 
