@@ -6,7 +6,7 @@
 
 ![Add EZ Testing Task](../Lesson%201/imgs/add-task-advanced.png)
 
-3. Clone the [task template repo](https://github.com/koii-network/task-template).
+3. Clone the [EZ Testing Task](https://github.com/koii-network/ezsandbox/Lesson%201/EZ-testing-task).
 
 4. Run `yarn prod-debug` to run the task in your node.
 
