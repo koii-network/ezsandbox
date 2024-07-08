@@ -6,7 +6,6 @@
 
 - [Part I](./README.md) complete
 - [Node.js](https://nodejs.org/en/download/package-manager) installed
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable) installed
 
 ### The Task Executable
 
@@ -29,13 +28,13 @@ Copy the `.env.example` file and rename it to `.env`. It has already been set up
 Run
 
 ```sh
-yarn
+npm install
 ```
 
 to install the necessary dependencies, then run
 
 ```sh
-yarn prod-debug
+npm run prod-debug
 ```
 
 to start the live debugger.

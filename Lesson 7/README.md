@@ -8,51 +8,19 @@ When you deploy a task to the community, you'll have to pay rent and a bounty. T
 
 ## Building
 
-The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using `yarn` or `npm install`. Then run `yarn webpack` or `npm run webpack` in order to create the executable.
+The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using
 
-This is what the output for `yarn` should look like:
-
-```bash
-yarn install v1.22.22
-[1/4] Resolving packages...
-[2/4] Fetching packages...
-[3/4] Linking dependencies...
-[4/4] Building fresh packages...
-success Saved lockfile.
-Done in 1.82s.
+```sh
+npm install
 ```
 
-and `yarn webpack`:
+Then run
 
-```bash
-yarn run v1.22.22
-$ webpack
-asset main.js 2.83 MiB [emitted] (name: main) 1 related asset
-runtime modules 1.06 KiB 6 modules
-modules by path ./node_modules/ 2.47 MiB
-  javascript modules 1.96 MiB 299 modules
-  json modules 518 KiB
-    modules by path ./node_modules/iconv-lite/ 86.7 KiB 8 modules
-    + 6 modules
-modules by path ./task/*.js 12.8 KiB
-  ./task/index.js 209 bytes [built] [code generated]
-  ./task/submission.js 2.33 KiB [built] [code generated]
-  ./task/audit.js 1.24 KiB [built] [code generated]
-  ./task/distribution.js 9 KiB [built] [code generated]
-modules by path ./*.js 4.38 KiB
-  ./index.js 3.54 KiB [built] [code generated]
-  ./coreLogic.js 862 bytes [built] [code generated]
-+ 24 modules
-
-WARNING in ./node_modules/express/lib/view.js 81:13-25
-Critical dependency: the request of a dependency is an expression
-
-1 warning has detailed information that is not shown.
-Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
-
-webpack 5.82.1 compiled with 1 warning in 981 ms
-Done in 1.29s.
+```sh
+npm run webpack
 ```
+
+in order to create the executable.
 
 ## Deploying
 

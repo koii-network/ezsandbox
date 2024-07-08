@@ -13,7 +13,7 @@ const startWatching = async () => {
 /* build and webpack the task */
 const build = async () => {
   console.log('Building...');
-  const child = await spawn('yarn', ['webpack:test'], { stdio: 'inherit' });
+  const child = await spawn('npm', ['run', 'webpack:test'], { stdio: 'inherit' });
 
   await child.on('close', code => {
     if (code !== 0) {

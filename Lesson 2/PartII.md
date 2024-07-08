@@ -184,7 +184,7 @@ As a result of this basic setup, every Node can provide server endpoints to be r
 
 ### Testing
 
-When developing your task, you'll want to iterate quickly, and having to deploy or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `testing/unitTesting.js` and you can run it via `yarn unitTest`.
+When developing your task, you'll want to iterate quickly, and having to deploy or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `testing/unitTesting.js` and you can run it via `npm test`.
 
 ### Exercise
 
