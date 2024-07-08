@@ -16,6 +16,7 @@ First let's add the logic to store a file to IPFS. In `task/fileUtils/storeFile.
 
 ```javascript
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const fs = require('fs');
 
 async function storeFile(data, filename = 'value.json') {
