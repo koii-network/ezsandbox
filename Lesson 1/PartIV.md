@@ -65,15 +65,18 @@ When creating your wallet, you will be prompted for a BIP39 passphrase. This is 
 
 After creating your wallet, you'll be given a pubkey (wallet address) and a seed phrase for recovery - note these down. You can share your pubkey freely; keep your seed phrase a secret and store it somewhere secure.
 
-#### Get Tokens
-
-If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
-
 To transfer tokens into your wallet, you will need your wallet's pubkey. If you ever forget it, you can find it by running:
 
 ```sh
 koii address
 ```
+
+> [!TIP]
+>
+> GET TOKENS
+>
+> If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
+>
 
 #### Deploying
 
