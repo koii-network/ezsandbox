@@ -73,7 +73,7 @@ koii address
 
 > [!TIP]
 >
-> GET TOKENS
+> **GET TOKENS**
 >
 > If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
 >
