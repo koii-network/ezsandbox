@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "node tests/unitTest.js",
+    "jest-test": "jest --detectOpenHandles",
     "start": "node index.js",
-    "unitTest": "node tests/unitTest.js",
     "prod-debug": "nodemon --ignore 'dist/*' prod-debug.js",
     "webpack": "webpack",
     "webpack:test": "webpack --config test.webpack.config.js",
