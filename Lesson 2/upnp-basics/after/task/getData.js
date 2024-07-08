@@ -4,6 +4,7 @@ class GetData {
   try {
     // get the task state from K2 (the Koii blockchain)
     const taskState = await namespaceWrapper.getTaskState();
+    console.log(taskState)
 
     // get the list of available IP addresses from the task state
     // nodeList is an object with key-value pairs in the form stakingKey: ipAddress
@@ -24,4 +25,5 @@ class GetData {
   }
 }
 
-module.exports = GetData;
+const getData = new GetData();
+module.exports = getData;
