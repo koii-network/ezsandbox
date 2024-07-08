@@ -23,5 +23,5 @@ class GetData {
     return IPAddressArray[randomIndex];
   }
 }
-const getData = new GetData();
-module.exports = { getData };
+
+module.exports = GetData;
