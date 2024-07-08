@@ -6,7 +6,7 @@ repositoryUrl: 'https://github.com/koii-network/task-template' #replace with you
 imageUrl: 'imageUrl'
 
 # task_executable_network : DEVELOPMENT, ARWEAVE or IPFS
-# IPFS is the default value, as the CLI automatically manages the upload process via Spheron.
+# IPFS is the default value, as the CLI automatically manages the upload process via the Koii Storage SDK.
 task_executable_network: 'IPFS'
 
 # task_audit_program: Path to your executable webpack if the selected network is IPFS and in case of DEVELOPMENT name it as main
@@ -25,10 +25,10 @@ minimum_stake_amount: 1.9
 total_bounty_amount: 100
 bounty_amount_per_round: 100
 
-# allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit. 
+# allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
 allowed_failed_distributions: 3
 
-# space: Space in MBs for the account size, that holds the task data. 
+# space: Space in MBs for the account size, that holds the task data.
 space: 1
 
 # Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
