@@ -1,4 +1,5 @@
-class getData {
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+class GetData {
   async getAddressArray() {
   try {
     // get the task state from K2 (the Koii blockchain)
@@ -9,7 +10,7 @@ class getData {
     const nodeList = taskState.ip_address_list;
 
     // return just the IP addresses
-    return Object.values(IPAddressObj);
+    return Object.values(nodeList);
   } catch (e) {
     console.log('ERROR GETTING TASK STATE', e);
   }
@@ -22,5 +23,5 @@ class getData {
     return IPAddressArray[randomIndex];
   }
 }
-
-module.exports = getData;
+const getData = new GetData();
+module.exports = { getData };

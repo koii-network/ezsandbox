@@ -1,6 +1,6 @@
 const { namespaceWrapper, TASK_ID } = require('@_koii/namespace-wrapper');
 const { default: axios } = require('axios');
-const getData = require('./getData');
+const { getData } = require('./getData');
 
 class Submission {
   /**
@@ -17,7 +17,7 @@ class Submission {
 
       try {
         // Get a random node from the list
-        const randomNode = getData.getRandomNodeEndpoint(IPAddressArray);
+        const randomNode = await getData.getRandomNodeEndpoint(IPAddressArray);
         console.log('RANDOM NODE', randomNode);
 
         // Fetch the value from the random node
