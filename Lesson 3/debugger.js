@@ -1,7 +1,7 @@
 require('dotenv').config;
 const os = require('os');
 const path = require('path');
-const { Connection, PublicKey } = require('@_koi/web3.js');
+const { Connection, PublicKey } = require('@_koii/web3.js');
 
 class Debugger {
   /*
