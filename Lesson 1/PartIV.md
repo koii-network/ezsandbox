@@ -78,7 +78,7 @@ koii address
 > If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
 >
 
-#### Deploying
+#### Create Task CLI
 
 Now it's time to deploy our executable. For this you'll need to run
 
@@ -108,7 +108,17 @@ Choose "Deploy a New Task", which will show you the following menu:
     using config YML
 ```
 
-Choose "Using config YML" and you will be asked to enter the path to your staking wallet. When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
+Choose "Using config YML".
+
+#### Staking Wallet
+
+> [!NOTE]
+>
+> **Why do I need two wallets? What's the difference?**
+>
+> The wallet you create with `koii-keygen` is the one you'll use to pay for your deployment fees. However, your task executable must be uploaded to IPFS so it can be distributed to the desktop nodes. In order to ensure the security of uploads, all file uploads must be signed. This signing process requires the use of a wallet called a Staking Wallet, which has a special role in running Koii tasks. This special role allows it to be used for signing uploads.
+
+Now, you will be asked to enter the path to your staking wallet. When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
 
 The OS-specific paths are as follows:
 
@@ -123,6 +133,8 @@ Here you should see a file with the name `<name>stakingWallet.json`. Enter the f
 In the example below, this would be `home/laura/.config/KOII-Desktop-Node/namespace/Laura_stakingWallet.json`
 
 ![Staking Wallet](./imgs/staking-wallet.png)
+
+#### Confirm
 
 You will be then be prompted to confirm that you want to pay the rent and bounty, type 'y' to confirm:
 
