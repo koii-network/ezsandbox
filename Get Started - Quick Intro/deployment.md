@@ -5,13 +5,13 @@ Before deploying your task, you can apply for our [grant program](https://www.ko
 1. Make sure all dependencies are installed:
 
 ```sh
-yarn
+npm install
 ```
 
 2. Build the executable:
 
 ```sh
-yarn webpack
+npm run webpack
 ```
 
 3. Run the create task CLI:

@@ -8,7 +8,19 @@ i# Run Your First Task in 2 Min
 
 3. Clone this repository and navigate to the [EZ Testing Task](https://github.com/koii-network/ezsandbox/tree/main/Lesson%201/EZ-testing-task#readme)
 
-6. Run `yarn prod-debug` to run the task in your node.
+6. Run
+
+```sh
+npm install
+```
+
+then
+
+```sh
+npm run prod-debug
+```
+
+to run the task in your node.
 
 That's it! you can make changes to your task and it will update live in your node. You can add `process.env.TEST_KEYWORD` to your console logs to see them in your console, or you can view the entire task output in the task log file.
 

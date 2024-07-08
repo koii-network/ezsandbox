@@ -5,8 +5,8 @@ This is a simple task that uses a Caesar cipher to teach you about audit and dis
 ## How to Setup
 
 1. Clone this repo
-2. Run `yarn install`
-3. Run `yarn run test` for Jest testing or `yarn prod-debug.js` for the live debugger
+2. Run `npm install`
+3. Run `npm test` to simulate rounds or `npm run prod-debug` for the live debugger
 
 ## Structure Breakdown
 
