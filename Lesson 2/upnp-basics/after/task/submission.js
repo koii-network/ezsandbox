@@ -17,7 +17,7 @@ class Submission {
 
       try {
         // Get a random node from the list
-        const randomNode = getData.getRandomNodeEndpoint(IPAddressArray);
+        const randomNode = await getData.getRandomNodeEndpoint(IPAddressArray);
         console.log('RANDOM NODE', randomNode);
 
         // Fetch the value from the random node
