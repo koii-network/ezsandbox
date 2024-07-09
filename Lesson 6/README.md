@@ -2,28 +2,41 @@
 
 KPL stands for Koii Program Library. It supports users in creating various fungible tokens, which can be used as rewards for tasks (currently in progress) and like other tokens, they are interchangeable and divisible.
 
-Visit [this site](https://dev-blue-spl-token-creator.vercel.app/) to create KPL Tokens.
+Visit [this site](http://kpl.koii.network/) to create KPL Tokens.
 
-`Wallet.json` is handled through the front-end JavaScript, so rest assured, your `wallet.json` file will never be uploaded anywhere and will always remain on your local machine.
+## Create Token
 
-## Create Function
+First, upload your JSON wallet. This will be the same wallet you used to deploy a task in Lesson 1.
 
-Below is an explanation of the information you need to fill in:
+If you're using your main wallet from the desktop node, it will be located at `<OS-specific-path>/KOII-Desktop-Node/wallets/<name>_mainSystemWallet.json`.
 
-1. **Wallet.json**
-   If you have deployed your own tasks in previous lessons, you should already know how to obtain your `wallet.json`.
+The OS-specific paths are as follows:
 
-2. **PNG/ICO/JPEG**
-   This is your icon. It is best if it is square; otherwise, it may be cropped.
+**Windows**: `/Users/<username>/AppData/Roaming`
 
-3. **Token Name/Token Symbol/Token Description**
-   These are the details of your token. The symbol represents the unit, such as FIRE and KOII. 
-   
-   !!! Please remember your token's Token Public Key, as it will be needed in the next step for minting.
+**Mac**: `/Users/<username>/Library/Application Support`
 
-## Mint Function
+**Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
 
-Next, you can mint some tokens for yourself. You only need to enter the amount, your `wallet.json` file, and your Token Public Key to mint any number of tokens.
+Here you should see a file with the name `<name>stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>stakingWallet.json`).
+
+If you created your wallet with `koii-keygen`, the default location is `<user_folder>/.config/koii/id.json`. The `.config` folder may be hidden in your file explorer, you can press `Cmd-Shift-.` on Mac or `Ctrl-H` on Linux. On Windows, there is no keyboard shortcut but in the file explorer you can select `View > Show > Hidden Files`. Make sure your wallet has a balance of at least 0.1 KOII to cover the cost of creating the mint and minting your tokens.
+
+> [!NOTE]
+>
+> Your JSON wallet is handled through front-end JavaScript only. Your wallet file will never be uploaded anywhere and will always remain on your local machine.
+
+Next, you'll need an image for your token. It can be a .png, .ico, or .jpg. It should be a square image; if it's rectangular, you may not like how it's cropped.
+
+Finally enter the token details: the name, the symbol (like FIRE or KOII), and the description.
+
+> [!TIP]
+>
+> When you create the token, you'll be given a public key - this is your mint address. Hold onto this, you'll need it in the next step.
+
+## Mint Tokens
+
+Minting your tokens is simple: you just need to enter the number of tokens, your JSON wallet file (the same one you used when creating the tokens), and your mint address.
 
 ## Tokens Owned
 
