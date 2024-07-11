@@ -34,6 +34,10 @@ Choose `Deploy a New Task`. Next, you may be asked if you want to use your Koii 
 It looks like you have a koii cli installed. Would you like to use your koii cli key (/home/laura/.config/koii/id.json) to deploy this task? › (y/N)
 ```
 
+> [!IMPORTANT]
+>
+> The wallet you use to deploy a KPL task must have sufficient KOII to cover the rent exemption and your token bounty.
+
 In order to create a KPL task, you must use the wallet that holds your token - this is the wallet you used when creating it. If it is not your Koii CLI wallet, be sure to choose `no` at this point. Next you may be asked a similar question about your desktop node wallet:
 
 ```sh
@@ -92,4 +96,10 @@ Choose `KPL-Task` and you will be asked to enter your mint address:
 
 You should have the mint address saved from when you created the token, but if you've misplaced it, you can find it by visiting [the explorer](https://explorer.koii.live/) and searching for your wallet's public key. Scroll down and click on the `Tokens` tab. You will see a list of the tokens you own along with their mint addresses. Click on the copy icon to copy your mint address to the clipboard.
 
-After you enter your mint address, your task will be deployed.
+After you enter your mint address, you will be asked to confirm your deployment:
+
+```sh
+? Your account will be deducted rent exemption(XX KOII) and bounty amount fees (XX Tokens) › (y/N)
+```
+
+Choose `yes` and your KPL task will be deployed!
