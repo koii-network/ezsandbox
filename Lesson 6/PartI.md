@@ -20,8 +20,6 @@ The OS-specific paths are as follows:
 
 **Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
 
-Here you should see a file with the name `<name>stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>stakingWallet.json`).
-
 If you created your wallet with `koii-keygen`, the default location is `<user_folder>/.config/koii/id.json`. The `.config` folder may be hidden in your file explorer, you can press `Cmd-Shift-.` on Mac or `Ctrl-H` on Linux. On Windows, there is no keyboard shortcut but in the file explorer you can select `View > Show > Hidden Files`. Make sure your wallet has a balance of at least 0.1 KOII to cover the cost of creating the mint and minting your tokens.
 
 > [!NOTE]
