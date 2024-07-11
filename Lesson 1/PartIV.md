@@ -52,6 +52,10 @@ cmd /c "curl -L https://github.com/koii-network/k2-release/releases/download/v1.
 
 #### Create Wallet
 
+> [!NOTE]
+>
+> This step is optional. If you prefer, you can use your wallet from the desktop node. It is located at `<OS-specific-path>/KOII-Desktop-Node/wallets/<name>_mainSystemWallet.json`.
+
 ```sh
 koii-keygen new -o ~/.config/koii/id.json
 ```
