@@ -41,7 +41,7 @@ K2_NODE_URL = "http://127.0.0.1:8899"; // Linux
 K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 ```
 
-4. With that setup, we can deploy the task using `npx @_koii/create-task-cli@latest`. If you forgot how, [click here!](https://docs.koii.network/develop/command-line-tool/create-task-cli/create-task)
+4. With that setup, we can deploy the task using `npx @_koii/create-task-cli@latest`. If you forgot how, [head back to lesson 1](../Lesson%201/PartIV.md).
 
 **NOTE**: This is a local environment that doesn't reflect your actual wallet, so there's no need to worry about cost. In fact, if you use the command `koii airdrop 10000` you can give yourself plenty of tokens to test with!
 
@@ -51,7 +51,7 @@ K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 TASKS="ETHVehVJbepd4RZjUqoR2iveYTAsauLpd4kiCRnPUE7Y" //Your task's ID
 ```
 
-6. If you've previously deployed your task, you'll need to navigate to the `dist` folder and rename `main.js` to `<YOUR CID>.js`, using the executable CID you just saved.
+6. Navigate to the `dist` folder and rename `main.js` to `<YOUR CID>.js`, using the executable CID you just saved.
 
 ## Using Docker
 
