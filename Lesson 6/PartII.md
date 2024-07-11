@@ -84,8 +84,8 @@ You'll now be asked what type of task you want to deploy:
 
 ```sh
 ? Select operation › - Use arrow-keys. Return to submit.
-    KOII-Task
-❯   KPL-Task
+❯    KOII-Task
+     KPL-Task
 ```
 
 Choose `KPL-Task` and you will be asked to enter your mint address:
