@@ -34,7 +34,7 @@ Finally enter the token details: the name, the symbol (like FIRE or KOII), and t
 
 > [!TIP]
 >
-> When you create the token, you'll be given a public key - this is your mint address. Hold onto this, you'll need it in the next step.
+> When you create the token, you'll be given a public key - this is your mint address. Hold onto this, you'll need it when minting tokens and when deploying a KPL Task.
 
 ### Mint Tokens
 
