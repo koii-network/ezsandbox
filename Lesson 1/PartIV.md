@@ -100,7 +100,24 @@ which will show you the following menu:
     Upload Assets to IPFS (Metadata/Local Vars)
 ```
 
-Choose "Deploy a New Task", which will show you the following menu:
+Choose `Deploy a New Task`. Next, you may be asked if you want to use your Koii CLI wallet:
+
+```sh
+It looks like you have a koii cli installed. Would you like to use your koii cli key (/home/laura/.config/koii/id.json) to deploy this task? › (y/N)
+```
+
+If you're not using a Koii CLI wallet, be sure to choose `no` at this point. Next you may be asked a similar question about your desktop node wallet:
+
+```sh
+It looks like you have a desktop node installed. Would you like to use your desktop node key (/home/laura/.config/KOII-Desktop-Node/wallets/Laura Work_mainSystemWallet.json) to deploy this task? › (y/N)
+```
+If you choose `no` for this as well, you will be asked to manually enter the path to your wallet:
+
+```sh
+? Enter the path to your wallet ›
+```
+
+After you've entered the path to your wallet, you'll be asked how you want to configure your task:
 
 ```sh
 ? Select operation › - Use arrow-keys. Return to submit.
@@ -118,7 +135,25 @@ Choose "Using config YML".
 >
 > The wallet you create with `koii-keygen` is the one you'll use to pay for your deployment fees. However, your task executable must be uploaded to IPFS so it can be distributed to the desktop nodes. In order to ensure the security of uploads, all file uploads must be signed. This signing process requires the use of a wallet called a Staking Wallet, which has a special role in running Koii tasks. This special role allows it to be used for signing uploads.
 
-Now, you will be asked to enter the path to your staking wallet. When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
+Next, you'll be asked how you would like to upload your metadata:
+
+```sh
+? Select operation › - Use arrow-keys. Return to submit.
+❯   Using KOII Storage SDK
+    Manually Input IPFS
+```
+
+```sh
+? It looks like you have a desktop node installed. Would you like to use your desktop node staking key (/home/laura/.config/KOII-Desktop-Node/namespace/Laura Work_stakingWallet.json) to sign this upload to IPFS? › (y/N)
+```
+
+If you choose no, or if your staking wallet's location cannot be found automatically, you will be asked to manually enter the path to your staking wallet:
+
+```sh
+? Enter the path to your staking wallet ›
+```
+
+When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
 
 The OS-specific paths are as follows:
 
@@ -128,13 +163,21 @@ The OS-specific paths are as follows:
 
 **Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
 
-Here you should see a file with the name `<name>stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>stakingWallet.json`).
+Here you should see a file with the name `<name>_stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>_stakingWallet.json`).
 
 In the example below, this would be `home/laura/.config/KOII-Desktop-Node/namespace/Laura_stakingWallet.json`
 
 ![Staking Wallet](./imgs/staking-wallet.png)
 
 #### Confirm
+
+You'll now be asked what type of task you want to deploy:
+
+```sh
+? Select operation › - Use arrow-keys. Return to submit.
+    KOII-Task
+❯   KPL-Task
+```
 
 You will be then be prompted to confirm that you want to pay the rent and bounty, type 'y' to confirm:
 
