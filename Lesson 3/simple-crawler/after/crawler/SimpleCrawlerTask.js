@@ -1,7 +1,7 @@
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 const PCR = require('puppeteer-chromium-resolver');
 
-class SimpleCrawlerTask {
+class SimpleCrawlerTaskClass {
   constructor(searchTerm) {
     this.searchTerm = searchTerm;
   }
@@ -73,4 +73,5 @@ class SimpleCrawlerTask {
   }
 }
 
+const SimpleCrawlerTask = new SimpleCrawlerTaskClass();
 module.exports = SimpleCrawlerTask;
