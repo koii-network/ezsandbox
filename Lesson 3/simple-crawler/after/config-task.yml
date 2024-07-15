@@ -23,9 +23,9 @@ minimum_stake_amount: 1.9
 
 # total_bounty_amount cannot be grater than bounty_amount_per_round
 # total bounty is not accepted in case of update task
-total_bounty_amount: 15
+total_bounty_amount: 10
 
-bounty_amount_per_round: 0.01
+bounty_amount_per_round: 0.1
 
 #Number of times allowed to re-submit the distribution  list in case the distribution list is audited
 allowed_failed_distributions: 3
