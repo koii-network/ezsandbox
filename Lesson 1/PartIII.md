@@ -49,4 +49,4 @@ Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distri
 
 Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
 
-Now that you've run a task and seen how it works, let's start writing our own task! [Part III](./PartIII.md)
+Now that we've seen how tasks work, let's deploy one. [PartIV](./PartIV.md)
