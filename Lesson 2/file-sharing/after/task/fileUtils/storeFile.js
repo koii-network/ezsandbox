@@ -3,10 +3,10 @@ const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const fs = require('fs');
 
 async function storeFile(data, filename = 'value.json') {
-  const basePath = await namespaceWrapper.getBasePath();
   try {
     // Create a new instance of the Koii Storage Client
     const client = new KoiiStorageClient();
+    const basePath = await namespaceWrapper.getBasePath();
     // Write the data to a temp file
     fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
 
