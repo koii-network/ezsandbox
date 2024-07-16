@@ -21,10 +21,10 @@ submission_window: 350
 
 minimum_stake_amount: 1.9
 
-# total_bounty_amount cannot be grater than bounty_amount_per_round
-# total bounty is not accepted in case of update task
+# total_bounty_amount: The total bounty amount that will be distributed to the task. (Does not work when updating task)
 total_bounty_amount: 10
-
+# total_bounty_amount: the maximum amount of KOII that can be distributed each round
+# bounty_amount_per_round cannot be greater than total_bounty_amount
 bounty_amount_per_round: 0.1
 
 #Number of times allowed to re-submit the distribution  list in case the distribution list is audited
