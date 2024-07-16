@@ -26,6 +26,10 @@ The value and description will be shown in the desktop node, so make them descri
 
 Then you can use them in your task like any other Node.js environment variable, with `process.env.VARIABLE_NAME`. (While testing locally, you should define these in your .env).
 
+> [!IMPORTANT]
+>
+> In order to add new environment variables to a task, you must deploy it. If you add .env variables while using the EZ Testing Task ID, you will not be able to configure them in the desktop node (but you can add them to your .env for local testing). This is because the task metadata has already been set and can only be changed when deploying.
+
 ### Deploying a Task
 
 #### Building
