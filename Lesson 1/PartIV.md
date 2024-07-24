@@ -33,13 +33,13 @@ Then you can use them in your task like any other Node.js environment variable, 
 The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using
 
 ```sh
-npm install
+yarn
 ```
 
 Then run
 
 ```sh
-npm run webpack
+yarn webpack
 ```
 
 in order to create the executable.

@@ -28,13 +28,13 @@ Copy the `.env.example` file and rename it to `.env`. It has already been set up
 Run
 
 ```sh
-npm install
+yarn
 ```
 
 to install the necessary dependencies, then run
 
 ```sh
-npm run prod-debug
+yarn prod-debug
 ```
 
 to start the live debugger.

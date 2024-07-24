@@ -11,13 +11,13 @@ i# Run Your First Task in 2 Min
 6. Run
 
 ```sh
-npm install
+yarn
 ```
 
 then
 
 ```sh
-npm run prod-debug
+yarn prod-debug
 ```
 
 to run the task in your node.
