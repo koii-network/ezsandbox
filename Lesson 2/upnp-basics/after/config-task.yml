@@ -30,7 +30,9 @@ bounty_amount_per_round: 0.1
 allowed_failed_distributions: 3
 
 # space: Space in MBs for the account size, that holds the task data.
-space: 1
+# for testing tasks this can be set to 0.1 but
+# for production it should be set to at least 1
+space: 0.1
 
 # Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
 # To add more global variables and task variables, please refer the type,value, description format shown below
