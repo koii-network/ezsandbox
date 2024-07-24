@@ -50,7 +50,11 @@ Now let's try changing the distribution rewards. Try to make these three changes
 
 1. When there are no votes, slash by 50%.
 2. When there are more negative than positive votes, slash by 100%.
-3. Instead of distributing the bounty equally, give each successful submission 0.25 KOII. Note that rewards are distributed in Roe, with 1,000,000,000 Roe per KOII.
+3. Instead of distributing the bounty equally, give each successful submission 0.25 KOII. Note that rewards are distributed in Roe, not KOII.
+
+> [!NOTE]
+>
+> Roe is the minimum unit of KOII. 1 KOII = 1,000,000,000 Roe.
 
 Again, if you run into difficulties, you can see our answer in the [`after` folder](./caesar-task/after/task/distribution.js#L105).
 
