@@ -5,7 +5,7 @@
 We've provided a simple testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `testing/unitTesting.js` and you can run it via
 
 ```sh
-npm test
+yarn test
 ```
 
 ## prod-debug.js
@@ -13,7 +13,7 @@ npm test
 If you would like to test integration with the desktop node, you can add the task to the desktop node using the 'Advanced' option under the Add Task list (if you have not yet deployed your task, you can use the EZ Testing Task ID supplied in the task template) and then run
 
 ```sh
-npm run prod-debug
+yarn prod-debug
 ```
 
 You will then be able to run your task in your desktop node and log debugging information to your console by adding `process.env.TEST_KEYWORD` to your console logs.

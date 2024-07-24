@@ -5,8 +5,8 @@ This is a simple networking task that makes use of UPnP to enable node-to-node c
 ## How to Setup
 
 1. Clone this repo
-2. Run `npm install`
-3. Run `npm test` to simulate rounds or `npm run prod-debug` for the live debugger
+2. Run `yarn`
+3. Run `yarn test` to simulate rounds or `yarn prod-debug` for the live debugger
 
 ## Structure Breakdown
 

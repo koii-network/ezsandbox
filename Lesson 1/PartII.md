@@ -17,6 +17,15 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 >
 > We have deployed EZ Testing Task and provided its task ID to get you up and running quicker. In later lessons, we'll talk about how to deploy your own task; if you'd prefer to jump ahead and do that now
 
+### Install Yarn
+
+
+While you can use NPM or another package manager of your choice, we recommend [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/), and use it in all the EZSandbox instructions. Installing it is simple:
+
+```sh
+npm install --global yarn
+```
+
 ### Debugging Your First Task
 
 To run live debugging on a task, we'll use the `prod-debug` tool. This will build a local task executable that will be overwrite the EZ Testing Task's downloaded executable, allowing us to change the code and see the results.
@@ -28,13 +37,13 @@ Copy the `.env.example` file and rename it to `.env`. It has already been set up
 Run
 
 ```sh
-npm install
+yarn
 ```
 
 to install the necessary dependencies, then run
 
 ```sh
-npm run prod-debug
+yarn prod-debug
 ```
 
 to start the live debugger.

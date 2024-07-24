@@ -11,13 +11,13 @@ When you deploy a task to the community, you'll have to pay rent and a bounty. T
 The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using
 
 ```sh
-npm install
+yarn
 ```
 
 Then run
 
 ```sh
-npm run webpack
+yarn webpack
 ```
 
 in order to create the executable.
