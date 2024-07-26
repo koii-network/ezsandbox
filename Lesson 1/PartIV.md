@@ -28,6 +28,10 @@ Then you can use them in your task like any other Node.js environment variable, 
 
 ### Deploying a Task
 
+> [!WARNING]
+>
+> In order to deploy a task, you **MUST** be using at least Node.js v18.
+
 #### Building
 
 The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using
@@ -50,33 +54,17 @@ in order to create the executable.
 cmd /c "curl -L https://github.com/koii-network/k2-release/releases/download/v1.16.2/koii-install-init-x86_64-pc-windows-msvc.exe --output C:\koii-install-tmp\koii-install-init.exe --create-dirs"
 ```
 
-#### Create Wallet
+#### Get Wallet
 
-```sh
-koii-keygen new -o ~/.config/koii/id.json
-```
+There are two ways to get a wallet for deploying your tasks. The simplest method is to use your wallet from the desktop node, which is what we'll do here. You also have the option to [create a new wallet using the CLI](https://docs.koii.network/develop/command-line-tool/koii-cli/create-wallet), if you prefer.
 
-> [!WARNING]
->
-> This is an unencrypted keypair. Do not share this file with anyone.
->
+#### Fund Your Wallet
 
-When creating your wallet, you will be prompted for a BIP39 passphrase. This is optional, but adds additional security to your seed phrase. It does not affect the security of the underlying wallet.
+If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
 
-After creating your wallet, you'll be given a pubkey (wallet address) and a seed phrase for recovery - note these down. You can share your pubkey freely; keep your seed phrase a secret and store it somewhere secure.
+To request tokens, you'll need to provide your wallet's public key. You can find that in the desktop node:
 
-To transfer tokens into your wallet, you will need your wallet's pubkey. If you ever forget it, you can find it by running:
-
-```sh
-koii address
-```
-
-> [!TIP]
->
-> **GET TOKENS**
->
-> If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
->
+![locating public key](./imgs/node-public-key.png)
 
 #### Create Task CLI
 
@@ -109,13 +97,28 @@ It looks like you have a koii cli installed. Would you like to use your koii cli
 If you're not using a Koii CLI wallet, be sure to choose `no` at this point. Next you may be asked a similar question about your desktop node wallet:
 
 ```sh
-It looks like you have a desktop node installed. Would you like to use your desktop node key (/home/laura/.config/KOII-Desktop-Node/wallets/Laura Work_mainSystemWallet.json) to deploy this task? › (y/N)
+It looks like you have a desktop node installed. Would you like to use your desktop node key (/home/laura/.config/KOII-Desktop-Node/wallets/Laura_mainSystemWallet.json) to deploy this task? › (y/N)
 ```
-If you choose `no` for this as well, you will be asked to manually enter the path to your wallet:
+
+In most cases, you should choose `yes` at this point. If you choose `no` for this as well, or if the CLI can't automatically detect the location of your wallet, you will be asked to manually enter the path to your wallet:
 
 ```sh
 ? Enter the path to your wallet ›
 ```
+
+In the case of your desktop node wallet, it should be located at `<OS-specific path>/KOII-Desktop-Node/wallets/<name>_mainSystemWallet.json`.
+
+The OS-specific paths are as follows:
+
+**Windows**: `/Users/<username>/AppData/Roaming`
+
+**Mac**: `/Users/<username>/Library/Application Support`
+
+**Linux**: `/home/<username>/.config` (This path contains a dot folder that may be hidden by default. You can show hidden folders by pressing Ctrl-H)
+
+In the example below, the wallet is located at `home/laura/.config/KOII-Desktop-Node/wallets/Laura_mainSystemWallet.json`
+
+![system wallet location](./imgs/system-wallet.png)
 
 After you've entered the path to your wallet, you'll be asked how you want to configure your task:
 
@@ -133,7 +136,7 @@ Choose "Using config YML".
 >
 > **Why do I need two wallets? What's the difference?**
 >
-> The wallet you create with `koii-keygen` is the one you'll use to pay for your deployment fees. However, your task executable must be uploaded to IPFS so it can be distributed to the desktop nodes. In order to ensure the security of uploads, all file uploads must be signed. This signing process requires the use of a wallet called a Staking Wallet, which has a special role in running Koii tasks. This special role allows it to be used for signing uploads.
+> The wallet you use for deploying your task is the one that needs to be funded, as it will be used for paying deployment fees. However, your task executable must be uploaded to IPFS so it can be distributed to the desktop nodes. In order to ensure the security of uploads, all file uploads must be signed. This signing process requires the use of a wallet called a Staking Wallet, which has a special role in running Koii tasks. This special role allows it to be used for signing uploads. This wallet does not need to have a balance.
 
 Next, you'll be asked how you would like to upload your metadata:
 
@@ -143,47 +146,47 @@ Next, you'll be asked how you would like to upload your metadata:
     Manually Input IPFS
 ```
 
+Choose `Using KOII Storage SDK`.
+
 ```sh
-? It looks like you have a desktop node installed. Would you like to use your desktop node staking key (/home/laura/.config/KOII-Desktop-Node/namespace/Laura Work_stakingWallet.json) to sign this upload to IPFS? › (y/N)
+? It looks like you have a desktop node installed. Would you like to use your desktop node staking key (/home/laura/.config/KOII-Desktop-Node/namespace/Laura_stakingWallet.json) to sign this upload to IPFS? › (y/N)
 ```
 
-If you choose no, or if your staking wallet's location cannot be found automatically, you will be asked to manually enter the path to your staking wallet:
+If you choose no, or if your staking wallet's location cannot be found automatically, you will be asked to manually enter the path:
 
 ```sh
 ? Enter the path to your staking wallet ›
 ```
 
-When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/`.
+When you installed the desktop node, a staking wallet was created for you automatically. This can be found in `<OS-specific path>/KOII-Desktop-Node/namespace/<name>_stakingWallet.json`.
 
-The OS-specific paths are as follows:
+> [!IMPORTANT]
+>
+> In order for your staking wallet to be usable by the CLI, you must run at least one task in the desktop node.
 
-**Windows**: `/Users/<username>/AppData/Roaming`
-
-**Mac**: `/Users/<username>/Library/Application Support`
-
-**Linux**: `/home/<username>/.config` (This path contains a dot folder that will be hidden by default. You can show hidden folders by pressing Ctrl-H)
-
-Here you should see a file with the name `<name>_stakingWallet.json`. Enter the full path to this file (`<OS-specific path>/KOII-Desktop-Node/namespace/<name>_stakingWallet.json`).
-
-In the example below, this would be `home/laura/.config/KOII-Desktop-Node/namespace/Laura_stakingWallet.json`
-
-![Staking Wallet](./imgs/staking-wallet.png)
-
-#### Confirm
+#### Choose Task Type
 
 You'll now be asked what type of task you want to deploy:
 
 ```sh
 ? Select operation › - Use arrow-keys. Return to submit.
-    KOII-Task
-❯   KPL-Task
+❯   KOII-Task
+    KPL-Task
 ```
+
+Here, we'll deploy a Koii Task but if you'd like to deploy a task using your own token, you must have a [previously minted KPL token](../Lesson%206/PartI.md).
+
+#### Confirm
 
 You will be then be prompted to confirm that you want to pay the rent and bounty, type 'y' to confirm:
 
 ```sh
 Your account will be deducted XX KOII for creating the task, which includes the rent exemption(XX KOII) and bounty amount fees (XX KOII) › (y/N)
 ```
+
+> [!NOTE]
+>
+> If you are using the default values in config-task.yml and deploying a Koii Task, your total deployment fee should be about 17 KOII, which is the minimum possible amount.
 
 Your task should now be deployed successfully and you should see a response similar to this:
 
@@ -194,6 +197,10 @@ Stake Pot Account Pubkey: stakepotaccountp39zkKbCKoiLp3wZ66TuUu5LtS9d
 Note: Task Id is basically the public key of taskStateInfoKeypair.json
 Success
 ```
+
+> [!IMPORTANT]
+>
+> Make sure you save your task ID every time you deploy or update! Not only do you need it to run your task in the desktop node, it's required when updating your task.
 
 Congratulations, you've deployed a task!
 

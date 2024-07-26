@@ -2,6 +2,10 @@
 
 Before deploying your task, you can apply for our [grant program](https://www.koii.network/founders) that can help you out with initial funding.
 
+> [!WARNING]
+>
+> In order to deploy a task, you **MUST** be using at least Node.js v18.
+
 1. Make sure all dependencies are installed:
 
 ```sh

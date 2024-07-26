@@ -1,15 +1,8 @@
-# Lesson 2: Networking and Storage Task
+# Lesson 7: Deployment and Updates
 
-## Part IV: Deploying Locally
+## Part II: Local Validator and Docker
 
 You've successfully written your own networking task, now it's time to test it locally!
-
-Prerequisites:
-
-- Completed upnp-basics template
-- Basic understanding of Docker
-- Koii CLI installed
-- Docker and Docker Compose installed
 
 Testing tasks locally through Docker is a process that requires a little set up. Essentially, we have to create a local version of the backend that's used to verify a task's work, which is known as K2. After creating our local K2, we'll deploy the task there for testing!
 
@@ -19,13 +12,13 @@ Testing tasks locally through Docker is a process that requires a little set up.
 
 2. Next, we should set your Koii CLI to deploy tasks locally. We can do this using:
 
-```bash
+```sh
 koii config set --url http://127.0.0.1:8899
 ```
 
 Verify you're using the correct settings with `koii config get`, which should show something like this:
 
-```bash
+```sh
 Config File: C:\Users\test\.config\koii\cli\config.yml
 RPC URL: http://127.0.0.1:8899
 WebSocket URL: ws://127.0.0.1:8900/ (computed)
@@ -41,7 +34,7 @@ K2_NODE_URL = "http://127.0.0.1:8899"; // Linux
 K2_NODE_URL = "http://host.docker.internal:8899"; // Windows & Mac
 ```
 
-4. With that setup, we can deploy the task using `npx @_koii/create-task-cli@latest`. If you forgot how, [head back to lesson 1](../Lesson%201/PartIV.md).
+4. With that setup, we can deploy the task using `npx @_koii/create-task-cli@latest`. If you forgot how, [head back to lesson 1](../Lesson%201/PartIV.md#deploying-a-task).
 
 **NOTE**: This is a local environment that doesn't reflect your actual wallet, so there's no need to worry about cost. In fact, if you use the command `koii airdrop 10000` you can give yourself plenty of tokens to test with!
 
