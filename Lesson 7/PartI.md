@@ -4,6 +4,10 @@
 
 ### Deploying to Testnet
 
+> [!WARNING]
+>
+> In order to deploy or update a task, you **MUST** be using at least Node.js v18.
+
 Deploying a Koii task is covered in [Lesson 1](../Lesson%201/PartIV.md#deploying-a-task) and deploying a KPL task is covered in [Lesson 6](../Lesson%206/PartII.md).
 
 ### Updating a Task

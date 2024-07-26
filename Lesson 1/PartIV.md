@@ -28,6 +28,10 @@ Then you can use them in your task like any other Node.js environment variable, 
 
 ### Deploying a Task
 
+> [!WARNING]
+>
+> In order to deploy a task, you **MUST** be using at least Node.js v18.
+
 #### Building
 
 The first step before deployment is to build your executable. First, makes sure you have installed all the necessary dependencies using

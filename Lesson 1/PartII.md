@@ -19,7 +19,6 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 
 ### Install Yarn
 
-
 While you can use NPM or another package manager of your choice, we recommend [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/), and use it in all the EZSandbox instructions. Installing it is simple:
 
 ```sh
