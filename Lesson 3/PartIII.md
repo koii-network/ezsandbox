@@ -11,6 +11,10 @@ Prerequisites:
 - General understanding of IPFS, see [Lesson 2, Part 3](../Lesson%202/PartIII.md) if you need a refresher
 - Understanding of Puppeteer
 
+### Headless Mode
+
+Puppeteer is a browser than can be controlled programmatically. Because it is designed to be automated, it has a `headless` mode which allows it to run silently, without running a visible browser window. We have [set `headless` to `false`](./simple-crawler/before/crawler/SimpleCrawlerTask.js#L22) so you'll be able to see the browser automation working, but if you don't need to see it, you can set `headless` to `true` instead. You should always set `headless: true` if you are deploying the task.
+
 ### Environment variables
 
 The task we're building here doesn't require any login info, but we'll be asking the user for a keyword they want to search for. add the following to the `config-task.yml` in the requirementsTags:
@@ -26,8 +30,6 @@ The task we're building here doesn't require any login info, but we'll be asking
 ### Building the Crawler Object
 
 In [`SimpleCrawlerTask.js`](./simple-crawler/before/crawler/SimpleCrawlerTask.js) you'll notice there's a bare bones function `crawl()`. We'll implement our web crawling logic here using puppeteer, explaining as we go!
-
-One thing to note here is that when we set up Puppeteer, we're setting the `headless` property to `false`. This will cause Puppeteer to run visibly so you can see what it's doing. In production, you would want to set `headless` to `true` so it can run silently.
 
 1. **Open Desired Page** - We first need to set up a new user agent and navigate to the corresponding webpage that we are interesting in scraping. In this case, we're looking to scrape [redflagdeals](https://forums.redflagdeals.com/hot-deals-f9/`) as it provides a simple and static page with consistent styling of elements. This makes it a desirable target for web scraping. We can set the page with the following code:
 
