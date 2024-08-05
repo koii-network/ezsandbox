@@ -20,16 +20,20 @@ submission_window: 350
 # minimum_stake_amount: The minimum amount of KOII that a user must stake in order to participate in the task
 minimum_stake_amount: 1.9
 
-# total_bounty_amount cannot be grater than bounty_amount_per_round
-# total bounty_amount: The total bounty amount that will be distributed to the task. (Not accepted in case of update task)
+
+# total_bounty_amount: The total bounty amount that will be distributed to the task. (Does not work when updating task)
 total_bounty_amount: 10
+# total_bounty_amount: the maximum amount of KOII that can be distributed each round
+# bounty_amount_per_round cannot be greater than total_bounty_amount
 bounty_amount_per_round: 0.1
 
 # allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
 allowed_failed_distributions: 3
 
 # space: Space in MBs for the account size, that holds the task data.
-space: 1
+# for testing tasks this can be set to 0.1 but
+# for production it should be set to at least 1
+space: 0.1
 
 # Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
 # To add more global variables and task variables, please refer the type,value, description format shown below
