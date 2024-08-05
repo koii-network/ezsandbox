@@ -26,6 +26,10 @@ The value and description will be shown in the desktop node, so make them descri
 
 Then you can use them in your task like any other Node.js environment variable, with `process.env.VARIABLE_NAME`. (While testing locally, you should define these in your .env).
 
+> [!IMPORTANT]
+>
+> In order to add new environment variables to a task so they can be configured in the desktop node, you must deploy or update it. This is because the task metadata is set at the time of deployment and can only be changed by updating the task. However, if you would like to test locally first, you can add the variables to your .env and run prod-debug.
+
 ### Deploying a Task
 
 > [!WARNING]
