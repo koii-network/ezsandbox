@@ -4,7 +4,7 @@
 
 > [!WARNING]
 >
-> In order to deploy a task you must download the desktop node and stake on at least one task. This will create your staking wallet, which is required during deployment. If you have followed the EZSandbox tutorial up to this point, you already have a staking wallet.
+> In order to deploy a task you must download the desktop node and **run at least one task**. This will make a staking wallet that is usable for IPFS, which is required during deployment. If you have followed the EZSandbox tutorial up to this point, you already have a staking wallet.
 >
 
 ### Environment Variables
