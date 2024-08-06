@@ -21,6 +21,8 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 
 While you can use NPM or another package manager of your choice, we recommend [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/), and use it in all the EZSandbox instructions. Installing it is simple:
 
+<!-- Comment - should explain why yarn -->
+
 ```sh
 npm install --global yarn
 ```
@@ -29,9 +31,33 @@ npm install --global yarn
 
 To run live debugging on a task, we'll use the `prod-debug` tool. This will build a local task executable that will be overwrite the EZ Testing Task's downloaded executable, allowing us to change the code and see the results.
 
+<!-- Comment  
+Boring sentence with important information:
+"This will build a local task executable that will be overwrite the EZ Testing Task's downloaded executable, allowing us to change the code and see the results."
+
+Could be:
+
+"Now the executable is overwritten by the local copy, so we can change the code and see the results. 
+ -->
+
 First, clone this repository and navigate to the `Lesson 1/EZ-testing-task/` directory. This folder contains the code needed to build a task executable.
 
+<!-- Comment
+Add command to navigate since the space makes it a little different  -->
+
+```
+cd 'Lesson 1'/EZ-testing-task
+```
+
 Copy the `.env.example` file and rename it to `.env`. It has already been set up with the environment variables you need.
+
+<!-- Comment 
+Copying the env example can be done with command line command
+ -->
+ ```
+ cp .env.example .env
+ ```
+
 
 Run
 
@@ -54,6 +80,14 @@ Open the `EZ-testing-task/task` folder and we'll start hacking through some file
 In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
 
 We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change this to whatever you'd like.
+
+<!-- Comment 
+Need red warning saying that you have to wait awhile to see these logs because they are related to what part of the process you're in. 
+ -->
+
+ <!-- Comment 
+ Need red warning... if you aren't getting logs in the console try stopping and restarting the task. 
+  -->
 
 a. Task:
 
@@ -86,6 +120,8 @@ Once all changes have been made, locate the EZ Testing Task in your node and pre
 Now, wait and watch the logs to see the console logs you just added. They should be printed in the output of your terminal.
 
 ### Accessing Your Node
+
+<!-- Comment - What is UPnP should be (Universal Plug and Play) with link to definition -->
 
 By using UPnP, each node can expose [Express.js endpoints](https://github.com/labrocadabro/ezsandbox/blob/725f274bbdfa923fe0bae64c70e08c1e03c5f379/Lesson%201/EZ-testing-task/index.js#L13). We will cover UPnP and how to make and access endpoints within tasks in the next lesson, but we have defined a couple already, so you can see them on your node.
 

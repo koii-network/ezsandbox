@@ -10,8 +10,8 @@
 ### Environment Variables
 
 Before we deploy a task, let's take a quick look at how to add environment variables to your task. These are called "Task Extensions" in the node, and they allow you to ask each node operator for customized data needed for the task - for example, Twitter login credentials for a task that's accessing Twitter.
-
-To get a variable in your task, add it to your `task-config.yml`, in the `requirementsTags` section:
+<!-- Comment - was typo task-config.yml changed it to config-task.yml -->
+To get a variable in your task, add it to your `config-task.yml`, in the `requirementsTags` section:
 
 ```yml
 requirementsTags:
@@ -34,7 +34,13 @@ Then you can use them in your task like any other Node.js environment variable, 
 
 > [!WARNING]
 >
-> In order to deploy a task, you **MUST** be using at least Node.js v18.
+> In order to deploy a task, you **MUST** be using at least Node.js v18. 
+To check the version run: 
+```node --version```
+
+<!-- Comment - Need instructions how to check version, how to fix if wrong version. -->
+
+
 
 #### Building
 
@@ -53,6 +59,10 @@ yarn webpack
 in order to create the executable.
 
 #### Install Koii CLI Suite
+
+<!-- Comment : does this work by default on windows or do you need to install curl? Doesn't seem to work on linux? Need to verify works on linux, window and mac 
+This one appears to be windows command.
+-->
 
 ```sh
 cmd /c "curl -L https://github.com/koii-network/k2-release/releases/download/v1.16.2/koii-install-init-x86_64-pc-windows-msvc.exe --output C:\koii-install-tmp\koii-install-init.exe --create-dirs"
@@ -179,6 +189,8 @@ You'll now be asked what type of task you want to deploy:
 ```
 
 Here, we'll deploy a Koii Task but if you'd like to deploy a task using your own token, you must have a [previously minted KPL token](../Lesson%206/PartI.md).
+
+<!-- Comment - Should have a what do I do if I don't have enough Koii -->
 
 #### Confirm
 

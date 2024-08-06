@@ -50,6 +50,7 @@ class Distribution {
   async generateDistributionList(round, _dummyTaskState) {
     try {
       console.log('GENERATE DISTRIBUTION LIST CALLED WITH ROUND', round);
+      console.log('Started Distribution', new Date(), process.env.TEST_KEYWORD)
       /****** SAMPLE LOGIC FOR GENERATING DISTRIBUTION LIST ******/
       let distributionList = {};
       let distributionCandidates = [];
