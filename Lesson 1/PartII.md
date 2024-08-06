@@ -91,12 +91,12 @@ By using UPnP, each node can expose [Express.js endpoints](https://github.com/la
 
 Any endpoints running on your node are located at `http://localhost:30017/task/{taskID}/{endpoint}`
 
-With the EZ Testing Task running, visit [http://localhost:30017/task/AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv/value](http://localhost:30017/task/AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv/value). You should see
+With the EZ Testing Task running, visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value). You should see
 
 ```json
 {"value":"Hello, World!"}
 ```
 
-You can also visit [http://localhost:30017/task/AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv/taskState](http://localhost:30017/task/AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv/taskState) to see information about the task.
+You can also visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState) to see information about the task.
 
 Now that we've run a task and done some debugging, let's learn a bit more about what it's doing. [Part III](./PartIII.md)
