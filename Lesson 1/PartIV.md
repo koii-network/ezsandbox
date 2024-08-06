@@ -190,7 +190,6 @@ You'll now be asked what type of task you want to deploy:
 
 Here, we'll deploy a Koii Task but if you'd like to deploy a task using your own token, you must have a [previously minted KPL token](../Lesson%206/PartI.md).
 
-<!-- Comment - Should have a what do I do if I don't have enough Koii -->
 
 #### Confirm
 
@@ -199,6 +198,8 @@ You will be then be prompted to confirm that you want to pay the rent and bounty
 ```sh
 Your account will be deducted XX KOII for creating the task, which includes the rent exemption(XX KOII) and bounty amount fees (XX KOII) › (y/N)
 ```
+
+<!-- Comment - Should have a what do I do if I don't have enough Koii -->
 
 > [!NOTE]
 >
