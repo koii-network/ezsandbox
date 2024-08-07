@@ -25,10 +25,13 @@ Additionally, check the advanced tab to download the required UPnP binaries if y
 As mentioned above, UPnP is awesome because it greatly reduces the complexity required for having interconnected devices. However, the tradeoff is that this allows direct access to your device, leading to possible security concerns.
 
 At Koii, we recognize this issue, which is why UPnP is NOT required for you to use the Node and is disabled by default. You are free to enable or disable it as you see fit.
+prioritizing security over other methods.
 
 UPnP allows Koii tasks to utilize our vast network of over 60,000 Nodes to communicate effectively which is why it is such a powerful tool. Any tasks whitelisted by Koii are publicly available to inspect so you can be assured that UPnP is being used for productivity, not malice.
 
 Additionally, if you would like to use UPnP with a more secure setup, you can manually use tunneling by toggling the `Enforce Tunneling` option as shown in the screenshot above. Tunneling allows your device to set up a proxy before connecting with other devices, which enhances security since your device won't be completely exposed to another, however it does require additional resources.
+
+<!-- Comment - Need to find out more about UPnP security risk-->
 
 In the next lesson, we'll learn how we can write our own task that makes use of UPnP for networking.
 

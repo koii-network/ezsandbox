@@ -38,6 +38,11 @@ space: 0.1
 # To add more global variables and task variables, please refer the type,value, description format shown below
 
 requirementsTags:
+  - type: TASK_VARIABLE
+  value: 'Crystal is awesome!'
+  description: 'It could be your name, your username,'
+  - type: ADDON
+  value: 'REQUIRE_INTERNET'
   - type: CPU
     value: '4-core'
   - type: RAM
