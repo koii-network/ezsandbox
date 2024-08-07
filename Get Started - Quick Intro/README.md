@@ -2,7 +2,7 @@ i# Run Your First Task in 2 Min
 
 1. Install and set up the [desktop node](https://www.koii.network/node).
 
-2. Add the EZ testing task ID (`AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv`) to your node using the Advanced option in the Add Task tab.
+2. Add the EZ testing task ID (`BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn`) to your node using the Advanced option in the Add Task tab.
 
 ![Add EZ Testing Task](../Lesson%201/imgs/add-task-advanced.png)
 

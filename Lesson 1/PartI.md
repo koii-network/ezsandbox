@@ -50,7 +50,7 @@ If you'd like to earn some extra KOII, you can run any of the tasks from the `Ad
 
 ![View add task list](./imgs/task-list.png)
 
-However, we want to run the EZ Testing task. It is not a public task, so it needs to be added manually. In the `Add Task` tab, click on the "Advanced" link at the bottom left. Paste in the EZ Testing Task ID (`AK2P1L8NWGwWarbHeM7tX2mr4hJA7ZVXGSSSz5PWHBHv`) and set your stake to 1.9 KOII. Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
+However, we want to run the EZ Testing task. It is not a public task, so it needs to be added manually. In the `Add Task` tab, click on the "Advanced" link at the bottom left. Paste in the EZ Testing Task ID (`BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn`) and set your stake to 1.9 KOII. Wait for the metadata to download and then start the task. Move to the `My Node` tab and you should see the task running.
 
 ![Add an unlisted task](./imgs/add-task-advanced.png)
 
