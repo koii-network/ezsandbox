@@ -71,25 +71,32 @@ With our own endpoints set up, we now need to make calls to other Node's endpoin
 
 Find the `task/getData.js` file (it should be empty). Add the following code:
 
+<!-- Comment - this wasn't updated to match the after code... and never said to import 2 things in submissions.js -->
+
 ```javascript
-class getData {
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+class GetData {
   async getAddressArray() {
   try {
     // get the task state from K2 (the Koii blockchain)
     const taskState = await namespaceWrapper.getTaskState();
+    console.log(taskState)
 
     // get the list of available IP addresses from the task state
     // nodeList is an object with key-value pairs in the form stakingKey: ipAddress
-    const nodeList = taskState.ip_address_list;
+    const nodeList = taskState.ip_address_list ?? {};
 
     // return just the IP addresses
-    return Object.values(IPAddressObj);
+    return Object.values(nodeList);
   } catch (e) {
     console.log('ERROR GETTING TASK STATE', e);
   }
   }
 
   async getRandomNodeEndpoint(IPAddressArray) {
+    if (!IPAddressArray || IPAddressArray.length === 0) {
+      throw new Error('No IP addresses available');
+    }
    //  Choose a random index
     const randomIndex = Math.floor(Math.random() * IPAddressArray.length);
    //  Return the IP address stored at the random index position
@@ -97,6 +104,7 @@ class getData {
   }
 }
 
+const getData = new GetData();
 module.exports = getData;
 ```
 
@@ -187,6 +195,8 @@ As a result of this basic setup, every Node can provide server endpoints to be r
 <!-- Comment - should be tests/unitTest.js -->
 
 When developing your task, you'll want to iterate quickly, and having to deploy or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `tests/unitTest.js` and you can run it via `yarn test`.
+
+<!-- Comment - Should tell expected output  "Error: No IP addresses available" is because no other nodes are running task need multiple nodes running it to test properly... Should be mocked in the test maybe?-->
 
 ### Exercise
 
