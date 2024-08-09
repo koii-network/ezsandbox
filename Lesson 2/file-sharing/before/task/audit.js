@@ -9,20 +9,14 @@ class Audit {
    * @returns {Promise<boolean>} The validation result, return true if the submission is correct, false otherwise
    */
   async validateNode(submission_value, round) {
-    let vote;
-    console.log('SUBMISSION VALUE', submission_value, round);
     try {
-      // Verify the value
-      if ( /* EDIT HERE: Check the submission value */ ) {
-        vote = true;
-      } else {
-        vote = false;
-      }
+      console.log("AUDIT ROUND", round);
+      // The submission value is the CID
+      return isValidFile(submission_value);
     } catch (e) {
-      console.error(e);
-      vote = false;
+      console.log('Error in validate:', e);
+      return false;
     }
-    return vote;
   }
   /**
    * Audits the submission value by your logic

@@ -12,9 +12,14 @@ class Submission {
   async task(round) {
     try {
       console.log('ROUND', round);
-
-      /* EDIT HERE: Execute your task */
-
+      // store a value in a file
+      const cid = await storeFile(process.env.VALUE);
+      console.log('cid', cid);
+      if (cid) {
+        // store CID in local DB so it can be used later
+        await namespaceWrapper.storeSet('cid', cid);
+      }
+      return cid;
     } catch (err) {
       console.log('ERROR IN EXECUTING TASK', err);
       return 'ERROR IN EXECUTING TASK' + err;

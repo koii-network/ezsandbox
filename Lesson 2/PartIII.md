@@ -4,6 +4,8 @@
 
 Now that we've seen how communication works between nodes, let's try something a little different: working with files.
 
+<!-- Comment - need to tell me to switch to file-sharing folder -->
+
 ### IPFS
 
 Koii uses IPFS (the InterPlanetary File System) to store data outside of its blockchain. This helps keep transactions fast and cost-effective. We have developed the [Koii Storage SDK](https://www.npmjs.com/package/@_koii/storage-task-sdk) so you can easily upload and retrieve files, and this lesson will go over how to use it.
@@ -132,3 +134,4 @@ This takes the submission value, which is the CID, and passes it to `isValidFile
 And that's it! You've successfully written a task that uses IPFS to store data.
 
 Finally, let's see how to deploy a task locally with Docker. [Part IV. Deploying Locally](./PartIV.md)
+<!-- Comment - This file PartIV.md doesn't exist -->
