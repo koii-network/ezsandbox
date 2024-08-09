@@ -62,3 +62,5 @@ If you ran into any issues or want to understand this topic more in depth, learn
 You've reached the end of this lesson which means you're now familiar with building tasks that can network. Additionally, you now know how to test them locally with Docker! The next lesson will introduce using secrets and building our very own web crawler.
 
 Next up, we'll take a look at secrets and the config options in [Lesson 3](../Lesson%203/README.md).
+
+<!-- Comment - Why are we sending users back to lesson 3? Also this lesson had nothing about tasks that can network...  -->

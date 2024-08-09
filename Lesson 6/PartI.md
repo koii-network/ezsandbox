@@ -30,6 +30,8 @@ Next, you'll need an image for your token. It can be a .png, .ico, or .jpg. It s
 
 Finally enter the token details: the name, the symbol (like FIRE or KOII), and the description.
 
+<!-- Comment - They shouldn't be able to make a token with the same name as our main token KOII... that could set people up to be scammed..really they shouldn't be able to make any duplicate token names... -->
+
 > [!TIP]
 >
 > When you create the token, you'll be given a public key - this is your mint address. Hold onto this, you'll need it when minting tokens and when deploying a KPL Task.

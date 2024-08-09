@@ -170,7 +170,9 @@ One thing to note about generating distribution lists is that only one node per 
 1. Auditing a node's task work
 2. Auditing the round's distribution list
 
-Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to Link State routing. If you want to learn more about data sharing across a task, [click here](https://docs.koii.network/develop/linktree/data-sharing).
+Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to Link State routing.
+<!-- Comment - link to information about Link State Routing -->
+ If you want to learn more about data sharing across a task, [click here](https://docs.koii.network/develop/linktree/data-sharing).
 
 Just like that we've successfully gone through both audit and distribution mechanisms and we're now ready to write our own.
 

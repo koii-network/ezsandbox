@@ -39,3 +39,6 @@ const message = namespaceWrapper.verifySignature(signedMessage, publicKey);
 ```
 
 Next up, we'll look at using custom tokens in [Lesson 6](../Lesson%206/README.md).
+
+
+<!-- Comment - This lesson needs to be more detailed, can't understand use case clearly -->

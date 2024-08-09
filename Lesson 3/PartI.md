@@ -45,4 +45,6 @@ As you can see, each task extension has a corresponding value and description, w
 
 One final thing to note is that during development, you must specify your own copies of each variable in the `.env` file. In this example, it means your `.env` will contain TWITTER_USERNAME, TWITTER_PASSWORD, TWITTER_PHONE, etc.
 
+<!-- Comment - The section above is not very clear... Do you mean that when we're testing in development our .env file needs to have our actual twitter password in it? -->
+
 Effectively, adding requirements allows you to build a .env on the user's computer, which can be used when they run the task code.
