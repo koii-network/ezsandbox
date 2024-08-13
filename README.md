@@ -20,25 +20,11 @@ This sandbox will take you through a few phases of development to try using Koii
 
 In this project, we'll start by demonstrating the key features of the Node compute environment. After some local testing, we'll harden our incentive mechanism and deploy it to the Koii cloud.
 
-<!-- Comment - need more bullet points for people scanning the docs:
-
-Roadmap:
-1. Learn key features of Node compute environment
-2. Do some local testing.
-3. Harden the incentive mechanism
-4. Deploy to Koii cloud
- -->
-
 Koii is a network of people, using their nodes to support a diverse ecosystem of products and services, all operated by community members like you.
 
 Decentralized Applications on the Koii Cloud run in modules called 'Tasks' and anyone can join by running a Koii Node, a program users install which manages and runs Tasks.
 
 At the end of these tutorials, you'll be ready to build your first Koii Application that other community members can then run on their Node.
-
-<!-- Comment - needs to be able to be scanned
-
-Goal : Build your fist Koii App!
- -->
 
 <br />
 <br />
