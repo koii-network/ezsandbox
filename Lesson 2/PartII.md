@@ -18,13 +18,13 @@ Much of the initial setup has been taken care of, but there is one thing to be a
 
 ```yml
 requirementsTags:
-- type: TASK_VARIABLE
-  value: 'VALUE'
-  description: 'It could be your name, your username,'
-- type: ADDON
-  value: 'REQUIRE_INTERNET'
-- type: CPU
-  value: '4-core'
+  - type: TASK_VARIABLE
+    value: "VALUE"
+    description: "It could be your name, your username,"
+  - type: ADDON
+    value: "REQUIRE_INTERNET"
+  - type: CPU
+    value: "4-core"
 ```
 
 If you are writing your own UPnP task, make sure to add this to your `config-task.yml`.
@@ -35,10 +35,10 @@ Head to the `routes.js` file. If you are in the `before` folder, you should see 
 
 ```javascript
 function setupRoutes(app) {
-  app.get('/taskState', async (req, res) => {
-   // Example endpoint; returns task state
+  app.get("/taskState", async (req, res) => {
+    // Example endpoint; returns task state
     const state = await namespaceWrapper.getTaskState();
-    console.log('TASK STATE', state);
+    console.log("TASK STATE", state);
     res.status(200).json({ taskState: state });
   });
 }
@@ -54,11 +54,11 @@ There are two ways you can access this endpoint when the task is running on your
 The endpoints you define in `routes.js` will dictate what kinds of communications can occur between your device and another. Let's create a simple mechanism for passing basic data between two nodes. Below the example endpoint provided in `routes.js`, paste in this code snippet:
 
 ```javascript
-  app.get('/value', async (req, res) => {
-    const value = process.env.VALUE;
-    console.log('value', value);
-    res.status(200).json({ value: value });
-  });
+app.get("/value", async (req, res) => {
+  const value = process.env.VALUE;
+  console.log("value", value);
+  res.status(200).json({ value: value });
+});
 ```
 
 This creates a `/value` endpoint that can be accessed as described above - but more importantly, this endpoint is accessible from other Nodes. This allows you to share the information for use by other nodes.
@@ -71,35 +71,33 @@ With our own endpoints set up, we now need to make calls to other Node's endpoin
 
 Find the `task/getData.js` file (it should be empty). Add the following code:
 
-<!-- Comment - this wasn't updated to match the after code... and never said to import 2 things in submissions.js -->
-
 ```javascript
-const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const { namespaceWrapper } = require("@_koii/namespace-wrapper");
 class GetData {
   async getAddressArray() {
-  try {
-    // get the task state from K2 (the Koii blockchain)
-    const taskState = await namespaceWrapper.getTaskState();
-    console.log(taskState)
+    try {
+      // get the task state from K2 (the Koii blockchain)
+      const taskState = await namespaceWrapper.getTaskState();
+      console.log(taskState);
 
-    // get the list of available IP addresses from the task state
-    // nodeList is an object with key-value pairs in the form stakingKey: ipAddress
-    const nodeList = taskState.ip_address_list ?? {};
+      // get the list of available IP addresses from the task state
+      // nodeList is an object with key-value pairs in the form stakingKey: ipAddress
+      const nodeList = taskState.ip_address_list ?? {};
 
-    // return just the IP addresses
-    return Object.values(nodeList);
-  } catch (e) {
-    console.log('ERROR GETTING TASK STATE', e);
-  }
+      // return just the IP addresses
+      return Object.values(nodeList);
+    } catch (e) {
+      console.log("ERROR GETTING TASK STATE", e);
+    }
   }
 
   async getRandomNodeEndpoint(IPAddressArray) {
     if (!IPAddressArray || IPAddressArray.length === 0) {
-      throw new Error('No IP addresses available');
+      throw new Error("No IP addresses available");
     }
-   //  Choose a random index
+    //  Choose a random index
     const randomIndex = Math.floor(Math.random() * IPAddressArray.length);
-   //  Return the IP address stored at the random index position
+    //  Return the IP address stored at the random index position
     return IPAddressArray[randomIndex];
   }
 }
@@ -189,14 +187,6 @@ if (typeof submission_value === 'string' && submission_value.length > 0) {
 ```
 
 As a result of this basic setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
-
-### Testing
-
-<!-- Comment - should be tests/unitTest.js -->
-
-When developing your task, you'll want to iterate quickly, and having to deploy or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task and audit functionality. The script is available in `tests/unitTest.js` and you can run it via `yarn test`.
-
-<!-- Comment - Should tell expected output  "Error: No IP addresses available" is because no other nodes are running task need multiple nodes running it to test properly... Should be mocked in the test maybe?-->
 
 ### Exercise
 

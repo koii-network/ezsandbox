@@ -1,6 +1,7 @@
 const { namespaceWrapper, TASK_ID } = require('@_koii/namespace-wrapper');
 const { default: axios } = require('axios');
 const getData = require('./getData');
+
 class Submission {
   /**
    * Executes your task, optionally storing the result.
@@ -9,40 +10,7 @@ class Submission {
    * @returns {void}
    */
   async task(round) {
-    try {
-      console.log('ROUND', round);
-      // Get a list of the available IP addresses
-      const IPAddressArray = await getData.getAddressArray();
-   
-      try {
-         // Get a random node from the list
-         const randomNode = getData.getRandomNodeEndpoint(IPAddressArray);
-         console.log('RANDOM NODE', randomNode);
-   
-         // Fetch the value from the random node
-         const response = await axios.get(`${randomNode}/task/${TASK_ID}/value`);
 
-         const response2 = await axios.get(`${randomNode}/task/${TASK_ID}/value2`);
-   
-         if (response.status === 200 && response2.status===200) {
-            const value = response.data.value+" "+response2.data.value2;
-            console.log('VALUE', value);
-            // Store the result in NeDB (optional)
-            if (value) {
-            await namespaceWrapper.storeSet('value', value);
-            }
-            // Optional, return your task for JEST testing purposes
-            return value;
-         } else {
-            return null;
-         }
-      } catch (error) {
-         console.log('ERROR IN FETCHING IP ADDRESS', error);
-      }
-      } catch (err) {
-      console.log('ERROR IN EXECUTING TASK', err);
-      return 'ERROR IN EXECUTING TASK' + err;
-      }
   }
 
   /**
