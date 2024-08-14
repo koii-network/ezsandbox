@@ -19,7 +19,7 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 
 ### Install Yarn
 
-While you can use NPM or another package manager of your choice, we recommend [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/), and use it in all the EZSandbox instructions. Installing it is simple:
+While you can use NPM or another package manager of your choice, we have found NPM causes issues for some people, so we recommend [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/), and use it in all the EZSandbox instructions. Installing it is simple:
 
 ```sh
 npm install --global yarn
@@ -27,11 +27,19 @@ npm install --global yarn
 
 ### Debugging Your First Task
 
-To run live debugging on a task, we'll use the `prod-debug` tool. This will build a local task executable that will be overwrite the EZ Testing Task's downloaded executable, allowing us to change the code and see the results.
+We will overwrite the task executable with our local copy, so we can change the code and see the results. This is simple with the `prod-debug` tool that is provided.
 
 First, clone this repository and navigate to the `Lesson 1/EZ-testing-task/` directory. This folder contains the code needed to build a task executable.
 
+```sh
+cd 'Lesson 1'/EZ-testing-task
+```
+
 Copy the `.env.example` file and rename it to `.env`. It has already been set up with the environment variables you need.
+
+```sh
+cp .env.example .env
+```
 
 Run
 
@@ -54,6 +62,10 @@ Open the `EZ-testing-task/task` folder and we'll start hacking through some file
 In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
 
 We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change this to whatever you'd like.
+
+> [!TIP]
+>
+> You may need to wait a minute while the task starts up before you see any logging.
 
 a. Task:
 
@@ -87,14 +99,14 @@ Now, wait and watch the logs to see the console logs you just added. They should
 
 ### Accessing Your Node
 
-By using UPnP, each node can expose [Express.js endpoints](https://github.com/labrocadabro/ezsandbox/blob/725f274bbdfa923fe0bae64c70e08c1e03c5f379/Lesson%201/EZ-testing-task/index.js#L13). We will cover UPnP and how to make and access endpoints within tasks in the next lesson, but we have defined a couple already, so you can see them on your node.
+By using UPnP (Universal Plug and Play), each node can expose [Express.js endpoints](https://github.com/labrocadabro/ezsandbox/blob/725f274bbdfa923fe0bae64c70e08c1e03c5f379/Lesson%201/EZ-testing-task/index.js#L13). We will cover UPnP and how to make and access endpoints within tasks in the next lesson, but we have defined a couple already, so you can see them on your node.
 
 Any endpoints running on your node are located at `http://localhost:30017/task/{taskID}/{endpoint}`
 
 With the EZ Testing Task running, visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value). You should see
 
 ```json
-{"value":"Hello, World!"}
+{ "value": "Hello, World!" }
 ```
 
 You can also visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState) to see information about the task.

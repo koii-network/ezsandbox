@@ -1,4 +1,7 @@
-const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const { namespaceWrapper, TASK_ID } = require('@_koii/namespace-wrapper');
+const { default: axios } = require('axios');
+const getData = require('./getData');
+
 class Submission {
   /**
    * Executes your task, optionally storing the result.
@@ -7,15 +10,7 @@ class Submission {
    * @returns {void}
    */
   async task(round) {
-    try {
-      console.log('ROUND', round);
 
-      /* EDIT HERE: Execute your task */
-
-    } catch (err) {
-      console.log('ERROR IN EXECUTING TASK', err);
-      return 'ERROR IN EXECUTING TASK' + err;
-    }
   }
 
   /**

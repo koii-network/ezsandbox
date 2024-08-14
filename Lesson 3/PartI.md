@@ -43,6 +43,8 @@ requirementsTags:
 
 As you can see, each task extension has a corresponding value and description, which will be used by the Node. These task extensions will be automatically linked as environment variables for your use and can be accessed just like an entry in your .env, e.g. `process.env.TWITTER_USERNAME`
 
-One final thing to note is that during development, you must specify your own copies of each variable in the `.env` file. In this example, it means your `.env` will contain TWITTER_USERNAME, TWITTER_PASSWORD, TWITTER_PHONE, etc.
+One final thing to note is that during local development, you must specify these secrets in your .env file. For example, if you have a secret called `FIRST_NAME` in your config-task.yml, you would need to have a `FIRST_NAME` entry in your local .env file.
 
 Effectively, adding requirements allows you to build a .env on the user's computer, which can be used when they run the task code.
+
+Let's take a deeper look at the option in the `config-task.yml` file. [Part II. The Task Config File](./PartII.md)

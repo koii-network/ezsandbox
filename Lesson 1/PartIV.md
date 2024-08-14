@@ -5,19 +5,18 @@
 > [!WARNING]
 >
 > In order to deploy a task you must download the desktop node and **run at least one task**. This will make a staking wallet that is usable for IPFS, which is required during deployment. If you have followed the EZSandbox tutorial up to this point, you already have a staking wallet.
->
 
 ### Environment Variables
 
 Before we deploy a task, let's take a quick look at how to add environment variables to your task. These are called "Task Extensions" in the node, and they allow you to ask each node operator for customized data needed for the task - for example, Twitter login credentials for a task that's accessing Twitter.
 
-To get a variable in your task, add it to your `task-config.yml`, in the `requirementsTags` section:
+To get a variable in your task, add it to your `config-task.yml`, in the `requirementsTags` section:
 
 ```yml
 requirementsTags:
-- type: TASK_VARIABLE
-  value: 'VARIABLE_NAME'
-  description: 'Variable description'
+  - type: TASK_VARIABLE
+    value: "VARIABLE_NAME"
+    description: "Variable description"
 ```
 
 The value and description will be shown in the desktop node, so make them descriptive enough that users will understand what to enter:
@@ -35,6 +34,13 @@ Then you can use them in your task like any other Node.js environment variable, 
 > [!WARNING]
 >
 > In order to deploy a task, you **MUST** be using at least Node.js v18.
+> To check the version run:
+>
+> ```sh
+> node --version
+> ```
+>
+> If your version is too low, you can download the latest LTS version [here](https://nodejs.org/en)
 
 #### Building
 
@@ -54,9 +60,7 @@ in order to create the executable.
 
 #### Install Koii CLI Suite
 
-```sh
-cmd /c "curl -L https://github.com/koii-network/k2-release/releases/download/v1.16.2/koii-install-init-x86_64-pc-windows-msvc.exe --output C:\koii-install-tmp\koii-install-init.exe --create-dirs"
-```
+If you have not already installed the Koii CLI Suite, you can find the instructions [here](https://www.koii.network/docs/develop/command-line-tool/koii-cli/install-cli).
 
 #### Get Wallet
 
@@ -190,7 +194,7 @@ Your account will be deducted XX KOII for creating the task, which includes the 
 
 > [!NOTE]
 >
-> If you are using the default values in config-task.yml and deploying a Koii Task, your total deployment fee should be about 17 KOII, which is the minimum possible amount.
+> If you are using the default values in config-task.yml and deploying a Koii Task, your total deployment fee should be about 17 KOII, which is the minimum possible amount. If you do not have enough KOII, you can get some by running tasks in the desktop node. If you're at a Koii-sponsored event, we will provide you with the necessary tokens.
 
 Your task should now be deployed successfully and you should see a response similar to this:
 

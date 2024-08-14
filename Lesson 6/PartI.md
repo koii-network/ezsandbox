@@ -28,7 +28,7 @@ If you created your wallet with `koii-keygen`, the default location is `<user_fo
 
 Next, you'll need an image for your token. It can be a .png, .ico, or .jpg. It should be a square image; if it's rectangular, you may not like how it's cropped.
 
-Finally enter the token details: the name, the symbol (like FIRE or KOII), and the description.
+Finally enter the token details: the name, the symbol (for example, FIRE or KOII), and the description.
 
 > [!TIP]
 >

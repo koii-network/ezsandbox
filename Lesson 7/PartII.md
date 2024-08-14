@@ -2,8 +2,6 @@
 
 ## Part II: Local Validator and Docker
 
-You've successfully written your own networking task, now it's time to test it locally!
-
 Testing tasks locally through Docker is a process that requires a little set up. Essentially, we have to create a local version of the backend that's used to verify a task's work, which is known as K2. After creating our local K2, we'll deploy the task there for testing!
 
 ## Environment Setup
@@ -60,5 +58,3 @@ If you ran into any issues or want to understand this topic more in depth, learn
 <br>
 
 You've reached the end of this lesson which means you're now familiar with building tasks that can network. Additionally, you now know how to test them locally with Docker! The next lesson will introduce using secrets and building our very own web crawler.
-
-Next up, we'll take a look at secrets and the config options in [Lesson 3](../Lesson%203/README.md).

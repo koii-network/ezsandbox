@@ -11,6 +11,7 @@ class Audit {
   async validateNode(submission_value, round) {
     let vote;
     console.log('SUBMISSION VALUE', submission_value, round);
+    console.log('Started Audit', new Date(), process.env.TEST_KEYWORD)
     try {
       // Verify the value
       if (submission_value == 'Hello, World!') {

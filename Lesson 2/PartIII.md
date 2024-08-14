@@ -10,6 +10,8 @@ Koii uses IPFS (the InterPlanetary File System) to store data outside of its blo
 
 ### Uploading a File
 
+To begin, navigate to the `Lesson 2/file-sharing` folder.
+
 This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS. When the upload is successful, you'll receive a content identifier (CID) that can be used to retrieve the file later.
 
 First let's add the logic to store a file to IPFS. In `task/fileUtils/storeFile.js` add the following:
@@ -131,4 +133,4 @@ This takes the submission value, which is the CID, and passes it to `isValidFile
 
 And that's it! You've successfully written a task that uses IPFS to store data.
 
-Finally, let's see how to deploy a task locally with Docker. [Part IV. Deploying Locally](./PartIV.md)
+Next up, we'll take a look at secrets and the config options in [Lesson 3](../Lesson%203/README.md).

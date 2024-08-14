@@ -13,7 +13,7 @@ class Audit {
     console.log('SUBMISSION VALUE', submission_value, round);
     try {
       // Verify the value
-      if ( /* EDIT HERE: Check the submission value */ ) {
+      if ( typeof submission_value === 'string' && submission_value.length > 0 ) {
         vote = true;
       } else {
         vote = false;

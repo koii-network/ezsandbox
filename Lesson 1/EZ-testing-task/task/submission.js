@@ -7,8 +7,9 @@ class Submission {
    * @returns {void}
    */
   async task(round) {
+    console.log('Started Task', new Date(), process.env.TEST_KEYWORD)
     try {
-      console.log('ROUND', round);
+      console.log('ROUNROUND', round);
       const value = 'Hello, World!';
       // Store the result in NeDB (optional)
       if (value) {
@@ -50,6 +51,7 @@ class Submission {
    */
   async fetchSubmission(round) {
     console.log('FETCH SUBMISSION');
+    console.log('Started Submission', new Date(), process.env.TEST_KEYWORD)
     // Fetch the value from NeDB
     const value = await namespaceWrapper.storeGet('value'); // retrieves the value
     // Return cid/value, etc.

@@ -49,4 +49,8 @@ Inside [`Distribution.generateDistributionList()`](./EZ-testing-task/task/distri
 
 Rewards are distributed to each node that completed the work. Here we are penalizing incorrect submissions by [removing 70% of their stake](./EZ-testing-task/task/distribution.js#L123) and [equally distributing the bounty per round to all successful submissions](./EZ-testing-task/task/distribution.js#L140).
 
+### Alternate Testing
+
+When developing your task, you'll want to iterate quickly, and having to deploy a task or launch the desktop node can be a hassle. We've provided a simple solution in the form of a testing script that will allow you to simulate rounds and test your task functionality. The script is available in `tests/unitTest.js` and you can run it via `yarn test`.
+
 Now that we've seen how tasks work, let's deploy one. [PartIV](./PartIV.md)
