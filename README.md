@@ -6,6 +6,8 @@ Curious to see the source code? [Learn More](#open-source-roadmap)
 
 # Welcome to EZSandbox
 
+![Tracking Pixel](http://imagetracker.api.koii.network/tracker.png)
+
 In this series of workshops, we'll get you up and running to build your first community-hosted application in no time.
 
 This sandbox will take you through a few phases of development to try using Koii Tasks at all levels.
