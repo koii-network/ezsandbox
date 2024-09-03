@@ -172,18 +172,6 @@ When you installed the desktop node, a staking wallet was created for you automa
 >
 > In order for your staking wallet to be usable by the CLI, you must run at least one task in the desktop node.
 
-#### Choose Task Type
-
-You'll now be asked what type of task you want to deploy:
-
-```sh
-? Select operation › - Use arrow-keys. Return to submit.
-❯   KOII-Task
-    KPL-Task
-```
-
-Here, we'll deploy a Koii Task but if you'd like to deploy a task using your own token, you must have a [previously minted KPL token](../Lesson%206/PartI.md).
-
 #### Confirm
 
 You will be then be prompted to confirm that you want to pay the rent and bounty, type 'y' to confirm:
