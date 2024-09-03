@@ -8,4 +8,8 @@
 
 3. In `config-task.yml`, change `task_type` to `KPL` and enter the token mint address in `token_type`.
 
+   > ![NOTE]
+   >
+   > You can deploy a task with *any* KPL token as long as you have sufficient balance and you know the mint address; it doesn't have to be a token you created.
+
 Follow the instructions from [Lesson 1](../Lesson%201/PartIV.md#deploying-a-task) for deploying a task!
