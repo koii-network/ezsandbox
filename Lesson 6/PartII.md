@@ -2,26 +2,10 @@
 
 ## Deploying a KPL Task
 
-Follow the instructions from [Lesson 1](../Lesson%201/PartIV.md#deploying-a-task) until you reach the step where you choose a task type:
+1. Make sure you have enough token in your account to cover the cost of the bounty, and enough KOII to cover the cost of the deployment fees. The deployment fee is determined by the `space` value in `config-task.yml`. If you are testing a task, you can set the space to 0.1, which will cost about 7 KOII. If you are deploying into production, the space should be at least 1, which would cost about 70 KOII.
 
-```sh
-? Select operation › - Use arrow-keys. Return to submit.
-❯    KOII-Task
-     KPL-Task
-```
+2. In `config-task.yml`, set the values you want for `minimum_stake`, `total_bounty_amount`, and `bounty_amount_per_round`. These will all be in your token, not in KOII.
 
-Choose `KPL-Task` and you will be asked to enter your mint address:
+3. In `config-task.yml`, change `task_type` to `KPL` and enter the token mint address in `token_type`.
 
-```sh
-? Enter the mint address of the token you want to use for the task ›
-```
-
-You should have the mint address saved from when you created the token, but if you've misplaced it, you can find it by visiting [the explorer](https://explorer.koii.live/) and searching for your wallet's public key. Scroll down and click on the `Tokens` tab. You will see a list of the tokens you own along with their mint addresses. Click on the copy icon to copy your mint address to the clipboard.
-
-After you enter your mint address, you will be asked to confirm your deployment:
-
-```sh
-? Your account will be deducted rent exemption(XX KOII) and bounty amount fees (XX Tokens) › (y/N)
-```
-
-Choose `yes` and your KPL task will be deployed!
+Follow the instructions from [Lesson 1](../Lesson%201/PartIV.md#deploying-a-task) for deploying a task!
