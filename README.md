@@ -5,10 +5,9 @@ Powered by [Koii](https://koii.network) - Over 60,000 community devices at your 
 Curious to see the source code? [Learn More](#open-source-roadmap)
 
 # Welcome to EZSandbox
-<p align="center">
-  <img src="http://imagetracker.api.koii.network/tracker.png" width="350" title="hover text">
-</p>
-![Tracking Pixel](http://imagetracker.api.koii.network/tracker.png)
+
+<img src="http://imagetracker.api.koii.network/tracker.png" width="350" title="hover text" style="max-width: 100%;" class="__web-inspector-hide-shortcut__">
+
 
 In this series of workshops, we'll get you up and running to build your first community-hosted application in no time.
 
