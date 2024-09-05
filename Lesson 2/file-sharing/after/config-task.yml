@@ -1,41 +1,50 @@
 # Name and metadata of your task
-task_name: 'task name'
+task_name: 'File Sharing Task'
 author: 'Koii'
-description: 'description'
-repositoryUrl: 'https://github.com/koii-network/task-template' #replace with your own repo url
+description: 'Demo of the IPFS storage SDK.'
+repositoryUrl: 'https://github.com/koii-network/task-template' # Replace with your own repo URL
 imageUrl: 'imageUrl'
+infoUrl: 'infoUrl'
 
-# task_executable_network : DEVELOPMENT, ARWEAVE or IPFS
+# Task executable network: DEVELOPMENT, ARWEAVE, or IPFS
 # IPFS is the default value, as the CLI automatically manages the upload process via the Koii Storage SDK.
 task_executable_network: 'IPFS'
 
-# task_audit_program: Path to your executable webpack if the selected network is IPFS and in case of DEVELOPMENT name it as main
+# Task audit program: Path to your executable webpack if the selected network is IPFS. In the case of DEVELOPMENT, name it as main.
 task_audit_program: 'dist/main.js'
 
-# round_time: The total duration of your task, measured in slots (with each slot approximately equal to 408ms)
+# Round time: The total duration of your task, measured in slots (with each slot approximately equal to 408ms).
 round_time: 1500
-audit_window: 350
-submission_window: 350
 
-# minimum_stake_amount: The minimum amount of KOII that a user must stake in order to participate in the task
-minimum_stake_amount: 1.9
+# Audit window: The audit window should be greater than 1/3 of the round time.
+audit_window: 600
 
-# total_bounty_amount: The total bounty amount that will be distributed to the task. (Does not work when updating task)
+# Submission window: The submission window should be greater than 1/3 of the round time.
+submission_window: 600
+
+# Minimum stake amount: The minimum amount of KOII that a user must stake in order to participate in the task.
+minimum_stake_amount: 0.1
+
+# Task Bounty Type: KOII, KPL
+task_type: 'KOII'
+
+# OPTIONAL (ONLY IF Task Type = KPL) : Token Mint Address, Fire Token as an example here.
+token_type: "FJG2aEPtertCXoedgteCCMmgngSZo1Zd715oNBzR7xpR"
+
+# Total bounty amount: The total bounty amount that will be distributed to the task. (Not accepted in case of update task).
 total_bounty_amount: 10
-# total_bounty_amount: the maximum amount of KOII that can be distributed each round
-# bounty_amount_per_round cannot be greater than total_bounty_amount
 bounty_amount_per_round: 0.1
 
-# allowed_failed_distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
+# Allowed failed distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
+# It is also the number of rounds submission will be kept.
 allowed_failed_distributions: 3
 
-# space: Space in MBs for the account size, that holds the task data.
-# for testing tasks this can be set to 0.1 but
-# for production it should be set to at least 1
+# Space: Space in MBs for the account size, that holds the task data.
+# For testing tasks this can be set to 0.1, but for production it should be set to at least 1.
 space: 0.1
 
 # Note that the value field in RequirementTag is optional, so it is up to you to include it or not based on your use case.
-# To add more global variables and task variables, please refer the type,value, description format shown below
+# To add more global variables and task variables, please refer to the type, value, description format shown below.
 
 requirementsTags:
   - type: CPU
@@ -45,11 +54,11 @@ requirementsTags:
   - type: STORAGE
     value: '5 GB'
 
-# OPTIONAL variables variables for creating task / REQUIRED variables for update task
+# OPTIONAL variables for creating task / REQUIRED variables for updating task
 
-# ONLY provide the task_id and migrationDescription if you are updating the task otherwise leave blank
-# task_id: Previous task id
+# ONLY provide the task_id and migrationDescription if you are updating the task, otherwise leave blank.
+# Task_id: Previous task ID.
 task_id: ''
 
-# migrationDescription: Provide the description for changes made in new version of task
+# Migration description: Provide the description for changes made in the new version of the task.
 migrationDescription: ''
