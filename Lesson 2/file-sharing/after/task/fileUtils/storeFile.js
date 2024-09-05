@@ -1,19 +1,29 @@
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const fs = require('fs');
 
 async function storeFile(data, filename = 'value.json') {
-
-  try {
-    // Create a new instance of the Koii Storage Client
+      // Create a new instance of the Koii Storage Client
     const client = new KoiiStorageClient();
-    console.log(data, process.env.TEST_KEYWORD)
-    const buffer = Buffer.from(JSON.stringify(data));
-    const file = new File([buffer], filename, { type: 'application/json' });
+    const basePath = await namespaceWrapper.getBasePath();
+  try {
+    // Write the data to a temp file
+    fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
+
+    // Get the user staking account, to be used for signing the upload request
     const userStaking = await namespaceWrapper.getSubmitterAccount();
-    const { cid } = await client.uploadFile(file, userStaking);
+
+    // Upload the file to IPFS and get the CID
+    const { cid } = await client.uploadFile(`${basePath}/${filename}`,userStaking);
+
+    console.log(`Stored file CID: ${cid}`);
+    // Delete the temp file
+    fs.unlinkSync(`${basePath}/${filename}`);
+
     return cid;
   } catch (error) {
     console.error('Failed to upload file to IPFS:', error);
+    fs.unlinkSync(`${basePath}/${filename}`);
     throw error;
   }
 }
