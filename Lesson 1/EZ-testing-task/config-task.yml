@@ -1,6 +1,6 @@
 # Name and metadata of your task
-task_name: 'EZ Sandbox Testing Task'
-author: 'Koii'
+task_name: 'Smart Sandbox Testing Task'
+author: 'SMART'
 description: 'Just like Free Token Task without the tokens.'
 repositoryUrl: 'https://github.com/koii-network/task-template' # Replace with your own repo URL
 imageUrl: 'imageUrl'
@@ -26,13 +26,13 @@ submission_window: 600
 minimum_stake_amount: 0.1
 
 # Task Bounty Type: KOII, KPL
-task_type: 'KOII'
+task_type: 'SMART'
 
 # OPTIONAL (ONLY IF Task Type = KPL) : Token Mint Address, Fire Token as an example here.
-token_type: "FJG2aEPtertCXoedgteCCMmgngSZo1Zd715oNBzR7xpR"
+token_type: "HK8STMDTos4QFocyEADxwdXBrN13DCB9AcwLXsmvBthh"
 
 # Total bounty amount: The total bounty amount that will be distributed to the task. (Not accepted in case of update task).
-total_bounty_amount: 10
+total_bounty_amount: 100
 bounty_amount_per_round: 0.1
 
 # Allowed failed distributions: Number of times re-submission is allowed for the distribution list in case of an audit.
