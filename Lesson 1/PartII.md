@@ -71,12 +71,12 @@ a. Task:
 b. Submission:
 
 - File Name: `2-submission.js`
-- Code: `console.log("Started Submission", new Date(), "EZ-TESTING")`
+- Code: `console.log("Started Submission", new Date(), "EZ TESTING")`
 
 c. Audit:
 
 - File Name: `3-audit.js`
-- Code: `console.log("Started Audit", new Date(), "EZ-TESTING")`
+- Code: `console.log("Started Audit", new Date(), "EZ TESTING")`
 
 d. Distribution:
 
