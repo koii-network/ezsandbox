@@ -55,7 +55,7 @@ to start the live debugger.
 
 Open the `src/task` folder and we'll start hacking through some files. To see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-In each case, navigate to the correct file then paste the code lines that have been supplied into each function. If you run into any difficulties, the completed code is available in `ez-testing-task/task`.
+In each case, navigate to the correct file then paste the code lines that have been supplied into each function. If you run into any difficulties, the completed code is available in `ez-testing-task`.
 
 We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change this to whatever you'd like.
 
