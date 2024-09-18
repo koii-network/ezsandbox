@@ -55,7 +55,7 @@ to start the live debugger.
 
 Open the `src/task` folder and we'll start hacking through some files. To see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-In each case, navigate to the correct file then paste the code lines that have been supplied into each function. If  you run into any difficulties, the completed code is available in `ez-testing-task/task`.
+In each case, navigate to the correct file then paste the code lines that have been supplied into each function. If you run into any difficulties, the completed code is available in `ez-testing-task/task`.
 
 We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change this to whatever you'd like.
 
@@ -66,28 +66,28 @@ We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change
 a. Task:
 
 - File Name: `1-task.js`
-- Code: `console.log('Started Task', new Date(), process.env.TEST_KEYWORD)`
+- Code: `console.log("Started Task", new Date(), "TEST")`
 
 b. Submission:
 
 - File Name: `2-submission.js`
-- Code: `console.log('Started Submission', new Date(), process.env.TEST_KEYWORD)`
+- Code: `console.log("Started Submission", new Date(), "EZ-TESTING")`
 
 c. Audit:
 
 - File Name: `3-audit.js`
-- Code: `console.log('Started Audit', new Date(), process.env.TEST_KEYWORD)`
+- Code: `console.log("Started Audit", new Date(), "EZ-TESTING")`
 
 d. Distribution:
 
 - File Name: `4-distribution.js`
-- Code: `console.log('Started Distribution', new Date(), process.env.TEST_KEYWORD)`
+- Code: `console.log("Started Distribution", new Date(), "TEST")`
 
 As you save each file, the task executable will be rebuilt and you should see the debugger restart. If you check your desktop node, you'll also see a message that the task has changed.
 
 Once all changes have been made, locate the EZ Testing Task in your node and press the play button to restart the task with the new executable file.
 
-Now, wait and watch the logs to see the console logs you just added. They should be printed in the output of your terminal.
+Now, wait and watch the logs to see the console logs you just added. All the output for the task will be shown in your terminal, and any lines containing a watched keyword will be colored magenta to make them easier to spot.
 
 ### Accessing Your Node
 
