@@ -10,7 +10,7 @@ Auditing is the next big step for us as it helps us ensure that our tasks are be
 
 Prerequisites:
 
-- General understanding of [gradual consensus](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus) and task flow
+- General understanding of [gradual consensus and task flow](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus)
 - Lessons 1-3 completed
 
 ### The Purpose of Audits
@@ -36,124 +36,71 @@ We've mentioned some of the audit mechanisms in the previous lessons, but let's 
 #### 0. Trivial Example
 
 ```javascript
-  async validateNode(submission_value, round) {
-    console.log('SUBMISSION VALUE', submission_value, round);
-    return true;
-  }
+return true;
 ```
 
-As you can see with this audit logic, we're simply returning true for the vote no matter what. While this seems trivial, it is useful in cases where a task doesn't require an audit.
+The simplest possible audit is no audit: we're simply returning true for the vote no matter what. This is useful for tasks that don't require an audit, but if you're distributing rewards, it's a bad idea.
 
-#### 1. Hello World Task - [Lesson 1](../Lesson%201/EZ-testing-task/task/audit.js)
+#### 1. Lesson 1: [EZ Testing](../Lesson%201/ez-testing-task/3-audit.js)
 
 ```javascript
-  async validateNode(submission_value, round) {
-    let vote;
-    console.log('SUBMISSION VALUE', submission_value, round);
-    try {
-      // Verify the value
-      if (submission_value == 'Hello, World!') {
-        vote = true;
-      } else {
-        vote = false;
-      }
-    } catch (e) {
-      console.error(e);
-      vote = false;
-    }
-    return vote;
-  }
+return submission === "Hello, World!";
 ```
 
-This task's job is to simply submit a hardcoded value, `Hello, World!`. This makes our audit logic rather simple, if the submitted value is anything other than `Hello, World!` then we know that something wrong has happened and we can vote against this submission.
+This task's job is to simply submit a hardcoded value, `Hello, World!`. This makes our audit logic rather simple, if the submitted value is anything other than `Hello, World!` then we know that something has gone wrong and we can vote against this submission.
 
-This audit operation is great when you have a deterministic value that you're looking for as a result, but this doesn't necessarily mean you need to hard code. For example, if you wanted to build a task that does prime factorization, then you could multiply the returned factors and confirm they match the original number.
+While this is a great starter example for learning how a Koii task works, you'll almost always want your tasks to return dynamic data as a submission.
 
-#### 2. UPnP Task - [Lesson 2](../Lesson%202/upnp-basics/after/task/audit.js)
+#### 2. Lesson 2: [UPnP Basics](../Lesson%202/upnp-basics/src/task/3-audit.js)
 
 ```javascript
-  async validateNode(submission_value, round) {
-    let vote;
-    console.log('SUBMISSION VALUE', submission_value, round);
-    try {
-      // Verify the type of value is string
-      if (typeof submission_value === 'string' && submission_value.length > 0) {
-        vote = true;
-      } else {
-        vote = false;
-      }
-    } catch (e) {
-      console.error(e);
-      vote = false;
-    }
-    return vote;
-  }
+return typeof submission === "string" && submission.length > 0;
 ```
 
-In this task, we allowed nodes to act as both a server and a client. As servers, nodes were exposing an API endpoint with a value and as clients, nodes were retrieving values from that endpoint. This means there isn't a deterministic value because every nodes endpoint may offer a different value.
-
-Instead, we can create an audit mechanism that health checks the endpoints by ensuring the retrieved value exists and is of an expected type. Another example of where this kind of audit may come in handy is when the fetched data follows a specific kind of structure, such as a `json` file. If you know the type or shape of the data, you can verify that and let the value be arbitrary.
-
-#### 3. Simple Crawler Task - [Lesson 3](../Lesson%203/simple-crawler/after/task/audit.js)
+#### 3. Lesson 2: [File Sharing](../Lesson%202/file-sharing/task/3-audit.js)
 
 ```javascript
-  async validateNode(submission_value, round) {
-    try {
-      return SimpleCrawlerTask.retrieveAndValidateFile(submission_value);
-    } catch (e) {
-      console.log('Error in validate:', e);
-      return false;
-    }
-  }
+const fileContent = await getFileText(submission);
+return typeof fileContent === "string" && fileContent.length > 0;
 ```
 
-This type of audit follows the same general format of fetching the stored data to ensure it exists. All web crawlers can follow this audit pattern.
+In these two tasks, we allowed nodes to return a secret of their choice. This means there isn't a single consistent value to be checked, which is closer to how a real task would work. Here we check the type of the data rather than its value; while this is often a useful step in your audit, it's not enough on its own.
 
-Additionally, you can see that audit logic can be made to be modular and flexible to your own needs which is why we decide to use a function from the crawler class for better organization.
-
-Now that we understand some of the basic audit operations, lets discuss how we distribute rewards!
-
-#### File Sharing Task - [Lesson 2](../Lesson%202/file-sharing/after/task/audit.js)
+#### 4. Simple Crawler Task - [Lesson 3](../Lesson%203/simple-crawler/task/3-audit.js)
 
 ```javascript
-try {
-  console.log("AUDIT ROUND", round);
-  // The submission value is the CID
-  return isValidFile(submission_value);
-} catch (e) {
-  console.log('Error in validate:', e);
+// Verify the upload exists
+const upload = await getFileBlob(submission);
+if (!upload) {
   return false;
 }
-```
 
-[`isValidFile()` utility function](../Lesson%202/file-sharing/after/task/fileUtils/isValidFile.js) also from Lesson 2:
-
-```javascript
-const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
-
-async function isValidFile(cid, filename = 'value.json') {
-  const client = new KoiiStorageClient();
-
-  try {
-    const fileBlob = await client.getFile(cid, filename);
-    if (!fileBlob) return false;
-
-    const fileContent = await fileBlob.text();
-    return typeof fileContent === 'string' && fileContent.length > 0;
-
-  } catch (error) {
-    console.error('Failed to download or validate file from IPFS:', error);
-    throw error;
-  }
+// Verify the file content is a non-empty string
+const fileContent = await upload.text();
+if (
+  !fileContent ||
+  fileContent.length === 0 ||
+  typeof fileContent !== "string"
+) {
+  return false;
 }
-
-module.exports = isValidFile;
+const postTitles = JSON.parse(fileContent);
+// Verify the file content is a non-empty array
+if (!Array.isArray(postTitles) || postTitles.length === 0) {
+  return false;
+}
+// Verify each post title is a non-empty string
+postTitles.forEach((title) => {
+  if (typeof title !== "string" || title.length === 0) {
+    return false;
+  }
+});
+return true;
 ```
 
-This audit combines elements of the UPnP and Simple Crawler tasks - it verifies that a file exists and also checks that the contents of the file match the expected format.
+This is a common pattern for scraped data - you want to validate not just the type but also the shape of the data. However, like the audits before it, there are two serious issues:
 
-<!-- ### Controlling the Number of Auditing Nodes
+1. There is no way to know if the data you're getting is the data you want.
+2. Any node can make a submission and get a reward, whether they've performed the task or not.
 
-In some cases, you may want to set the number of nodes you'd like to perform an audit each round. For this, you can add custom logic to the `validateAndVoteOnNodes()` function. Note that unlike other functions we've worked with before, this one is located in `NamespaceWrapper` You can see an example from the Twitter Archive task [here](https://github.com/koii-network/task-x/blob/main/namespaceWrapper.js?ref_type=heads#L579-592) -->
-
-Now let's take a look at distribution concepts in [Part II](./PartII.md)
+Let's see how we could make our audits better in [Part II](./PartII.md)
