@@ -16,15 +16,15 @@ export function distribution(submitters, bounty, roundNumber) {
     if (submitter.votes < 0) {
       const slashedStake = submitter.stake * slashPercentage;
       rewardList[submitter.publicKey] = -slashedStake;
-      console.log('CANDIDATE STAKE SLASHED', submitter.publicKey, slashedStake);
+      console.log("CANDIDATE STAKE SLASHED", submitter.publicKey, slashedStake);
     } else {
       approvedSubmitters.push(submitter.publicKey);
     }
   }
   // reward the submitters who submitted correct values
   const reward = Math.floor(bounty / approvedSubmitters.length);
-  console.log('REWARD PER NODE', reward);
-  approvedSubmitters.forEach(candidate => {
+  console.log("REWARD PER NODE", reward);
+  approvedSubmitters.forEach((candidate) => {
     rewardList[candidate] = reward;
   });
   return rewardList;
