@@ -1,179 +1,65 @@
 # Lesson 4: Auditing & Distribution
 
-## Part III: Distribution Concepts
+## Part IV: Building Audit and Distribution Mechanisms
 
-At this point, you should be familiar with how a task is developed, and how you can verify as task's work. The final piece of the puzzle is looking at how rewards are distributed.
+The previous sections were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
 
 Prerequisites:
 
-- General understanding of [gradual consensus and task flow](https://docs.koii.network/concepts/what-are-tasks/what-are-tasks/gradual-consensus)
-- Understanding of [audit mechanisms](./PartI.md)
+<!-- - Understanding of [Audit](./PartI.md) and [Distribution](./PartIII.md) Mechanisms -->
 
-### Distributing Rewards
+- Understanding of [Audit](./PartI.md) and [Distribution](./PartIII.md) Mechanisms
+- Basic knowledge of a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
-Now that we've figured out different ways to verify if a node is doing honest work, we should also figure out how we want to reward that honesty. Majority of the distribution logic of a task can be found in `task/distribution.js`.
+### Caesar Cipher Task
 
-Unlike audit mechanisms, there isn't necessarily a standard for what type of distribution mechanism you should use per task. If one web crawler task wants to distribute rewards evenly, and another wants to distribute based on reputation, that is perfectly viable!
-
-Distributing mechanisms commonly (_but aren't required to_) follow this format:
-
-1. Decide how much you want to reward
-2. Decide how much you want to penalize
-3. Mark each node as valid (accepted submission) or slashed (rejected submission)
-4. Distribute!
-
-The most important function regarding distribution is `generateDistributionList()` so we'll cover this. If you're interested in the other distribution functions, [click here!](https://docs.koii.network/develop/write-a-koii-task/task-development-guide/template-structure/distribute-rewards)
-
-### `generateDistributionList()`
-
-For this example, we'll look at [Lesson 1's Hello World Task distribution logic](../Lesson%201/EZ-testing-task/task/distribution.js), as it provides a good basic framework for how to write distribution logic. Let's break down this function:
-
-1. Fetch Submissions
+If you navigate to the attached task for this lesson, you'll see that it simulates a mini Caesar cipher. For this task, the submission logic is completed for you but it's up to you to _decipher_ the audit logic! Let's take a look at what's going on in the `task()` function from `submissions.js`
 
 ```javascript
-  async generateDistributionList(round, _dummyTaskState) {
-    try {
-      console.log('GENERATE DISTRIBUTION LIST CALLED WITH ROUND', round);
-      /****** SAMPLE LOGIC FOR GENERATING DISTRIBUTION LIST ******/
-      let distributionList = {};
-      let distributionCandidates = [];
-      let taskAccountDataJSON = null;
-      let taskStakeListJSON = null;
-      try {
-        taskAccountDataJSON = await namespaceWrapper.getTaskSubmissionInfo(
-          round,
-        );
-      } catch (error) {
-        console.error('ERROR IN FETCHING TASK SUBMISSION DATA', error);
-        return distributionList;
-      }
-      const submissions = taskAccountDataJSON.submissions[round];
-      const submissions_audit_trigger = taskAccountDataJSON.submissions_audit_trigger[round];
-
-      if (submissions == null) {
-        console.log(`NO SUBMISSIONS FOUND IN ROUND ${round}`);
-        return distributionList;
-      }
-    ...
+const originalMsg = "koii rocks!";
+const randomShift = CaesarCipher.getRandomShiftNum();
+const encryptedMsg = CaesarCipher.encrypt(originalMsg, randomShift);
+const value = randomShift + encryptedMsg;
 ```
 
-The first thing we do is initialize our distribution lists. We also fetch all the submissions that were made for this round on a particular task. If no submissions were made, we simply return an empty distribution list.
+1. We're first specifying an original message that will be encrypted and submitted. It looks like you decided with the message, "koii rocks!". We agree!
 
-2. Grab Candidate Votes
+2. Next, we get a random number from 1-5 to shift our Caesar cipher by. This is specifically done to make your life a little harder! We don't want your audit logic to be as simple as checking if the value equals `"koii rocks!"`, that'd be no fun. But, for simplicity sake, we decided to keep the shift between 1 and 5 letters.
 
-```javascript
-    ...
-      else {
-        const keys = Object.keys(submissions);
-        const values = Object.values(submissions);
-        const size = values.length;
-        console.log('SUBMISSIONS FROM LAST ROUND: ', keys, values, size);
-        taskStakeListJSON = await namespaceWrapper.getTaskState({
-          is_stake_list_required: true,
-        });
-        if (taskStakeListJSON == null) {
-          console.error('ERROR IN FETCHING TASK STAKING LIST');
-          return distributionList;
-        }
-        // Slashing the stake of the candidate who has been audited and found to be false
-        for (let i = 0; i < size; i++) {
-          const candidatePublicKey = keys[i];
-          if (
-            submissions_audit_trigger &&
-            submissions_audit_trigger[candidatePublicKey]
-          ) {
-            console.log(
-              'DISTRIBUTION AUDIT TRIGGER VOTES',
-              submissions_audit_trigger[candidatePublicKey].votes,
-            );
-            const votes = submissions_audit_trigger[candidatePublicKey].votes;
+3. We encrypt the message with a standard Caesar cipher using the random number we want to shift by. If you're curious about the code used to do this, feel free to investigate `caesar-cipher/caesar-cipher.js`.
 
-            if (votes.length === 0) {
-              // Slash 70% of the stake as still the audit is triggered but no votes are casted
-              const stake_list = taskStakeListJSON.stake_list;
-              const candidateStake = stake_list[candidatePublicKey];
-              const slashedStake = candidateStake * 0.7;
-              distributionList[candidatePublicKey] = -slashedStake;
-              console.log('CANDIDATE STAKE', candidateStake);
-            }
-    ...
-```
+4. We finally store the encrypted message along with the shift number prepended to the start. This is will come in handy when writing our audit logic!
 
-From the submissions, we can grab the public keys of the nodes that participated. Then, we can check if they should have been audited this round. If they should have been audited but received no votes, this means there was some sort of interference preventing voting, so they will be slashed.
+### Auditing The Caesar Task
 
-Slashing refers to the penalty that's issued to a node for completing a task incorrectly, behaving suspiciously, or trying to exploit rewards. The penalty involves removing some portion of the user's staked KOII. There may be tasks that don't penalize and others that confiscate the entire stake, it just depends on the type of work that's being done and how critical it is. Penalty amounts are completely up to the task creator (that's you!). In this case, we have chosen to confiscate 70% of the node's stake.
+Now, if we navigate to the `validateNode()` function in `audit.js`, we'll see that it's left blank for you to fill in! Go ahead and give it a go right now and if you can't figure it out, come back here for the answer. Hint: Remember the value we prepended at the start of our submission? That might come in handy!
 
-3. Tally Votes
+If you're having a little trouble figuring it out, no worries. Here's a step-by-step guide to one solution:
 
-```javascript
-    ...
-        else {
-              let numOfVotes = 0;
-              for (let index = 0; index < votes.length; index++) {
-                if (votes[index].is_valid) numOfVotes++;
-                else numOfVotes--;
-              }
+1. We first want to grab the shift value that is prepended before submission. This will help us decrypt the rest of the message!
 
-              if (numOfVotes < 0 && taskStakeListJSON) {
-                // slash 70% of the stake as the number of false votes are more than the number of true votes
-                // Note that the votes are on the basis of the submission value
-                // to do so we need to fetch the stakes of the candidate from the task state
-                const stake_list = taskStakeListJSON.stake_list;
-                const candidateStake = stake_list[candidatePublicKey];
-                const slashedStake = candidateStake * 0.7;
-                distributionList[candidatePublicKey] = -slashedStake;
-                console.log('CANDIDATE STAKE', candidateStake);
-              }
+2. We can then slice off the first character to get our encrypted message
 
-              if (numOfVotes > 0) {
-                distributionCandidates.push(candidatePublicKey);
-              }
-            }
-          } else {
-            distributionCandidates.push(candidatePublicKey);
-          }
-        }
-      }
-    ...
-```
+3. With our encrypted message and our shift value, we can simply use the decrypt function from our CaesarCipher class to get our original string back!
 
-If the node **has** received votes, it's time to tally them up. After the votes are tallied, if the node has more people voting against them than for them, then they will be penalized for not completing the task correctly. The slashing logic here can be customized separately from the case where there are no votes. In this case, we have kept it the same and are slashing 70% of the stake.
+4. We compare our result with the answer that we expect, `'koii rocks!'`, and adjust our vote accordingly.
 
-4. Distribute Rewards
+If you're still having trouble, take a look at our solution in the [`after` folder](./caesar-task/after/task/audit.js#L16).
 
-```javascript
-    ...
-      // Distribute the rewards based on the valid submissions
-      // Here it is assumed that all the nodes doing valid submission gets the same reward
-      const reward = Math.floor(
-        taskStakeListJSON.bounty_amount_per_round /
-          distributionCandidates.length,
-      );
-      console.log('REWARD RECEIVED BY EACH NODE', reward);
-      for (let i = 0; i < distributionCandidates.length; i++) {
-        distributionList[distributionCandidates[i]] = reward;
-      }
-      console.log('DISTRIBUTION LIST', distributionList);
-      return distributionList;
-    } catch (err) {
-      console.log('ERROR IN GENERATING DISTRIBUTION LIST', err);
-    }
-  }
-```
+### Adjusting Distribution Mechanisms
 
-Once we have the final list of nodes that should receive rewards, we can begin to distribute the bounty. How you distribute the bounty is entirely up to you. Typically you distribute the round's bounty amount equally between all participants (as we have done here), but if you want to distribute a fixed amount or scale the rewards based on reputation or staked amount, you are free to do so.
+Now let's try changing the distribution rewards. Try to make these three changes:
 
-### Shared Data
+1. When there are no votes, slash by 50%.
+2. When there are more negative than positive votes, slash by 100%.
+3. Instead of distributing the bounty equally, give each successful submission 0.25 KOII. Note that rewards are distributed in Roe, not KOII.
 
-One thing to note about generating distribution lists is that only one node per round is chosen to generate the list. Once this list is generated, it needs to be shared and audited by other nodes, similar to regular audit logic. So remember, there are two audits:
+> [!NOTE]
+>
+> Roe is the minimum unit of KOII. 1 KOII = 1,000,000,000 Roe.
 
-1. Auditing a node's task work
-2. Auditing the round's distribution list
+Again, if you run into difficulties, you can see our answer in the [`after` folder](./caesar-task/after/task/distribution.js#L105).
 
-Data can be shared to all nodes in the network by fetching a list of all the other nodes, and comparing their stored data with yours. Using timestamps, you can verify who has the most recent data and use the latest information, similar to [Link State routing](https://en.wikipedia.org/wiki/Link-state_routing_protocol).
+You've reached the end of this lesson which means you're now familiar with audit and distribution mechanisms. The next lesson will discuss security and hardening.
 
-If you want to learn more about data sharing across a task, [click here](https://docs.koii.network/develop/linktree/data-sharing).
-
-Just like that we've successfully gone through both audit and distribution mechanisms and we're now ready to write our own.
-
-Now let's try building our own audit and distribution mechanisms in [Part IV](./PartIV.md)
+Now we'll talk about security and hardening in [Lesson 5](../Lesson%205/README.md)

@@ -103,4 +103,6 @@ This is a common pattern for scraped data - you want to validate not just the ty
 1. There is no way to know if the data you're getting is the data you want.
 2. Any node can make a submission and get a reward, whether they've performed the task or not.
 
-Let's see how we could make our audits better in [Part II](./PartII.md)
+<!-- Let's see how we could make our audits better in [Part II](./PartII.md) -->
+
+Now let's take a look at distribution concepts in [Part II](./PartII.md)
