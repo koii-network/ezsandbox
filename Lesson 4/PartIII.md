@@ -8,7 +8,7 @@ Prerequisites:
 
 <!-- - Understanding of [Audit](./PartI.md) and [Distribution](./PartIII.md) Mechanisms -->
 
-- Understanding of [Audit](./PartI.md) and [Distribution](./PartIII.md) Mechanisms
+- Understanding of [Audit](./PartI.md) and [Distribution](./PartII.md) Mechanisms
 - Basic knowledge of a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
 ### Caesar Cipher Task
