@@ -6,17 +6,17 @@ export function distribution(submitters, bounty, roundNumber) {
    * This function should return an object with the public keys of the submitters as keys
    * and the reward amount as values
    */
-  console.log(`MAKE REWARD LIST FOR ROUND ${roundNumber}`);
-  const rewardList = {};
+  console.log(`MAKE DISTRIBUTION LIST FOR ROUND ${roundNumber}`);
+  const distributionList = {};
   const approvedSubmitters = [];
   // Slash the stake of submitters who submitted incorrect values
   // and make a list of submitters who submitted correct values
   for (const submitter of submitters) {
     if (submitter.votes === 0) {
-      rewardList[submitter.publicKey] = 0;
+      distributionList[submitter.publicKey] = 0;
     } else if (submitter.votes < 0) {
       const slashedStake = submitter.stake * SLASH_PERCENT;
-      rewardList[submitter.publicKey] = -slashedStake;
+      distributionList[submitter.publicKey] = -slashedStake;
       console.log("CANDIDATE STAKE SLASHED", submitter.publicKey, slashedStake);
     } else {
       approvedSubmitters.push(submitter.publicKey);
@@ -26,7 +26,7 @@ export function distribution(submitters, bounty, roundNumber) {
   const reward = Math.floor(bounty / approvedSubmitters.length);
   console.log("REWARD PER NODE", reward);
   approvedSubmitters.forEach((candidate) => {
-    rewardList[candidate] = reward;
+    distributionList[candidate] = reward;
   });
-  return rewardList;
+  return distributionList;
 }

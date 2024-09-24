@@ -36,7 +36,7 @@ This function must return an object with submitter's public keys as the keys and
 We start out with an empty list and an array to store the public keys of the submitters who made valid submissions:
 
 ```js
-const rewardList = {};
+const distributionList = {};
 const approvedSubmitters = [];
 ```
 
@@ -45,10 +45,10 @@ Next, we iterate through the list of submitters. If they have no votes, they rec
 ```js
 for (const submitter of submitters) {
   if (submitter.votes === 0) {
-    rewardList[submitter.publicKey] = 0;
+    distributionList[submitter.publicKey] = 0;
   } else if (submitter.votes < 0) {
     const slashedStake = submitter.stake * SLASH_PERCENT;
-    rewardList[submitter.publicKey] = -slashedStake;
+    distributionList[submitter.publicKey] = -slashedStake;
     console.log("CANDIDATE STAKE SLASHED", submitter.publicKey, slashedStake);
   } else {
     approvedSubmitters.push(submitter.publicKey);
@@ -62,9 +62,9 @@ Finally, we divide the bounty per round by the number of people who will receive
 const reward = Math.floor(bounty / approvedSubmitters.length);
 console.log("REWARD PER NODE", reward);
 approvedSubmitters.forEach((candidate) => {
-  rewardList[candidate] = reward;
+  distributionList[candidate] = reward;
 });
-return rewardList;
+return distributionList;
 ```
 
 ### Shared Data
