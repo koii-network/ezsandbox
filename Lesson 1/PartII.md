@@ -29,11 +29,7 @@ npm install --global yarn
 
 We will overwrite the task executable with our local copy, so we can change the code and see the results. This is simple with the `prod-debug` tool that is provided.
 
-First, clone this repository and navigate to the `Lesson 1/EZ-testing-task/` directory. This folder contains the code needed to build a task executable.
-
-```sh
-cd 'Lesson 1'/EZ-testing-task
-```
+1. First, clone the [task template repository](https://github.com/koii-network/task-template). This repo contains the code needed to build a task executable.
 
 Copy the `.env.example` file and rename it to `.env`. It has already been set up with the environment variables you need.
 
@@ -57,9 +53,9 @@ to start the live debugger.
 
 ### Adding Debug Logs
 
-Open the `EZ-testing-task/task` folder and we'll start hacking through some files. To see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
+Open the `src/task` folder and we'll start hacking through some files. To see the task flow in action you'll want to add some log statements to each of the recurring functions that run each round.
 
-In each case, navigate to the correct file within the `task` directory, then find the target function and paste the code lines that have been supplied.
+In each case, navigate to the correct file then paste the code lines that have been supplied into each function. If you run into any difficulties, the completed code is available in `ez-testing-task`.
 
 We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change this to whatever you'd like.
 
@@ -69,46 +65,42 @@ We have pre-configured the `TEST_KEYWORD` environment variable to "TEST". Change
 
 a. Task:
 
-- File Name: `submission.js`
-- Function: [`task()`](./EZ-testing-task/task/submission.js#L9)
-- Code: `console.log('Started Task', new Date(), process.env.TEST_KEYWORD)`
+- File Name: `1-task.js`
+- Code: `console.log("Started Task", new Date(), "TEST")`
 
 b. Submission:
 
-- File Name: `submission.js`
-- Function: [`fetchSubmission()`](./EZ-testing-task/task/submission.js#L51)
-- Code: `console.log('Started Submission', new Date(), process.env.TEST_KEYWORD)`
+- File Name: `2-submission.js`
+- Code: `console.log("Started Submission", new Date(), "EZ TESTING")`
 
 c. Audit:
 
-- File Name: `audit.js`
-- Function: [`validateNode()`](./EZ-testing-task/task/audit.js#L11)
-- Code: `console.log('Started Audit', new Date(), process.env.TEST_KEYWORD)`
+- File Name: `3-audit.js`
+- Code: `console.log("Started Audit", new Date(), "EZ TESTING")`
 
 d. Distribution:
 
-- File Name: `distribution.js`
-- Function: [`generateDistributionList()`](./EZ-testing-task/task/distribution.js#L50)
-- Code: `console.log('Started Distribution', new Date(), process.env.TEST_KEYWORD)`
+- File Name: `4-distribution.js`
+- Code: `console.log("Started Distribution", new Date(), "TEST")`
 
 As you save each file, the task executable will be rebuilt and you should see the debugger restart. If you check your desktop node, you'll also see a message that the task has changed.
 
 Once all changes have been made, locate the EZ Testing Task in your node and press the play button to restart the task with the new executable file.
 
-Now, wait and watch the logs to see the console logs you just added. They should be printed in the output of your terminal.
+Now, wait and watch the logs to see the console logs you just added. All the output for the task will be shown in your terminal, and any lines containing a watched keyword will be colored magenta to make them easier to spot.
 
 ### Accessing Your Node
 
-By using UPnP (Universal Plug and Play), each node can expose [Express.js endpoints](https://github.com/labrocadabro/ezsandbox/blob/725f274bbdfa923fe0bae64c70e08c1e03c5f379/Lesson%201/EZ-testing-task/index.js#L13). We will cover UPnP and how to make and access endpoints within tasks in the next lesson, but we have defined a couple already, so you can see them on your node.
+By using UPnP (Universal Plug and Play), each node can expose Express.js endpoints in the `src/routes.js` file. We will cover UPnP and how to make and access endpoints within tasks in the next lesson, but we have defined a couple already, so you can see them on your node.
 
-Any endpoints running on your node are located at `http://localhost:30017/task/{taskID}/{endpoint}`
+Any endpoints running on your node are located at `http://localhost:30017/task/{taskID}/{endpoint}`.
 
-With the EZ Testing Task running, visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/value). You should see
+You can find the task ID for the EZ Testing Task in your `.env` file. With the EZ Testing Task running, visit the `value` endpoint. You should see
 
 ```json
 { "value": "Hello, World!" }
 ```
 
-You can also visit [http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState](http://localhost:30017/task/BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn/taskState) to see information about the task.
+You can also visit the `taskState` endpoint to see information about the task.
 
 Now that we've run a task and done some debugging, let's learn a bit more about what it's doing. [Part III](./PartIII.md)

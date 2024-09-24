@@ -6,9 +6,10 @@ i# Run Your First Task in 2 Min
 
 ![Add EZ Testing Task](../Lesson%201/imgs/add-task-advanced.png)
 
-3. Clone this repository and navigate to the [EZ Testing Task](https://github.com/koii-network/ezsandbox/tree/main/Lesson%201/EZ-testing-task#readme)
+3. Clone the [task template repository](https://github.com/koii-network/task-template)
 
-6. Run
+
+4. Run
 
 ```sh
 yarn

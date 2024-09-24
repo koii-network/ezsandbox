@@ -10,126 +10,26 @@ Koii uses IPFS (the InterPlanetary File System) to store data outside of its blo
 
 ### Uploading a File
 
-To begin, navigate to the `Lesson 2/file-sharing` folder.
+To begin, clone the [task template repo](https://github.com/koii-network/task-template).
 
 This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS. When the upload is successful, you'll receive a content identifier (CID) that can be used to retrieve the file later.
 
-First let's add the logic to store a file to IPFS. In `task/fileUtils/storeFile.js` add the following:
+We've provided [some useful utility functions](./file-sharing/task/fileUtils.js) for working with IPFS.
 
-```javascript
-const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
-const { namespaceWrapper } = require('@_koii/namespace-wrapper');
-const fs = require('fs');
+In your task function, get a value from your `.env` file (don't forget to add the variable to your `config-task.yml` if you're going to deploy the task). and save it to a file on IPFS, then save the CID to your local DB. ([Answer here](./file-sharing/task/1-task.js))
 
-async function storeFile(data, filename = 'value.json') {
-  try {
-    // Create a new instance of the Koii Storage Client
-    const client = new KoiiStorageClient();
-    const basePath = await namespaceWrapper.getBasePath();
-    // Write the data to a temp file
-    fs.writeFileSync(`${basePath}/${filename}`, JSON.stringify(data));
+### Submitting
 
-    // Get the user staking account, to be used for signing the upload request
-    const userStaking = await namespaceWrapper.getSubmitterAccount();
-
-    // Upload the file to IPFS and get the CID
-    const { cid } = await client.uploadFile(`${basePath}/${filename}`,userStaking);
-
-    console.log(`Stored file CID: ${cid}`);
-    // Delete the temp file
-    fs.unlinkSync(`${basePath}/${filename}`);
-
-    return cid;
-  } catch (error) {
-    console.error('Failed to upload file to IPFS:', error);
-    fs.unlinkSync(`${basePath}/${filename}`);
-    throw error;
-  }
-}
-
-module.exports = storeFile;
-```
-
-Next, let's use it in our task. We upload the file and save the CID in the local DB. In `task/submission.js`, edit your `task()` as follows:
-
-```javascript
-async task(round) {
-  try {
-    console.log('ROUND', round);
-    // store a value in a file
-    const cid = await storeFile(process.env.VALUE);
-    console.log('cid', cid);
-    if (cid) {
-      // store CID in local DB so it can be used later
-      await namespaceWrapper.storeSet('cid', cid);
-    }
-    return cid;
-  } catch (err) {
-    console.log('ERROR IN EXECUTING TASK', err);
-    return 'ERROR IN EXECUTING TASK' + err;
-  }
-}
-```
-
-Finally, we retrieve the CID from the local DB and send it as the submission value:
-
-```javascript
-async fetchSubmission(round) {
-  console.log('FETCH SUBMISSION');
-  // Fetch the cid from the local DB
-  const cid = await namespaceWrapper.storeGet('cid'); // retrieves the value
-  // return the CID to be sent as the submission value
-  return cid;
-}
-```
+This is very similar to the previous submissions you've done; see if you can work out what you need to do! ([Answer here](./file-sharing/task/2-submission.js))
 
 ### Retrieving a file
 
-Now that we've sent the CID as the submission value, we can use it in the audit to retrieve the file and check its contents. First add the code to retrieve the file and validate its contents in `task/fileUtils/isValidFile.js`:
+We've provided the necessary functions to get the file content, make use of them to validate the file content. Just like in the UPnP lesson, check if the value is a string and is not empty. ([Answer here](./file-sharing/task/3-audit.js))
 
-```javascript
-const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
-
-async function isValidFile(cid, filename = 'value.json') {
-  const client = new KoiiStorageClient();
-
-  try {
-    // get the file from IPFS
-    const fileBlob = await client.getFile(cid, filename);
-    // if the file can't be found, it's not valid
-    if (!fileBlob) return false;
-
-    // read the contents of the file (only works with text files)
-    const fileContent = await fileBlob.text();
-
-    // check that the file contains a string of at least 1 character
-    return typeof fileContent === 'string' && fileContent.length > 0;
-
-  } catch (error) {
-    console.error('Failed to download or validate file from IPFS:', error);
-    throw error;
-  }
-}
-
-module.exports = isValidFile;
-```
-
-Next, we'll use it in `task/audit.js`:
-
-```javascript
-async validateNode(submission_value, round) {
-  try {
-    console.log("AUDIT ROUND", round);
-    // The submission value is the CID
-    return isValidFile(submission_value);
-  } catch (e) {
-    console.log('Error in validate:', e);
-    return false;
-  }
-}
-```
-
-This takes the submission value, which is the CID, and passes it to `isValidFile()`, which retrieves the file with the Storage SDK and checks that the contents of the file are a string.
+> [!WARNING]
+>
+> Like the UPnP task, this is a poor audit. In particular, if a user uploads a file that isn't text, or if they provide an invalid CID, we simply let an error be thrown and don't vote on their submission, but it would be more appropriate to vote false.
+> However, voting false to every error isn't an ideal solution either - if, for example, a node has network issues and can't retrieve the file from IPFS, it could end up voting false when it shouldn't.
 
 And that's it! You've successfully written a task that uses IPFS to store data.
 

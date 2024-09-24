@@ -1,12 +1,14 @@
 # Lesson 4: Auditing & Distribution
 
-## Part III: Building Audit and Distribution Mechanisms
+## Part IV: Building Audit and Distribution Mechanisms
 
-The first two sections were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
+The previous sections were conceptually heavy topics, so lets do something more fun and create our own audit and distribution systems!
 
 Prerequisites:
 
-- Understanding of [Audit](./README.md) and [Distribution](./PartII.md) Mechanisms
+<!-- - Understanding of [Audit](./PartI.md) and [Distribution](./PartIII.md) Mechanisms -->
+
+- Understanding of [Audit](./PartI.md) and [Distribution](./PartII.md) Mechanisms
 - Basic knowledge of a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
 ### Caesar Cipher Task

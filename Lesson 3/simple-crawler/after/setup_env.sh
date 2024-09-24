@@ -1,1 +1,0 @@
-cp -n .env.local.example .env.local
