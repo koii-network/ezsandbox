@@ -1,4 +1,4 @@
-import { namespaceWrapper } from "@_koii/namespace-wrapper";
+import { namespaceWrapper, TASK_ID } from "@_koii/namespace-wrapper";
 import axios from "axios";
 
 import { getAddressArray, getRandomNodeEndpoint } from "./upnpUtils.js";
@@ -8,7 +8,6 @@ export async function task(roundNumber) {
   // The submission of the proofs is done in the submission function
   console.log(`EXECUTE TASK FOR ROUND ${roundNumber}`);
   try {
-    // you can optionally return this value to be used in debugging
     // Get a list of the available IP addresses
     const IPAddressArray = await getAddressArray();
 
@@ -19,7 +18,7 @@ export async function task(roundNumber) {
     // Fetch the value from the random node
     const response = await axios.get(`${randomNode}/task/${TASK_ID}/secret`);
     const secret = response.data.secret;
-    console.log("VALUE", value);
+    console.log("SECRET", secret);
 
     // Store the result in the local database
     await namespaceWrapper.storeSet("secret", secret);
