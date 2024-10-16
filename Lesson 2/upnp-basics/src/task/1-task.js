@@ -8,7 +8,6 @@ export async function task(roundNumber) {
   // The submission of the proofs is done in the submission function
   console.log(`EXECUTE TASK FOR ROUND ${roundNumber}`);
   try {
-    // you can optionally return this value to be used in debugging
     // Get a list of the available IP addresses
     const IPAddressArray = await getAddressArray();
 
