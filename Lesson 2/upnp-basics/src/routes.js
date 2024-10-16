@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 export function setupRoutes(app) {
   if (app) {
     app.get("/secret", async (_req, res) => {
