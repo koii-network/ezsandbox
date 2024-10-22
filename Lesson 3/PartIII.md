@@ -4,7 +4,7 @@
 
 ![Lesson 3](https://github.com/koii-network/ezsandbox/assets/66934242/5cc14e75-0c0a-4625-b809-dc12af7d49a1)
 
-Before we start writing our own crawler code, it's helpful to understand how to structure a web crawler task on Koii. We've [previously covered IPFS](../Lesson%202/PartIII.md), so this should be fairly straightforward. We've provided a skeleton for you to use in `simple-crawler/before` and `simple-crawler/after contains the complete crawler.
+Before we start writing our own crawler code, it's helpful to understand how to structure a web crawler task on Koii. We've [previously covered IPFS](../Lesson%202/PartIII.md), so this should be fairly straightforward.
 
 Prerequisites:
 
@@ -13,19 +13,27 @@ Prerequisites:
 
 ### Headless Mode
 
-Puppeteer is a browser than can be controlled programmatically. Because it is designed to be automated, it has a `headless` mode which allows it to run silently, without running a visible browser window. We have [set `headless` to `false`](./simple-crawler/before/crawler/SimpleCrawlerTask.js#L22) so you'll be able to see the browser automation working, but if you don't need to see it, you can set `headless` to `true` instead. You should always set `headless: true` if you are deploying the task.
+Puppeteer is a browser than can be controlled programmatically. Because it is designed to be automated, it has a headless mode which allows it to run silently, without running a visible browser window. We have set `headless` to `false` so you'll be able to see the browser automation working, but if you don't need to see it, you can set `headless` to `true` instead. You should always set `headless: true` if you are deploying the task.
+
+### Install packages
+
+As usual, make sure you clone the [task template](https://github.com/koii-network/task-template) as your first step. We'll also need to install a couple of packages for IPFS and Puppeteer:
+
+```sh
+yarn add @_koii/storage-task-sdk puppeteer-chromium-resolver
+```
 
 ### Environment variables
 
-The task we're building here doesn't require any login info, but we'll be asking the user for a keyword they want to search for. add the following to the `config-task.yml` in the requirementsTags:
+The task we're building here doesn't require any login info, but we'll be asking the user for a keyword they want to search for. Add the following to the `config-task.yml` in the requirementsTags:
 
 ```yaml
 - type: TASK_VARIABLE
-  value: "KEYWORD"
+  value: "SEARCH_TERM"
   description: "keyword to search for"
 ```
 
-**NOTE**: If you're testing locally, make sure to also add `KEYWORD` to your .env.
+**NOTE**: If you're testing locally, make sure to also add `SEARCH_TERM` to your .env.
 
 ### Building the Crawler
 
@@ -33,7 +41,7 @@ We've provided a [crawl function](./simple-crawler/task/crawler.js) you can use 
 
 ### Using the Crawler
 
-Use the crawler in your task function to search for the keyword you defined in your `.env` file and save the results to IPFS. You may want to use the file utilities from [the previous lesson](../Lesson%202/file-sharing/task/fileUtils.js). ([Answer here](./simple-crawler/task/1-task.js))
+Use the crawler in your task function to search for the keyword you defined in your `.env` file and save the results to IPFS. You may want to use the [file utilities](./task/fileUtils.js) from the previous lesson. ([Answer here](./simple-crawler/task/1-task.js))
 
 ### Submitting
 
