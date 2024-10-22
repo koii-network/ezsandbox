@@ -34,12 +34,12 @@ export async function crawl(searchTerm) {
   await page.keyboard.press("Enter");
 
   // Wait for the links to load after the search term is submitted
-  await page.waitForSelector("h2.post_subject");
+  await page.waitForSelector("h2.topictitle");
 
   // Get the titles of the links
   let titles = null;
   try {
-    titles = await page.$$eval("h2.post_subject a", (links) =>
+    titles = await page.$$eval("h2.topictitle a", (links) =>
       links.map((link) => link.textContent.trim())
     );
   } catch (error) {
@@ -48,6 +48,5 @@ export async function crawl(searchTerm) {
 
   // close puppeteer
   await browser.close();
-
   return titles;
 }
