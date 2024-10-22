@@ -52,7 +52,7 @@ There are two ways you can access this endpoint when the task is running on your
 
 The endpoints you define in `routes.js` will dictate what kinds of communications can occur between your device and another. Let's create a simple mechanism for passing basic data between two nodes.
 
-Try one yourself! Change the endpoint to `/secret`. Save a secret word or phrase of your choice (maximum 512 bytes) in your `.env` file with the key `secret` and return a JSON response `{ secret: <your_secret> }`. ([Answer here](./upnp-basics/src/routes.js))
+Try one yourself! Change the endpoint to `/secret`. Save a secret word or phrase of your choice (maximum 512 bytes) in your `.env` file with the key `secret` and return a JSON response `{ secret: <your_secret> }`. ([Answer here](./upnp-basics/src/task/5-routes.js))
 
 ### Access Endpoints: Your Node as a Client
 
