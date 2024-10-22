@@ -1,5 +1,5 @@
 import { namespaceWrapper } from "@_koii/namespace-wrapper";
-import { storeFile } from "../../../Lesson 2/file-sharing/task/fileUtils.js";
+import { storeFile } from "./fileUtils.js";
 import { crawl } from "./crawler.js";
 
 export async function task(roundNumber) {
@@ -7,7 +7,7 @@ export async function task(roundNumber) {
   // The submission of the proofs is done in the submission function
   console.log(`EXECUTE TASK FOR ROUND ${roundNumber}`);
   try {
-    const postTitles = crawl(process.env.KEYWORD);
+    const postTitles = await crawl(process.env.SEARCH_TERM);
     const cid = await storeFile(postTitles);
     await namespaceWrapper.storeSet("cid", cid);
   } catch (error) {
