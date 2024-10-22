@@ -4,7 +4,7 @@ import fs from "fs";
 
 export async function storeFile(data, filename = "value.json") {
   // Create a new instance of the Koii Storage Client
-  const client = new KoiiStorageClient();
+  const client = KoiiStorageClient.getInstance({});
   const basePath = await namespaceWrapper.getBasePath();
   try {
     // Write the data to a temp file
