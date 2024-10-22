@@ -6,7 +6,7 @@ export async function task(roundNumber) {
   // The submission of the proofs is done in the submission function
   console.log(`EXECUTE TASK FOR ROUND ${roundNumber}`);
   try {
-    const cid = await storeFile(process.env.VALUE);
+    const cid = await storeFile(process.env.SECRET);
     await namespaceWrapper.storeSet("cid", cid);
   } catch (error) {
     console.error("EXECUTE TASK ERROR:", error);
