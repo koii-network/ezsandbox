@@ -10,7 +10,11 @@ Koii uses IPFS (the InterPlanetary File System) to store data outside of its blo
 
 ### Uploading a File
 
-To begin, clone the [task template repo](https://github.com/koii-network/task-template).
+To begin, clone the [task template repo](https://github.com/koii-network/task-template). Since we're going to be using the Koii Storage SDK for IPFS, we'll need to add this to the package.json:
+
+```sh
+yarn add @_koii/storage-task-sdk
+```
 
 This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS. When the upload is successful, you'll receive a content identifier (CID) that can be used to retrieve the file later.
 
