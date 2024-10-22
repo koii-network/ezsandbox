@@ -1,11 +1,11 @@
 import { getFileBlob } from "../../../Lesson 2/file-sharing/task/fileUtils.js";
 
-export async function audit(submission, roundNumber) {
+export async function audit(submission, roundNumber, submitterKey) {
   /**
    * Audit a submission
    * This function should return true if the submission is correct, false otherwise
    */
-  console.log(`AUDIT SUBMISSION FOR ROUND ${roundNumber}`);
+  console.log(`AUDIT SUBMISSION FOR ROUND ${roundNumber} from ${submitterKey}`);
 
   // Verify the upload exists
   const upload = await getFileBlob(submission);
