@@ -16,6 +16,8 @@ To begin, clone the [task template repo](https://github.com/koii-network/task-te
 yarn add @_koii/storage-task-sdk
 ```
 
+Also, this task will use the SECRET .env variable we defined in the previous UPnP task. Be sure to set it if you haven't yet.
+
 This time, instead of having an endpoint that directly shares a value, we'll add the value to a file and upload it to IPFS. When the upload is successful, you'll receive a content identifier (CID) that can be used to retrieve the file later.
 
 We've provided [some useful utility functions](./file-sharing/task/fileUtils.js) for working with IPFS.
