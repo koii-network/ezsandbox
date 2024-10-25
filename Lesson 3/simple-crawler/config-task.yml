@@ -1,0 +1,12 @@
+# See the config-task.yml file in the task template repository for the full configuration
+
+requirementsTags:
+  - type: CPU
+    value: "4-core"
+  - type: RAM
+    value: "5 GB"
+  - type: STORAGE
+    value: "5 GB"
+  - type: TASK_VARIABLE
+    value: "SEARCH_TERM"
+    description: "The search term you want to use for the crawler"
