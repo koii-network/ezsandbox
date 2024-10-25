@@ -62,6 +62,9 @@ Let's do a little more with our audit this time:
 
 [Answer here](./simple-crawler/task/3-audit.js)
 
+> [!IMPORTANT]
+> In order to test this task, you must set `STAKING_WALLET_PATH` and `SEARCH_TERM` in your .env file
+
 Just like that, you've successfully created your very own web crawler! This template is very customizable and relatively simple. As you encounter more dynamic webpages, you may find it more difficult to web crawl. If you're concerned about websites with logging in, cookies, or dynamic content, we recommend checking out our [Twitter Archiver!](https://github.com/koii-network/task-X)
 
 [Click here to start Lesson 4](../Lesson%204//README.md)

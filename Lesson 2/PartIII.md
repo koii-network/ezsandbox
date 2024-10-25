@@ -39,4 +39,7 @@ We've provided the necessary functions to get the file content, make use of them
 
 And that's it! You've successfully written a task that uses IPFS to store data.
 
+> [!IMPORTANT]
+> In order to test this task, you must set `STAKING_WALLET_PATH` and `SECRET` in your .env file
+
 Next up, we'll take a look at secrets and the config options in [Lesson 3](../Lesson%203/README.md).
