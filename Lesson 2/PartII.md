@@ -29,17 +29,15 @@ See [`upnp-basics/config-task.yml`](./upnp-basics/config-task.yml) if you're stu
 
 ### Create Routes: Your Node as a Server
 
-Head to the `src/routes.js` file in the task template. You should see a `setupRoutes()` function with an example endpoint:
+Head to the `src/task/5-routes.js` file in the task template. You should see a `routes()` function with an example endpoint:
 
 ```javascript
-export async function setupRoutes(app) {
-  if (app) {
-    app.get("/value", async (_req, res) => {
-      const value = await namespaceWrapper.storeGet("value");
-      console.log("value", value);
-      res.status(200).json({ value: value });
-    });
-  }
+export function routes() {
+  app.get("/value", async (_req, res) => {
+    const value = await namespaceWrapper.storeGet("value");
+    console.log("value", value);
+    res.status(200).json({ value: value });
+  });
 }
 ```
 
