@@ -78,6 +78,9 @@ In your audit function, return a boolean value: `true` if the value is a non-emp
 >
 > This is not a very good audit! A node could easily pass audit without accessing another node by just submitting any non-empty string. We'll look at ways to write better audits in a later lesson.
 
+> [!IMPORTANT]
+> In order to test this task, you must set `SECRET` in your .env file
+
 With this simple setup, every Node can provide server endpoints to be reached, and call other Node's endpoints to fetch data, resulting in Node to Node communication!
 
 In the next section, we'll learn how to store and share files. [Part III. File Storage & Sharing](./PartIII.md)
