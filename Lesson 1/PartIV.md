@@ -200,4 +200,6 @@ Success
 
 Congratulations, you've deployed a task!
 
-In this lesson, you've learned how to run, debug, and deploy a task. Now let's get into the specifics of writing a task. [Lesson 2](../Lesson%202/README.md)
+In this lesson, you've learned how to run, debug, and deploy a task. If you are interested in deploying a task in a Docker container, continue to [Part 5](PartV.md).
+
+Otherwise, let's get into the specifics of writing a task. [Lesson 2](../Lesson%202/README.md)

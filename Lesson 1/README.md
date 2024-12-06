@@ -7,3 +7,5 @@
 - Part 3: [How Do Koii Tasks Work?](./PartIII.md)
 
 - Part 4: [Deploying a Task](./PartIV.md)
+
+- Part 5: [Containerized Tasks](./PartV.md)
