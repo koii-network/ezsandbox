@@ -1,4 +1,4 @@
-import { namespaceWrapper } from "@_koii/namespace-wrapper";
+import { namespaceWrapper } from "@_koii/task-manager/namespace-wrapper";
 
 export async function task(roundNumber) {
   // Run your task and store the proofs to be submitted for auditing

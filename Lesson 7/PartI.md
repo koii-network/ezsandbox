@@ -1,8 +1,8 @@
 # Lesson 7: Deployment and Updates
 
-## Part I: Testnet and Desktop Node
+## Part I: Mainnet and Desktop Node
 
-### Deploying to Testnet
+### Deploying to Mainnet
 
 > [!WARNING]
 >

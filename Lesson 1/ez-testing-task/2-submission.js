@@ -1,4 +1,4 @@
-import { namespaceWrapper } from "@_koii/namespace-wrapper";
+import { namespaceWrapper } from "@_koii/task-manager/namespace-wrapper";
 
 export async function submission(roundNumber) {
   /**
