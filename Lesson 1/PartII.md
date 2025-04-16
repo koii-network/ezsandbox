@@ -15,7 +15,7 @@ When you add a task to your node, a Task Executable will be downloaded. This is 
 >
 > **Why EZ Testing Task?**
 >
-> We have deployed EZ Testing Task and provided its task ID to get you up and running quicker. In later lessons, we'll talk about how to deploy your own task; if you'd prefer to jump ahead and do that now
+> We have deployed EZ Testing Task and provided its task ID to get you up and running quicker. In later lessons, we'll talk about how to deploy your own task; if you'd prefer to jump ahead and do that now, you can find the instructions in [Part III](./PartIII.md).
 
 ### Install Yarn
 
@@ -29,9 +29,15 @@ npm install --global yarn
 
 We will overwrite the task executable with our local copy, so we can change the code and see the results. This is simple with the `prod-debug` tool that is provided.
 
-1. First, clone the [task template repository](https://github.com/koii-network/task-template). This repo contains the code needed to build a task executable.
+1. Use create-task-cli to create a new task. This repo contains the code needed to build a task executable.
 
-Copy the `.env.example` file and rename it to `.env`. It has already been set up with the environment variables you need.
+```sh
+npx @_koii/create-task-cli@latest
+```
+
+Select create a Local Repository and select TypeScript or JavaScript.
+
+2. Copy the `.env.example` file and rename it to `.env`. It has already been set up with the environment variables you need.
 
 ```sh
 cp .env.example .env
