@@ -8,7 +8,7 @@ class Debugger {
   Create .env file with following variables or direclty input values to be used in live-debugging mode.
   */
   static taskID =
-    process.env.TASK_ID || 'BXbYKFdXZhQgEaMFbeShaisQBYG1FD4MiSf9gg4n6mVn';
+    process.env.TASK_ID || 'CRzLkJvYnta2BnaSMMVkew7FRrZtZoNe7wGFogq7Hj5D';
   static webpackedFilePath = process.env.WEBPACKED_FILE_PATH || 'dist/main.js';
   static keywords = [process.env.TEST_KEYWORD] || [''];
   static nodeDir = process.env.NODE_DIR || '';
